@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+body{
+	background: #000;
+	color: #7ed957;
+	font-family: 'Muli',sans-serif;
+}
+
+.navbar{
+	background: #000;
+	font-weight: 400;
+	border-bottom: 1px solid #fff;
+}
+
+.navbar a{
+	color: #7ed957;
+}
+
+.navbar-icon{
+	width: 30px;
+	height: 2px;
+	background: #7ed957;
+	border: 1px solid #7ed957;
+	margin: 3px;
+}
+
+.navbar-toggler{
+	display: flex;
+	flex-direction: column;
+}
+.navbar-brand{
+	font-weight: bold;
+}
+
+.btn-login{
+	border-radius: 20px;
+	background: #7ed957;
+}
+.btn-login-outline{
+	border-radius: 20px;
+	border: 1px solid #7ed957;
+	color: #7ed957;
+}

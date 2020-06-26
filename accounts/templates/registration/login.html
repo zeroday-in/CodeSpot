@@ -1,0 +1,33 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+<body>
+<form method="POST" class="login-form">
+	{% csrf_token %}
+	<center>
+		<h3>Login to <wbr>CodeSpot &rarr;</h3>
+		{{ form|crispy }}<br/>
+		<button class="btn-form-submit">Submit</button>
+		<h5>
+			Don't Have an Account?
+		</h5>
+		<h5 style="margin-top: -10px;">
+			<a class="link" style="text-decoration: none" href="{% url 'register' %}">Register Now</a>
+		</h5>
+	</center>
+</form>
+<script type="text/javascript">
+	window.onload = function(){
+		document.querySelector('#id_username').autocomplete = 'off';
+		document.querySelector('#id_password').autocomplete = 'off';
+	}
+</script>
+</body>
+</html>
