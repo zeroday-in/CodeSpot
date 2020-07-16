@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		#bio > p{
+			text-align: left;
+		}
+	</style>
+	<title>Edit Profile</title>
+	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<style type="text/css">
+		body{
+			background: #000;
+			color: #7ef972;
+			font-family: 'Mulish',sans-serif;
+		}
+		.navbar-brand{
+			color: inherit;
+		}
+		.navbar-toggler{
+			display: flex;
+			flex-direction: column;
+		}
+		.navbar-icon{
+			width: 30px;
+			height: 2px;
+			background: #7ed957;
+			border: 1px solid #7ed957;
+			margin: 3px;
+		}
+		.navbar a{
+			color: inherit;
+			font-weight: 400;
+			font-family: 'Muli','Mulish',sans-serif;
+		}
+		.btn-login{
+			border-radius: 20px;
+		}
+		.badge-success{
+			background: #7ef972;
+			color: #000;
+			padding: 5px 20px;
+			width: 150px;
+		}
+		.card{
+			background: #7ed957;
+			color: #000;
+			border: none;
+			font-weight: 800;
+		}
+		.card-body, .card-header, .card-footer{
+			border: 1px solid #000;
+		}
+		.card-title{
+			margin-bottom: 0;
+		}
+		.card-header{
+			padding: .25rem 1.25rem;
+		}
+	</style>
+</head>
+<body>
+	{% include "navbar.html" %}
+<div class="container">
+		<h3 id="profile_picture"><img style="width: 50px;height: 50px;border-radius: 50%;" src="/{{ user.profile_picture }}" class="img-fluid"><span class="ml-4">{{ user }}</span></h3>
+		<div class="bio" style="max-width: 400px;">
+		<span id="bio">{{ user.bio|linebreaks }}<br/><h3 id="website"><a href="{{user.website}}">{{ user.website }}</a></h3></span>
+		</div>
+		<hr style="border: .5px solid #7ef972">
+</div>
+<div class="container">
+	<h3>{{ user }}'s Posts</h3>
+		{% for post in posts %}
+			<div class="card">
+				<div class="card-header">
+					<p class="card-title">{{ post.title }}</p>
+				</div>
+				<div class="card-body">
+					<p>{{ post.content |slice:":100" | linebreaks }}</p>
+					<p>- {{ post.created_on }} by <a href="/{{ post.author }}" style="color: inherit;text-decoration:none;border-bottom: 1px solid #fff">{{ post.author }}</a></p>
+				</div>
+				<div class="card-footer">
+					<a href="/{{ post.author }}/posts/{{ post.url }}/" class="btn-login" style="max-width: 8rem;background: #000;color: #7ed957;text-decoration: none;padding: 2px 10px;">Read More</a>
+				</div>
+			</div>
+			<br/>
+		{% endfor %}
+</div>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

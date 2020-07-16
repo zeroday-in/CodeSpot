@@ -16,9 +16,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+	
 </head>
 <body>
 	{% include "navbar.html" %}
+	{% include "edit_profile_styles.html" %}
 <div class="container">
 	&nbsp;
 	<center>
@@ -58,6 +60,25 @@
       	<form method="POST" enctype="multipart/form-data">
       		{% csrf_token %}
 	        {{ form|crispy}}
+	        <style type="text/css">
+	        	.new-button {
+    display: inline-block;
+    padding: 0px 30px; 
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #7ed957;
+    font-size: 1rem;
+    color: #000;
+}
+input[type="file"] {
+  	left: 0;
+  	font-size: 15px;
+  	color: rgb(153,153,153);
+  	padding: 5px 15px;
+  	visibility: hidden;
+}
+
+	        </style>
 	        <img class="img-fluid" style="width: 50px;height: 50px;border-radius: 50%;margin-top: -55px;border: 2px dotted #fff; cursor: pointer;" src="/{{ p.profile_picture }}" id="file_btn">
 	        <p id="selected"></p>
 	        <input type="hidden" name="profile_picture_old" value="{{ p.profile_picture }}">
@@ -70,8 +91,7 @@
 <script type="text/javascript">
 	window.onload = function(){
 		var l = document.getElementsByTagName('label')[6];
-		l.classList.add('new-button');
-		document.querySelectorAll('.btn-login')[0].style.lineHeight = "22px";
+		l.classList.add('new-button')
 	}
 	document.querySelector("#id_bio").value = `{{ p.bio }}`;
 	document.querySelector("#id_website").value = "{{ p.website }}";

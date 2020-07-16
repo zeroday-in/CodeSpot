@@ -30,7 +30,10 @@
           <a href="/trending/" class="nav-link"><b>Trending Posts</b></a>
         </li>        
         <li class="nav-item mr-3">
-          <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+          <a class="nav-link" href="{% url 'profile' request.user %}"><b>My Profile</b></a>
+        </li>
+        <li class="nav-item mr-3">
+          <a class="nav-link" href="{% url 'edit_profile' %}"><b>Edit Profile</b></a>
         </li>
         <li class="nav-item">
           <a class="nav-link btn-login" href="/posts/new" style="color: #000; background: #7ef957;height: 40px;width: 165px;"><b>
