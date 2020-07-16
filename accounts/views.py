@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from .forms import ProfileForm
 from django.contrib.auth.models import User
 from .models import Profile
+from django.http import HttpResponse
+from posts.models import Post
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -58,3 +60,18 @@ def edit_profile(request):
 			return render(request, "edit_profile.html", {"form":form,"p":p})
 		except Profile.DoesNotExist:
 			return render(request, "edit_profile.html", {"form":form})
+
+def followUser(request, user):
+	userProfile = Profile.objects.get(user=User.objects.get(username="DevMehta2"))
+	userProfile.add_follower(user)
+	return HttpResponse(userProfile.follows.all())
+
+def unfollowUser(request, user):
+	userProfile = Profile.objects.get(user=User.objects.get(username="DevMehta2"))
+	userProfile.remove_follower(user)
+	return HttpResponse(userProfile.follows.all())
+
+def userProfile(request, user):
+	user = Profile.objects.get(user=User.objects.get(username=user))
+	posts = Post.objects.filter(author=User.objects.get(username=user)).order_by('-likes')[:3]
+	return render(request, "user_profile.html", {"user":user,"posts":posts})
