@@ -9,16 +9,18 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 </head>
 <body>
+	{% include "registration/login_styles.html" %}
 <form method="POST" class="login-form">
 	{% csrf_token %}
 	<center>
 		<h2>Register to <wbr>CodeSpot &rarr;</h2>
 		{{ form|crispy }}
 		<button class="btn-form-submit">Submit</button>
+		<p>&nbsp;</p>
 		<h5>
-			Already Have an account
+			Already Have an account?
 		</h5>
-		<h5 style="margin-top: -10px;">
+		<h5 style="margin-top: -3px;">
 			<a class="link" href="{% url 'login' %}" style="text-decoration: none;color: #7ed957">Login Now</a>
 		</h5>
 	</center>
