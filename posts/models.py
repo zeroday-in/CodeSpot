@@ -10,10 +10,6 @@ class Post(models.Model):
 	created_on = models.DateTimeField(auto_now_add= True)
 	likes= models.IntegerField(default=0)
     
-	def save(self, *args, **kwargs):
-		self.url= slugify(self.title)
-		super(Post, self).save(*args, **kwargs)
-    
 	def __str__(self):
 		return self.title
 

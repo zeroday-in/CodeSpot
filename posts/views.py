@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .models import Post, Liker
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.template.defaultfilters import slugify
+from hashlib import sha256
 def writePost(request):
 	if request.method == 'POST':
 		form = NewPostForm(request.POST)
@@ -11,10 +13,15 @@ def writePost(request):
 			author = User.objects.get(username=request.user)
 			title = form.cleaned_data.get('title')
 			content = form.cleaned_data.get('content')
+			slug = slugify(title)
+			slug_hash = sha256(slug.encode('utf-8')).hexdigest()[:12]
+			slug += f'-{slug_hash}'
+			print(slug)
 			p = Post(
 				author=author,
 				title=title,
-				content=content
+				content=content,
+				url=slugify(slug)
 			).save()
 			p = Post.objects.get(author=author,title=title,content=content)
 			return redirect(f'/{author}/posts/{p.url}')
