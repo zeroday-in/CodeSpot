@@ -122,7 +122,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # STATIC_ROOT = 'D:\\Devfiles\\CodeSpot\\static'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # STATICFILES_DIRS = [
 #     # location of your application, should not be public web accessible 
 #     os.path.join(BASE_DIR,'static'),
