@@ -123,10 +123,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    # location of your application, should not be public web accessible 
-    os.path.join(BASE_DIR,'static'),
-]
+# STATICFILES_DIRS = [
+#     # location of your application, should not be public web accessible 
+#     os.path.join(BASE_DIR,'static'),
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # List of finder classes that know how to find static files in
 # various locations.
 # Login / Logout
