@@ -98,8 +98,8 @@ def userProfile(request, user):
 		sameUser = True
 	else:
 		sameUser = False
-
-	if user in ruser.following.all():
+	if ruser.following.filter(profile=user).exists():
+# 	if user in ruser.following.all():
 		print("Following")
 		canFollow = False
 		following = "true"
