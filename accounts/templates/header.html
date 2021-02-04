@@ -1,0 +1,123 @@
+<header class="crayons-header print-hidden" role="banner">
+    <div class="crayons-header__container">
+     <a href="/" class="site-logo" aria-label="CodeSpot">
+      <img 
+      style="border-radius: 4px;"
+      width="50"
+      height="40"
+      src="/static/images/logo.png" alt=""
+      >				
+  </a>
+<div class="crayons-header--search" id="header-search">
+<form method="get" action="/search" accept-charset="UTF-8">
+  <input class="crayons-header--search-input crayons-textfield" 
+  style="margin-bottom: -16px;"	
+  type="text" 
+      name="q"
+      id="nav-search" 
+      placeholder="Search..." 
+      autocomplete="off" 
+      aria-label="search">
+</form>
+</div>
+
+<div class="crayons-header__links">
+<a href="/new" class="crayons-btn hidden mr-2 whitespace-nowrap s:block">Write a post</a>
+
+<a href="/connect" id="connect-link" class="crayons-header__link" aria-label="Connect">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="adosg9h7s01gu0bwav889x4uln86xfij" class="crayons-icon"><title id="adosg9h7s01gu0bwav889x4uln86xfij">Connect</title>
+<path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10H2l2.929-2.929A9.969 9.969 0 012 12zm4.828 8H12a8 8 0 10-8-8c0 2.152.851 4.165 2.343 5.657l1.414 1.414-.929.929zM8 13h8a4 4 0 11-8 0z"></path>
+</svg>
+
+<span class="crayons-indicator crayons-indicator--accent hidden" id="connect-number"></span>
+</a>
+
+<a href="/notifications" id="notifications-link" class="crayons-header__link" aria-label="Notifications">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="amy0voq3wxhykz3mdvzbvahg02j9hhsf" class="crayons-icon"><title id="amy0voq3wxhykz3mdvzbvahg02j9hhsf">Notifications</title>
+<path d="M20 17h2v2H2v-2h2v-7a8 8 0 1116 0v7zm-2 0v-7a6 6 0 10-12 0v7h12zm-9 4h6v2H9v-2z"></path>
+</svg>
+
+<span class="crayons-indicator crayons-indicator--critical hidden" id="notifications-number"></span>
+</a>
+<div class="crayons-header__menu desktop" id="crayons-header__menu">
+<button type="button" class="crayons-header__menu__trigger" id="navigation-butt" aria-label="Navigation menu">
+  <span class="crayons-avatar crayons-avatar--l">
+    <img 
+    class="crayons-avatar__image" 
+    alt="" id="nav-profile-image" 
+    width="32" height="32" 
+    style="background-position: center center;
+    background-repeat: no-repeat;"
+    src="{{profile.profile_picture.url}}">
+  </span>
+</button>
+<div class="crayons-dropdown left-2 right-2 s:left-auto p-0 crayons-header__menu__dropdown block">
+<div id="user-profile-link-placeholder" class="border-0 border-b-1 border-solid border-base-20 p-1">
+<a id="first-nav-link" class="crayons-link crayons-link--block" href="/{{request.user.username}}">
+<div>
+<span class="fw-medium block">{{request.user.username}}</span>
+<small class="fs-s color-base-50">@{{request.user.username}}</small>
+</div>
+</a>
+</div>
+
+<div class="border-0 border-b-1 border-solid border-base-20 p-1">
+<a href="/admin" class="crayons-link crayons-link--block js-header-menu-admin-link hidden" data-no-instant="">Admin</a>
+<a href="/dashboard" class="crayons-link crayons-link--block">Dashboard</a>
+<a href="/new" class="crayons-link crayons-link--block">Write a Post</a>
+<a href="/readinglist" class="crayons-link crayons-link--block">Reading list</a>
+<a href="/settings" class="crayons-link crayons-link--block">Settings</a>
+<a href="/p/information" class="crayons-link crayons-link--block" id="second-last-nav-link">Key Links</a>
+</div>
+<div class="p-1">
+<a href="/signout_confirm" class="crayons-link crayons-link--block" id="last-nav-link">Sign Out</a>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<script async="">
+var currentUser = localStorage.getItem('current_user')
+var navProfilePic = document.getElementById('nav-profile-image')
+if (currentUser && navProfilePic) {
+navProfilePic.src = JSON.parse(currentUser).profile_image_90;
+}
+
+// Load notifications count as quickly as it's available.
+// Not if we're on the notifications page itself
+if (
+window.location.pathname !== '/notifications'
+) {
+var xmlhttp;
+if (window.XMLHttpRequest) {
+xmlhttp = new XMLHttpRequest();
+} else {
+xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+}
+xmlhttp.onreadystatechange = function() {
+if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+  var count = xmlhttp.response;
+  if (isNaN(count)) {
+    document
+      .getElementById('notifications-number')
+      .classList.add('hidden');
+  } else if (count != '0' && count != undefined && count != '') {
+    document.getElementById('notifications-number').innerHTML =
+      xmlhttp.response;
+    document
+      .getElementById('notifications-number')
+      .classList.remove('hidden');
+  } else {
+    document
+      .getElementById('notifications-number')
+      .classList.add('hidden');
+  }
+}
+};
+xmlhttp.open('GET', '/notifications/counts', true);
+xmlhttp.send();
+}
+</script>
+</header>

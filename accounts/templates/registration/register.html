@@ -1,0 +1,242 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en" class="js-focus-visible" data-js-focus-visible=""><head>
+    <meta charset="utf-8">
+    <title>Welcome to CodeSpot</title>
+    <link rel="stylesheet" media="all" href="/static/css/crayons.css">
+	<link rel="stylesheet" media="all" href="/static/css/minimal.css">
+	<link rel="stylesheet" media="all" href="/static/css/views.css">
+
+      <style>
+        .home {
+          position: relative;
+          margin: auto;
+          max-width: 1250px;
+        }
+      </style>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <meta name="theme-color" content="#000000">
+      <body class="sans-serif-article-body default-header">
+        <div id="body-styles">
+          <style>
+            :root {
+              --accent-brand: #3b49df;
+              --accent-brand-darker: #323ebe;
+              --accent-brand-lighter: #4150f5;
+              --accent-brand-a10: rgba(59, 73, 223, 0.10);
+            }
+          </style>
+        </div>
+        <div id="audiocontent" data-podcast="">
+          
+        </div>
+        <div class="navigation-progress" id="navigation-progress"></div>
+<header class="crayons-header print-hidden" role="banner">
+  <a href="#articles-list" class="skip-content-link">Skip to content</a>
+  <div class="crayons-header__container">
+    <a href="/" class="site-logo" aria-label="Home">
+    <img src="/static/images/logo.png" alt="" width="50" height="40" style="border-radius: 4px;">
+</a>
+
+
+    <div id="pwa-nav-buttons" class="pwa-nav-buttons">
+      <button type="button" id="app-back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 306 306" role="img" aria-labelledby="ac4wvxlhjr3cafc6rpt4cp0f7uajs1jn" class="crayons-icon"><title id="ac4wvxlhjr3cafc6rpt4cp0f7uajs1jn">Back</title>
+    <path d="M247.35 35.7L211.65 0l-153 153 153 153 35.7-35.7L130.05 153z"></path>
+</svg>
+
+      </button>
+      <button type="button" id="app-forward-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 306 306" role="img" aria-labelledby="a4lpao3h8i7z0z4mkv3di7wficvjys53" class="crayons-icon"><title id="a4lpao3h8i7z0z4mkv3di7wficvjys53">Forward</title>
+    <path d="M94.35 0l-35.7 35.7L175.95 153 58.65 270.3l35.7 35.7 153-153z"></path>
+</svg>
+
+      </button>
+      <button type="button" id="app-refresh-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 408 408" role="img" aria-labelledby="arbp4hrc0y9jlfne20r48yiwvl6ypacm" class="crayons-icon"><title id="arbp4hrc0y9jlfne20r48yiwvl6ypacm">Refresh</title>
+    <path d="M346.8 61.2C311.1 22.95 260.1 0 204 0 91.8 0 0 91.8 0 204s91.8 204 204 204c94.35 0 173.4-66.3 196.35-153H346.8c-20.4 58.65-76.5 102-142.8 102-84.15 0-153-68.85-153-153S119.85 51 204 51c43.35 0 79.05 17.85 107.1 45.9l-81.6 81.6H408V0l-61.2 61.2z"></path>
+</svg>
+
+      </button>
+    </div>
+
+	<div class="crayons-header--search" 
+	style="margin-bottom: -16px;"
+	id="header-search">
+	<form method="get" action="/search" accept-charset="UTF-8"><input type="hidden" name="utf8" id="" placeholder="" autocomplete="" value="✓"><input class="crayons-header--search-input crayons-textfield" type="text" name="q" id="nav-search" placeholder="Search..." autocomplete="off" aria-label="search"></form>
+      
+    </div>
+
+    <div class="crayons-header__links">
+        <a href="/login/" class="crayons-btn crayons-btn--ghost-brand hidden mr-2 whitespace-nowrap s:block" data-no-instant="">
+          Log in
+        </a>
+
+        <a href="/register/" class="crayons-btn hidden mr-2 whitespace-nowrap s:block" data-no-instant="">
+          Create account
+        </a>
+      <div class="crayons-header__menu s:hidden desktop" id="crayons-header__menu">
+        <button type="button" class="crayons-header__menu__trigger" id="navigation-butt" aria-label="Navigation menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="a3df2nrz0b1t1tk89vshmb12k1mz0xw5" class="crayons-icon"><title id="a3df2nrz0b1t1tk89vshmb12k1mz0xw5">Navigation menu</title>
+    <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
+</svg>
+
+        </button>
+        <div class="crayons-dropdown left-2 right-2 s:left-auto p-0 crayons-header__menu__dropdown block">
+    <div class="authentication-header__container border-0 border-b-1 border-solid border-base-20">
+      <figure class="authentication-header__image-container">
+        <img class="authentication-header__image" src="/static/images/logo.png">
+      </figure>
+      <div class="authentication-header__content">
+        <h2 class="authentication-header__title">
+          <a href="/">CodeSpot</a> is a community of {{user_count}} amazing developers
+        </h2>
+        <p class="authentication-header__description">
+            We're a place where coders share, stay up-to-date and grow their careers.
+        </p>
+        <div class="authentication-header__actions">
+          <a href="/register/" class="crayons-btn" aria-label="Create new account" data-no-instant="">
+  Create new account
+</a>
+<a href="/login/" class="crayons-btn crayons-btn--ghost-brand" aria-label="Log in">
+  Log in
+</a>
+
+        </div>
+      </div>
+    </div>
+    <div class="border-0 border-b-1 border-solid border-base-20 p-1">
+      <a href="/about" class="crayons-link crayons-link--block" id="last-nav-link">
+        About CodeSpot
+      </a>
+      <a href="/p/information" class="crayons-link crayons-link--block" id="last-nav-link">
+        Learn more
+      </a>
+    </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+        <div id="active-broadcast" class="broadcast-wrapper"></div>
+        <div id="message-notice"></div>
+        <div class="app-shell-loader">
+          loading...
+        </div>
+    <!-- End Top Shell -->
+
+  <div id="base-payment-pointer" data-payment-pointer="$ilp.uphold.com/24HhrUGG7ekn"></div>
+<style>.app-shell-loader {display: none;}</style>
+<div id="page-content" class="wrapper registrations registrations-new" data-current-page="registrations-new">
+  <div id="page-content-inner">
+    
+  
+  <section class="crayons-layout">
+  <div class="registration crayons-card">
+    <div class="registration__content">
+      <h1 class="registration__title">
+          Welcome to CodeSpot
+      </h1>
+      <p class="registration__description">
+        <a href="/">CodeSpot</a> is a community of {{user_count}} amazing developers
+
+      </p>
+    </div>
+
+    <div class="registration__actions">
+		<form method="POST">
+			{% csrf_token %}
+      {{form|crispy}}
+      <p>&nbsp;</p>
+      <button style="width: 100%;height: 48px;" class="crayons-btn" type="submit">Register</button>
+		</form>
+      <div class="registration__actions-email" id="sign-in-password-form">
+        </div>
+        <div class="registration__hr">
+          <span class="registration__hr-label">
+            Already have an account? <a href="/login/">Login Now</a>.
+          </span>
+        </div>
+    </div>
+  </div>
+  <footer class="registration__footer">
+    <p class="registration__footer-content">
+    Open Source
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+  <path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18S0 27.941 0 18 8.059 0 18 0s18 8.059 18 18"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="#292F33" d="M1.24 11.018c.24.239 1.438.957 1.677 1.675.24.717.72 4.784 2.158 5.981 1.483 1.232 7.077.774 8.148.24 2.397-1.195 2.691-4.531 3.115-6.221.239-.957 1.677-.957 1.677-.957s1.438 0 1.678.956c.424 1.691.72 5.027 3.115 6.221 1.072.535 6.666.994 8.151-.238 1.436-1.197 1.915-5.264 2.155-5.982.238-.717 1.438-1.435 1.677-1.674.241-.239.241-1.196 0-1.436-.479-.478-6.134-.904-12.223-.239-1.215.133-1.677.478-4.554.478-2.875 0-3.339-.346-4.553-.478-6.085-.666-11.741-.24-12.221.238-.239.239-.239 1.197 0 1.436z"></path><path fill="#664500" d="M27.335 23.629c-.178-.161-.444-.171-.635-.029-.039.029-3.922 2.9-8.7 2.9-4.766 0-8.662-2.871-8.7-2.9-.191-.142-.457-.13-.635.029-.177.16-.217.424-.094.628C8.7 24.472 11.788 29.5 18 29.5s9.301-5.028 9.429-5.243c.123-.205.084-.468-.094-.628z"></path>
+</svg>
+
+    · Free Forever
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <path fill="#DD2E44" d="M39.885 15.833c0-5.45-4.418-9.868-9.867-9.868-3.308 0-6.227 1.633-8.018 4.129-1.791-2.496-4.71-4.129-8.017-4.129-5.45 0-9.868 4.417-9.868 9.868 0 .772.098 1.52.266 2.241C5.751 26.587 15.216 35.568 22 38.034c6.783-2.466 16.249-11.447 17.617-19.959.17-.721.268-1.469.268-2.242z"></path>
+</svg>
+    </p>
+    <p>
+      We strive for transparency and don't collect excess data.
+    </p>
+  </footer>
+</section>
+
+
+  </div>
+</div>
+<!-- Start Bottom Shell -->
+    {%include 'footer.html'%}
+<div id="snack-zone"></div>
+
+    <div id="global-signup-modal" class="authentication-modal crayons-modal crayons-modal--s fixed hidden">
+  <div class="authentication-modal__box crayons-modal__box">
+    <button type="button" class="authentication-modal__close-btn close-modal-button crayons-btn crayons-btn--icon crayons-btn--ghost">
+      <svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z"></path>
+      </svg>
+    </button>
+    <div class="crayons-modal__box__body p-0">
+      <div class="authentication-modal__container">
+        <figure class="authentication-modal__image-container">
+          <img class="authentication-modal__image" src="/static/images/logo.png" >
+        </figure>
+        <div class="authentication-modal__content">
+          <h1 class="authentication-modal__title">
+            Log in to continue
+          </h1>
+          <p class="authentication-modal__description">
+              We're a place where coders share, stay up-to-date and grow their careers.
+          </p>
+        </div>
+      </div>
+
+      <div class="authentication-modal__actions">
+        <a href="/enter" class="crayons-btn" aria-label="Log in" data-no-instant="">
+          Log in
+        </a>
+        <a href="/enter?state=new-user" class="crayons-btn crayons-btn--ghost-brand" aria-label="Create new account" data-no-instant="">
+          Create new account
+        </a>
+      </div>
+      <footer class="authentication-modal__footer">
+        <p class="authentication-modal__footer-label">
+          We strive for transparency and don't collect excess data.
+        </p>
+      </footer>
+    </div>
+  </div>
+  <div class="crayons-modal__overlay"></div>
+</div>
+
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~signupModalShortcuts-07818c40f48ebcd18b6e.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/vendor-b3510320d7fa68665739.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/signupModalShortcuts-618d9ff83cddfabb4825.chunk.js" defer="defer"></script>
+<script>
+  document.querySelector("#id_username").classList.add("crayons-textfield");
+  document.querySelector("#id_password1").classList.add("crayons-textfield");
+  document.querySelector("#id_password2").classList.add("crayons-textfield");
+  document.querySelector("#id_username").autocomplete = 'off';
+</script>
+  <div id="live-article-indicator" class="live-article-indicator"></div>
+  <img class="icon-img" style="display:none" alt="twitter logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/twitter-logo-7693bfa09ce3f28fea334a5dcf36ddf1c8d58b01bbfd78cca3b1383498bd86a8.svg">
+  <img class="icon-img" style="display:none" alt="github logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/github-logo-ba8488d21cd8ee1fee097b8410db9deaa41d0ca30b004c0c63de0a479114156f.svg">
+</body>
+</html>

@@ -1,0 +1,270 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create New Post</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/post_list.css' %}">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+body{
+	background: #000;
+	color: #7ed957;
+	font-family: 'Muli',sans-serif;
+}
+
+.navbar{
+	background: #000;
+	font-weight: 400;
+	border-bottom: 1px solid #fff;
+}
+
+.navbar a{
+	color: #7ed957;
+}
+
+.navbar-icon{
+	width: 30px;
+	height: 2px;
+	background: #7ed957;
+	border: 1px solid #7ed957;
+	margin: 3px;
+}
+
+.navbar-toggler{
+	display: flex;
+	flex-direction: column;
+}
+.navbar-brand{
+	font-weight: bold;
+}
+
+.btn-login{
+	border-radius: 20px;
+	background: #000;
+	color: #7ed957;
+	padding: 2px 10px;
+}
+.btn-login-outline{
+	border-radius: 20px;
+	border: 1px solid #7ed957;
+	color: #7ed957;
+}
+.login-form{
+	padding: 30px 30px;
+	border: 1px solid #7ed957;
+}
+.form-control:focus{
+	box-shadow: 0 0 0 0.2rem #91ff0040;
+}
+label{
+	font-size: 1.3rem;
+}
+.link:hover{
+	color: #7ed957;
+}
+input{
+	padding: 5px;
+	font-family: inherit;
+	font-size: inherit;
+	background: #000;
+	border: 1px solid #7ed957;
+	color: inherit;
+}
+.btn-form-submit{
+	background: #7ed957;
+	border: none;
+	border-radius: 20px;
+	font-family: inherit;
+	font-size: inherit;
+	color: #000;
+	font-weight: bold;
+	padding: 8px 30px;
+}
+
+#id_title, #id_content{
+	background: inherit;
+	border: 1px solid #7ed957;
+	color: inherit;
+	transition: .5s ease-in-out;
+}
+#id_title:focus, #id_content:focus{
+	box-shadow: 0 0 0 0.2rem #7ed95761;
+	transition: .5s ease-in-out;
+}
+p{
+	margin-block-start: 10px;
+	margin-block-end: 10px;
+}
+
+.card{
+	background: #7ed957;
+	color: #000;
+	border: none;
+	font-weight: 800;
+}
+.card-body, .card-header, .card-footer{
+	border: 1px solid #000;
+}
+.like-btn{
+	border: none;
+	background: transparent;
+}
+.like-btn:focus{
+	outline: none;
+}
+	</style>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+body{
+	color: #7ed957;
+	font-family: 'Muli',sans-serif;
+	background: #000;
+}
+label{
+	font-size: 1rem;
+}
+
+input{
+	padding: 5px;
+	font-family: inherit;
+	font-size: inherit;
+	background: #000;
+	border: 1px solid #7ed957;
+	color: inherit;
+}	
+form{
+	max-width: 600px;
+}
+.btn-form-submit{
+	background: #7ed957;
+	border: none;
+	border-radius: 20px;
+	font-family: inherit;
+	font-size: inherit;
+	color: #000;
+	font-weight: bold;
+	padding: 8px 30px;
+}
+
+.link{
+	color: #7ed957;
+	text-decoration:none;
+	border-bottom: 1px solid #fff;
+}
+
+.helptext{
+	font-size: .9rem;
+}
+ul{
+	display: none
+}
+#id_bio, #id_website{
+	background: inherit;
+	border: 1px solid #7ed957;
+	color: #7ed957;
+}
+.form-control:focus{
+	box-shadow: 0 0 0 0.2rem #91ff0040;
+}
+.new-button {
+    display: inline-block;
+    padding: 0px 30px; 
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #7ed957;
+    font-size: 1rem;
+    color: #000;
+}
+input[type="file"] {
+  	left: 0;
+  	font-size: 15px;
+  	color: rgb(153,153,153);
+  	padding: 5px 15px;
+  	visibility: hidden;
+}
+
+.badge-success{
+	background: #7ed957;
+	color: #000;
+	padding: 5px 20px;
+	border-radius: 20px;
+	width: 120px;
+}
+
+.modal-header{
+	background: #000;
+	border: 1px solid #7ed957;
+}
+
+.modal-body{
+	background: #000;
+	border: 1px solid #7ed957;
+}
+
+.modal-footer{
+	background: #000;
+	border: 1px solid #7ed957;
+}
+.navbar{
+	background: #000;
+	font-weight: 400;
+	border-bottom: 1px solid #fff;
+}
+
+.navbar a{
+	color: #7ed957;
+}
+
+.navbar-icon{
+	width: 30px;
+	height: 2px;
+	background: #7ed957;
+	border: 1px solid #7ed957;
+	margin: 3px;
+}
+
+.navbar-toggler{
+	display: flex;
+	flex-direction: column;
+}
+.navbar-brand{
+	font-weight: bold;
+}
+.btn-login{
+	border-radius: 20px;
+	line-height: 35px;
+	background: #7ed957;
+}
+
+	</style>
+</head>
+<body>
+	{% include "navbar.html" %}
+	<div class="container">
+		&nbsp;
+		<h3>Trending Posts</h3>
+		{% for post in post_list %}
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">{{ post.title }} by <a href="/{{ post.author }}" style="text-decoration: none;color: #000;border-bottom: 2px solid #000">{{ post.author }}</a></h4>
+				</div>
+				<div class="card-body">
+					<p>{{ post.content |slice:":200" | linebreaks }}</p>
+					<p>- {{ post.created_on }} | {{ post.author }}</p>
+				</div>
+				<div class="card-footer">
+					<a href="/{{ post.author }}/posts/{{ post.url }}/" class="btn-login" style="max-width: 8rem;color: #7ed957;background:#000;text-decoration: none">Read More</a>
+				</div>
+			</div>
+			<br/>
+		{% endfor %}
+	</div>
+</body>
+</html>

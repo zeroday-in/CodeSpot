@@ -1,0 +1,80 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{post.author}} - {{ post.title }}</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="/static/css/crayons.css">
+	<link rel="stylesheet" href="/static/css/views.css">
+	<link rel="stylesheet" href="/static/css/minimal.css">
+</head>
+<body>
+	{% include "header.html" %}
+	<div class="container">
+		&nbsp;
+		<h1>{{ post.title }} | {{liked}}
+			<span class="float-right">
+				{% if liked %} 
+				<button class="like-btn" id="addLike">
+					<i class="fas fa-heart"  style="font-size: 1.8rem;color: #f56040"></i>
+				</button>
+				{% else %}
+				<button class="like-btn" id="addLike">
+					<i class="far fa-heart" style="font-size: 1.8rem;color: #f56040"></i>
+				</button>
+				{% endif %}
+			</span>
+		</h1>
+		<h4>Published On:  {{ post.created_on }} by {{ post.author }}</h4>
+		<p>{{ post.content | safe }}</p>
+		<hr style="background: #fff;">
+		<div class="bar">
+			<p>
+				<h6>
+					{% ifequal post.likes 1 %}
+					    <span id="likes_count">{{ post.likes }}</span>Like
+					{% else %}
+					    <span id="likes_count">{{ post.likes }}</span> Likes
+					{% endifequal %}
+				</h6>
+			</p>
+		</div>
+	</div>
+	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+	<script type="text/javascript">
+		const like_btn = document.querySelector('#addLike');
+		like_btn.onclick = function(){
+			like_btn.disabled = true;
+			var x = document.querySelector('.far') 
+			if(x !== null){
+				x.classList.remove('far')
+				x.classList.add('fas')
+			}
+			else{
+				var x = document.querySelector('.fas')
+				x.classList.remove('fas')
+				x.classList.add('far');
+			}
+			sendReq(new XMLHttpRequest());
+		}
+		const sendReq = (request) => {
+			request.onreadystatechanged = () => {
+				console.log("Andar avyu");
+				if (request.readyState == 4) {
+					window.alert("Hello");
+					document.querySelector('#addLike').disabled = false;
+				}
+			}
+			request.open("POST", "/like/", true);
+			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+			request.send("post={{ post.url }}&user={{ request.user.username }}");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<html lang="en" class="js-focus-visible" data-js-focus-visible=""><head>
+    <meta charset="utf-8">
+    <title>New Post - DEV Community 👩&zwj;💻👨&zwj;💻</title>
+      <meta name="last-updated" content="2020-11-05 20:53:16 UTC">
+      <meta name="user-signed-in" content="true">
+        <!-- Experimental web monetization payment pointer for micropayments -->
+        <!-- It lets readers make micropayments to websites they visit. -->
+        <!-- This is step 1: Get live in production to test for platform-wide payment pointer. -->
+        <!-- Step 2: Allow authors to set their payment pointer so they can directly monetize their content based on visitors. -->
+        <!-- Step 3: Enable further functionality based on what we learn from this experimentation and how the ecosystem evolves. -->
+        <meta name="monetization" content="$ilp.uphold.com/24HhrUGG7ekn">
+      <meta name="environment" content="production">
+      
+
+<link rel="stylesheet" media="all" href="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/crayons-9880d9d4686dc7632f339891bb296b414fb2f2baf5db2ffd76df63780e4a81bb.css">
+<link rel="stylesheet" media="all" href="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/views-55e626d9225e15663e722bd37edaa4dd2da9f54f86a7b503d4731d62f14132d5.css">
+<link rel="stylesheet" media="all" href="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/minimal-c46ee83e16de30817c55a266c827b7580bea019ba5f2127ba8d4accccc102277.css">
+
+      <style>
+        .home {
+          position: relative;
+          margin: auto;
+          max-width: 1250px;
+        }
+      </style>
+      <script src="/static/js/base.js" defer="defer"></script>
+    <script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~Search-0404504f6cce3694e905.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/vendor-8a8dc187209d74194878.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/Search-7617dd8cb7b1775d8b2c.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~onboardingRedirectCheck-c039d950aa81563f24cb.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/onboardingRedirectCheck-3ef2bbba15832ca7051c.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~contentDisplayPolicy-f30b9bcc11dff89d80da.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/contentDisplayPolicy-acf9744ee455567b8c3e.chunk.js" defer="defer"></script>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <link rel="shortcut icon" type="image/x-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--E8ak4Hr1--/c_limit,f_auto,fl_progressive,q_auto,w_32/https://dev-to.s3.us-east-2.amazonaws.com/favicon.ico">
+      <link rel="apple-touch-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/practicaldev/image/fetch/s--l0c3Kmql--/c_limit,f_png,fl_progressive,q_80,w_152/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/practicaldev/image/fetch/s--2ecYCSjC--/c_limit,f_png,fl_progressive,q_80,w_167/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--t7tVouP9--/c_limit,f_png,fl_progressive,q_80,w_192/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="192x192">
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--lrmEcD2H--/c_limit,f_png,fl_progressive,q_80,w_128/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="128x128">
+      <meta name="apple-mobile-web-app-title" content="dev.to">
+      <meta name="application-name" content="dev.to">
+      <meta property="fb:pages" content="568966383279687">
+      <meta name="theme-color" content="#000000">
+      <link rel="manifest" href="/manifest.json">
+      <link rel="search" href="https://dev.to/open-search.xml" type="application/opensearchdescription+xml" title="DEV Community">
+
+      <meta property="forem:name" content="DEV">
+      <meta property="forem:logo" content="https://res.cloudinary.com/practicaldev/image/fetch/s--PFPhV65b--/c_limit,f_png,fl_progressive,q_80,w_512/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <meta property="forem:domain" content="dev.to">
+  <script charset="utf-8" src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/2-414231f59eb9ba28aa55.chunk.js"></script><script charset="utf-8" src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/85-555815a448f29d2c1779.chunk.js"></script><script charset="utf-8" src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/80-1f2ddbf785782aa0902f.chunk.js"></script><script charset="utf-8" src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/79-4893a58316c429a8e72a.chunk.js"></script><script charset="utf-8" src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/77-d6c1607a6e9e79dcf459.chunk.js"></script><meta name="csrf-param" content="authenticity_token"><meta name="csrf-token" content="0YJnfXBMK6XqO58+VNUfEX3Gfi7Ff+z4Qk+65BW4R1ziOaJyb6MR8gP63IIznCwSoY0V04IZA3jr5H1PMg+HPA=="><style id="__web-inspector-hide-shortcut-style__">
+.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
+{
+    visibility: hidden !important;
+}
+</style></head>
+      <body data-user-status="logged-in" class="default sans-serif-article-body trusted-status-false default-header user-tags-followed-max" data-pusher-key="ef46a9ae106e4241008c" data-app-domain="ZGV2LnRv" data-honeybadger-key="a45862f6" data-release-footprint="f11523f29a5304f5528b631606a066a2d8fdaccf" data-ga-tracking="UA-71991109-1" data-user="{&quot;id&quot;:503766,&quot;name&quot;:&quot;Dev Mehta&quot;,&quot;username&quot;:&quot;devmehta&quot;,&quot;profile_image_90&quot;:&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--_HA_fG1a--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/503766/2580c47b-77d1-4112-af07-e86b78b42c27.jpeg&quot;,&quot;followed_tags&quot;:&quot;[{\&quot;id\&quot;:8,\&quot;name\&quot;:\&quot;webdev\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#562765\&quot;,\&quot;text_color_hex\&quot;:\&quot;#ffffff\&quot;,\&quot;hotness_score\&quot;:5373409,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:316,\&quot;name\&quot;:\&quot;android\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#56a036\&quot;,\&quot;text_color_hex\&quot;:\&quot;#ffffff\&quot;,\&quot;hotness_score\&quot;:341745,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:24,\&quot;name\&quot;:\&quot;java\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#01476e\&quot;,\&quot;text_color_hex\&quot;:\&quot;#ff8f8f\&quot;,\&quot;hotness_score\&quot;:124328,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:262,\&quot;name\&quot;:\&quot;machinelearning\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#E5FFE3\&quot;,\&quot;text_color_hex\&quot;:\&quot;#363636\&quot;,\&quot;hotness_score\&quot;:82561,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:2118,\&quot;name\&quot;:\&quot;computerscience\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#d98cd9\&quot;,\&quot;text_color_hex\&quot;:\&quot;#323232\&quot;,\&quot;hotness_score\&quot;:69780,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:81,\&quot;name\&quot;:\&quot;graphql\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#171e26\&quot;,\&quot;text_color_hex\&quot;:\&quot;#ff5bc8\&quot;,\&quot;hotness_score\&quot;:24353,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:446,\&quot;name\&quot;:\&quot;django\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#103E2E\&quot;,\&quot;text_color_hex\&quot;:\&quot;#FFFFFF\&quot;,\&quot;hotness_score\&quot;:20148,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:12,\&quot;name\&quot;:\&quot;ios\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#0c76e2\&quot;,\&quot;text_color_hex\&quot;:\&quot;#ffffff\&quot;,\&quot;hotness_score\&quot;:18678,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:303,\&quot;name\&quot;:\&quot;vscode\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#1c1c1c\&quot;,\&quot;text_color_hex\&quot;:\&quot;#8cb8ff\&quot;,\&quot;hotness_score\&quot;:18414,\&quot;points\&quot;:1.0},{\&quot;id\&quot;:234,\&quot;name\&quot;:\&quot;kotlin\&quot;,\&quot;bg_color_hex\&quot;:\&quot;#1b1865\&quot;,\&quot;text_color_hex\&quot;:\&quot;#fdc791\&quot;,\&quot;hotness_score\&quot;:12001,\&quot;points\&quot;:1.0}]&quot;,&quot;followed_podcast_ids&quot;:[],&quot;reading_list_ids&quot;:[503506],&quot;blocked_user_ids&quot;:[],&quot;saw_onboarding&quot;:true,&quot;checked_code_of_conduct&quot;:true,&quot;checked_terms_and_conditions&quot;:true,&quot;display_sponsors&quot;:true,&quot;display_announcements&quot;:true,&quot;trusted&quot;:false,&quot;moderator_for_tags&quot;:[],&quot;config_body_class&quot;:&quot;default sans-serif-article-body trusted-status-false default-header&quot;,&quot;pro&quot;:false,&quot;feed_style&quot;:&quot;basic&quot;,&quot;created_at&quot;:&quot;2020-11-01T14:42:22.776Z&quot;,&quot;admin&quot;:false}" data-loaded="true">
+        <div id="body-styles">
+          <style>
+            :root {
+              --accent-brand: #3b49df;
+              --accent-brand-darker: #323ebe;
+              --accent-brand-lighter: #4150f5;
+              --accent-brand-a10: rgba(59, 73, 223, 0.10);
+            }
+          </style>
+        </div>
+          <script>
+  try {
+    const bodyClass = localStorage.getItem('config_body_class');
+    const userString = localStorage.getItem('current_user');
+
+    if (bodyClass) {
+      document.body.className = bodyClass;
+
+      if (bodyClass.includes('night-theme')) {
+        document.getElementById('body-styles').innerHTML = '<style>:root{--theme-secondary-color: #cedae2;--theme-container-background: #141f2d;--theme-container-accent-background: #202c3d;--theme-container-background-hover: #1c2c3f;--theme-container-box-shadow: none;--theme-container-border: 1px solid #22303f;--theme-social-icon-invert: invert(100%);--theme-color: #ffffff;--base: #f9fafa;--base-a90: rgba(249, 250, 250, 0.9);--base-a80: rgba(249, 250, 250, 0.8);--base-a70: rgba(249, 250, 250, 0.7);--base-a60: rgba(249, 250, 250, 0.6);--base-a50: rgba(249, 250, 250, 0.5);--base-a40: rgba(249, 250, 250, 0.4);--base-a30: rgba(249, 250, 250, 0.3);--base-a20: rgba(249, 250, 250, 0.2);--base-a10: rgba(249, 250, 250, 0.1);--base-a5: rgba(249, 250, 250, 0.05);--base-100: var(--base);--base-90: #dde0e2;--base-80: #c2c6ca;--base-70: #a7adb2;--base-60: #8d949b;--base-50: #747c85;--base-40: #5c6570;--base-30: #444f5b;--base-20: #2e3a48;--base-10: #1a2634;--base-0: #0d1219;--base-inverted: #000;--accent-brand: #7b78ff;--accent-brand-darker: #5855f3;--accent-brand-lighter: #9896ff;--accent-brand-a10: rgba(123, 120, 255, 0.1);--accent-success: #26d9ca;--accent-success-darker: #1ab3a6;--accent-success-lighter: #79ece2;--accent-success-a10: rgba(38, 217, 202, 0.1);--accent-warning: #ffcf4c;--accent-warning-darker: #f5b400;--accent-warning-lighter: #ffe499;--accent-warning-a10: rgba(255, 207, 76, 0.1);--accent-danger: #dc1818;--accent-danger-darker: #c20a0a;--accent-danger-lighter: #ec5050;--accent-danger-a10: rgba(220, 24, 24, 0.1);--body-bg: var(--base-0);--body-color: var(--base-100);--body-color-inverted: var(--base-inverted);--card-bg: var(--base-10);--card-color: var(--base-100);--card-color-secondary: var(--base-70);--card-color-tertiary: var(--base-50);--card-secondary-bg: var(--base-a5);--card-secondary-color: var(--base-90);--card-headline-color: var(--base-100);--card-border: rgba(255, 255, 255, 0.15);--card-secondary-border: rgba(255, 255, 255, 0.1);--card-hover-bg: var(--accent-brand-lighter);--card-selected-bg: var(--accent-brand-darker);--header-bg: var(--base-10);--header-bg-hover: var(--base-0);--header-bg-current: var(--base-20);--header-shadow: rgba(0, 0, 0, 0.3);--header-icons-color: rgba(255, 255, 255, 0.8);--header-icons-color-hover: #fff;--logo-bg: #0a0a0a;--logo-color: #fff;--footer-bg: var(--base-inverted);--footer-copy-color: var(--base-80);--footer-copy-secondary-color: var(--base-60);--footer-link-color: var(--base-80);--footer-link-color-hover: var(--base-100);--link-color: var(--base-90);--link-color-hover: var(--accent-brand-lighter);--link-bg-hover: var(--base-a5);--link-bg-hover-alt: var(--base-inverted);--link-brand-color: #17a1f6;--link-color-current: var(--base-100);--link-color-secondary: var(--base-70);--link-color-secondary-hover: var(--base-80);--link-bg-current: var(--base-inverted);--button-primary-bg: var(--accent-brand);--button-primary-bg-hover: var(--accent-brand-darker);--button-primary-color: var(--base-inverted);--button-primary-color-hover: var(--base-inverted);--button-primary-inverted-bg: var(--accent-brand);--button-primary-inverted-bg-hover: var(--accent-brand-darker);--button-primary-inverted-color: var(--base-0);--button-primary-inverted-color-hover: var(--base-0);--button-secondary-bg: var(--base-20);--button-secondary-bg-hover: var(--base-30);--button-secondary-color: var(--base-80);--button-secondary-color-hover: var(--base-100);--button-secondary-inverted-bg: var(--base-70);--button-secondary-inverted-bg-hover: var(--base-60);--button-secondary-inverted-color: var(--base-10);--button-secondary-inverted-color-hover: var(--base-0);--button-outlined-bg: transparent;--button-outlined-bg-hover: rgba(255, 255, 255, 0.035);--button-outlined-border: var(--base-20);--button-outlined-border-hover: var(--base-30);--button-outlined-color: var(--base-80);--button-outlined-color-hover: var(--base-100);--button-outlined-inverted-bg: transparent;--button-outlined-inverted-bg-hover: rgba(0, 0, 0, 0.1);--button-outlined-inverted-border: var(--base-60);--button-outlined-inverted-border-hover: var(--base-40);--button-outlined-inverted-color: var(--base-30);--button-outlined-inverted-color-hover: var(--base-10);--button-ghost-bg: transparent;--button-ghost-bg-hover: rgba(255, 255, 255, 0.035);--button-ghost-color: var(--base-80);--button-ghost-color-hover: var(--base-100);--button-ghost-dimmed-color: var(--base-60);--button-ghost-dimmed-color-hover: var(--base-100);--button-ghost-inverted-bg: transparent;--button-ghost-inverted-bg-hover: rgba(0, 0, 0, 0.1);--button-ghost-inverted-color: var(--base-30);--button-ghost-inverted-color-hover: var(--base-10);--form-bg: var(--base-20);--form-bg-focus: var(--base-0);--form-border: var(--base-30);--form-border-hover: var(--base-40);--form-border-focus: var(--accent-brand);--form-placeholder-color: var(--base-60);--label-primary: var(--base-90);--label-secondary: var(--base-60);--box: var(--base-0);--box-darker: var(--base-inverted);--snackbar-bg: var(--base-10);--snackbar-border: var(--base-20);--snackbar-color: var(--card-color);--indicator-accent-bg: var(--accent-brand);--indicator-accent-color: var(--body-color);--indicator-critical-bg: var(--accent-danger);--indicator-critical-color: var(--body-color);--indicator-default-bg: var(--button-secondary-bg);--indicator-default-color: var(--button-secondary-color);--tab-color: var(--base-80);--tab-color-hover: var(--accent-brand-lighter);--tab-color-current: var(--base-100);--tab-bg-hover: var(--accent-brand-a10);--tab-bg-current: var(--accent-brand);--tab-muted-color: var(--base-80);--tab-muted-color-hover: var(--base-90);--tab-muted-color-current: var(--base-100);--tab-muted-bg-hover: var(--base-a10);--tab-muted-bg-current: var(--base-20);--tab-pill-color-current: var(--base-inverted);--tag-color: var(--base-70);--tag-color-hover: var(--base-100);--story-comments-bg: #151e2a;--select-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDYgMTBIMThMMTIgMTZaIiBmaWxsPSIjYzJjNmNhIi8+Cjwvc3ZnPg==);--reaction-like-color: var(--accent-danger);--reaction-like-bg: var(--accent-danger-a10);--reaction-custom-color: var(--accent-success);--reaction-custom-bg: var(--accent-success-a10);--reaction-save-color: var(--accent-brand);--reaction-save-bg: var(--accent-brand-a10)}</style>';
+      } else if (bodyClass.includes('ten-x-hacker-theme')) {
+        document.getElementById('body-styles').innerHTML = '<style>:root{--theme-secondary-color: #ebebeb;--theme-container-background: #030303;--theme-container-accent-background: #000f0b;--theme-container-background-hover: #1c2c3f;--theme-container-box-shadow: none;--theme-container-border: 1px solid #22303f;--theme-social-icon-invert: invert(100%);--theme-color: #ffffff;--base: #ffffff;--base-a90: rgba(255, 255, 255, 0.9);--base-a80: rgba(255, 255, 255, 0.8);--base-a70: rgba(255, 255, 255, 0.7);--base-a60: rgba(255, 255, 255, 0.6);--base-a50: rgba(255, 255, 255, 0.5);--base-a40: rgba(255, 255, 255, 0.4);--base-a30: rgba(255, 255, 255, 0.3);--base-a20: rgba(255, 255, 255, 0.2);--base-a10: rgba(255, 255, 255, 0.1);--base-a5: rgba(255, 255, 255, 0.05);--base-100: var(--base);--base-90: #e3e3e3;--base-80: #c8c8c8;--base-70: #adadad;--base-60: #939393;--base-50: #ffffff;--base-40: #626262;--base-30: #4b4b4b;--base-20: #353535;--base-10: #1c1c1c;--base-0: #0a0a0a;--base-inverted: #000000;--accent-brand: #2eff7b;--accent-brand-darker: #00c548;--accent-brand-lighter: #8effb7;--accent-brand-a10: rgba(46, 255, 123, 0.1);--accent-success: var(--accent-brand);--accent-success-darker: var(--accent-brand-darker);--accent-success-lighter: var(--accent-brand-lighter);--accent-success-a10: rgba(46, 255, 123, 0.1);--accent-warning: #ffcf4c;--accent-warning-darker: #f5b400;--accent-warning-lighter: #ffe499;--accent-warning-a10: rgba(255, 207, 76, 0.1);--accent-danger: #dc1818;--accent-danger-darker: #c20a0a;--accent-danger-lighter: #ec5050;--accent-danger-a10: rgba(220, 24, 24, 0.1);--body-bg: var(--base-0);--body-color: var(--accent-brand);--body-color-inverted: var(--base-inverted);--card-bg: var(--base-inverted);--card-color: var(--accent-brand);--card-color-secondary: var(--accent-brand-darker);--card-color-tertiary: var(--base-50);--card-secondary-bg: var(--base-inverted);--card-secondary-color: var(--base-90);--card-headline-color: var(--accent-brand-lighter);--card-border: rgba(255, 255, 255, 0.2);--card-secondary-border: rgba(255, 255, 255, 0.2);--card-hover-bg: var(--base-10);--card-selected-bg: var(--base-20);--header-bg: var(--base-10);--header-bg-hover: var(--base-20);--header-bg-current: var(--base-0);--header-shadow: rgba(0, 0, 0, 0.1);--header-icons-color: var(--base-70);--header-icons-color-hover: var(--base-100);--logo-bg: var(--accent-brand);--logo-color: #0a0a0a;--footer-bg: var(--base-10);--footer-copy-color: var(--base-80);--footer-copy-secondary-color: var(--base-60);--footer-link-color: var(--accent-brand);--footer-link-color-hover: var(--accent-brand-lighter);--link-color: var(--accent-brand);--link-color-hover: var(--accent-brand-darker);--link-color-current: var(--accent-brand-lighter);--link-color-secondary: var(--accent-brand-darker);--link-color-secondary-hover: var(--accent-brand-darker);--link-brand-color: #e24ec1;--link-bg-hover: var(--base-a10);--link-bg-hover-alt: var(--base-0);--link-bg-current: var(--base-inverted);--button-primary-bg: var(--accent-brand);--button-primary-bg-hover: var(--accent-brand-darker);--button-primary-color: var(--base-0);--button-primary-color-hover: var(--base-0);--button-primary-inverted-bg: var(--base-0);--button-primary-inverted-bg-hover: var(--base-20);--button-primary-inverted-color: var(--accent-brand);--button-primary-inverted-color-hover: var(--accent-brand-darker);--button-secondary-bg: var(--base-10);--button-secondary-bg-hover: var(--base-20);--button-secondary-color: var(--accent-brand);--button-secondary-color-hover: var(--accent-brand-lighter);--button-secondary-inverted-bg: var(--base-50);--button-secondary-inverted-bg-hover: var(--base-30);--button-secondary-inverted-color: var(--accent-brand);--button-secondary-inverted-color-hover: var(--accent-brand-lighter);--button-outlined-bg: transparent;--button-outlined-bg-hover: rgba(0, 0, 0, 0.035);--button-outlined-border: var(--accent-brand);--button-outlined-border-hover: var(--accent-brand-darker);--button-outlined-color: var(--accent-brand);--button-outlined-color-hover: var(--accent-brand-darker);--button-outlined-inverted-bg: transparent;--button-outlined-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-outlined-inverted-border: var(--accent-brand-darker);--button-outlined-inverted-border-hover: var(--accent-brand);--button-outlined-inverted-color: var(--accent-brand-darker);--button-outlined-inverted-color-hover: var(--accent-brand-darker);--button-ghost-bg: transparent;--button-ghost-bg-hover: rgba(0, 0, 0, 0.035);--button-ghost-color: var(--base-80);--button-ghost-color-hover: var(--base-100);--button-ghost-dimmed-color: var(--base-60);--button-ghost-dimmed-color-hover: var(--base-100);--button-ghost-inverted-bg: transparent;--button-ghost-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-ghost-inverted-color: var(--base-30);--button-ghost-inverted-color-hover: var(--base-10);--button-ghost-inverted-color: var(--base-30);--button-ghost-inverted-color-hover: var(--base-10);--form-bg: var(--base-0);--form-bg-focus: var(--base-inverted);--form-border: var(--base-30);--form-border-hover: var(--base-40);--form-border-focus: var(--accent-brand);--form-placeholder-color: var(--base-60);--label-primary: var(--accent-brand);--label-secondary: var(--accent-brand-darker);--box: var(--base-90);--box-darker: var(--base-100);--snackbar-bg: var(--base-10);--snackbar-border: var(--accent-brand);--snackbar-color: var(--accent-brand);--indicator-accent-bg: var(--accent-brand);--indicator-accent-color: var(--body-color-inverted);--indicator-critical-bg: var(--accent-danger);--indicator-critical-color: var(--body-color-inverted);--indicator-default-bg: var(--button-secondary-bg);--indicator-default-color: var(--button-secondary-color);--tab-color: var(--base-80);--tab-color-hover: var(--accent-brand);--tab-color-current: var(--base-100);--tab-bg-hover: var(--accent-brand-a10);--tab-bg-current: var(--accent-brand);--tab-muted-color: var(--base-80);--tab-muted-color-hover: var(--base-90);--tab-muted-color-current: var(--base-100);--tab-muted-bg-hover: var(--base-a10);--tab-muted-bg-current: var(--base-20);--tab-pill-color-current: var(--base-inverted);--tag-color: var(--base-70);--tag-color-hover: var(--base-100);--story-comments-bg: #0d0d0d;--select-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDYgMTBIMThMMTIgMTZaIiBmaWxsPSIjMkVGRjdCIi8+Cjwvc3ZnPg==);--reaction-like-color: var(--accent-danger);--reaction-like-bg: var(--accent-danger-a10);--reaction-custom-color: var(--accent-success);--reaction-custom-bg: var(--accent-success-a10);--reaction-save-color: var(--accent-warning);--reaction-save-bg: var(--accent-warning-a10)}</style>'
+      } else if (bodyClass.includes('pink-theme')) {
+        document.getElementById('body-styles').innerHTML = '<style>:root{--theme-secondary-color: #4e57ef;--theme-container-background: #fff;--theme-container-accent-background: #ffccdb;--theme-container-background-hover: #ffe5eb;--theme-container-box-shadow: none;--theme-container-border: 1px solid #ff4983;--base: #1c060d;--base-a90: rgba(28, 6, 13, 0.9);--base-a80: rgba(28, 6, 13, 0.8);--base-a70: rgba(28, 6, 13, 0.7);--base-a60: rgba(28, 6, 13, 0.6);--base-a50: rgba(28, 6, 13, 0.5);--base-a40: rgba(28, 6, 13, 0.4);--base-a30: rgba(28, 6, 13, 0.3);--base-a20: rgba(28, 6, 13, 0.2);--base-a10: rgba(28, 6, 13, 0.1);--base-a5: rgba(28, 6, 13, 0.05);--base-100: var(--base);--base-90: #330f1a;--base-80: #57192d;--base-70: #7d2440;--base-60: #a52f55;--base-50: #cf3b6b;--base-40: #fb4881;--base-30: #ff7da6;--base-20: #ffa9c4;--base-10: #ffd1df;--base-0: #fff7f9;--base-inverted: #fff;--accent-brand: #ff6c9b;--accent-brand-darker: #f03e76;--accent-brand-lighter: #ff99b9;--accent-brand-a10: rgba(255, 108, 155, 0.1);--accent-success: #71db92;--accent-success-darker: #5abf79;--accent-success-lighter: #93edaf;--accent-success-a10: rgba(113, 219, 146, 0.1);--accent-warning: #ffcf4c;--accent-warning-darker: #f5b400;--accent-warning-lighter: #ffe499;--accent-warning-a10: rgba(255, 207, 76, 0.1);--accent-danger: #dc1818;--accent-danger-darker: #c20a0a;--accent-danger-lighter: #ec5050;--accent-danger-a10: rgba(220, 24, 24, 0.1);--body-bg: var(--base-0);--body-color: var(--base-100);--body-color-inverted: var(--base-inverted);--card-bg: var(--base-inverted);--card-color: var(--base-100);--card-color-secondary: var(--base-70);--card-color-tertiary: var(--base-50);--card-secondary-bg: rgba(255, 209, 223, 0.3);--card-secondary-color: var(--base-90);--card-headline-color: var(--base-100);--card-border: var(--accent-brand);--card-secondary-border: rgba(255, 108, 155, 0.2);--card-hover-bg: var(--base-10);--card-selected-bg: var(--base-20);--header-bg: var(--base-40);--header-bg-hover: var(--base-50);--header-bg-current: var(--base-50);--header-shadow: rgba(0, 0, 0, 0.1);--header-icons-color: var(--base-10);--header-icons-color-hover: var(--base-0);--logo-bg: var(--base-inverted);--logo-color: var(--header-bg);--footer-bg: var(--base-inverted);--footer-copy-color: var(--base-80);--footer-copy-secondary-color: var(--base-60);--footer-link-color: var(--base-80);--footer-link-color-hover: var(--base-100);--link-color: var(--base-90);--link-color-hover: var(--base-70);--link-color-current: var(--base-100);--link-color-secondary: var(--base-70);--link-color-secondary-hover: var(--base-80);--link-brand-color: #4e57ef;--link-bg-hover: var(--base-a5);--link-bg-hover-alt: var(--base-inverted);--link-bg-current: var(--base-inverted);--button-primary-bg: var(--accent-brand);--button-primary-bg-hover: var(--accent-brand-darker);--button-primary-color: var(--base-0);--button-primary-color-hover: var(--base-0);--button-primary-inverted-bg: var(--accent-brand);--button-primary-inverted-bg-hover: var(--accent-brand-darker);--button-primary-inverted-color: var(--base-0);--button-primary-inverted-color-hover: var(--base-0);--button-secondary-bg: var(--base-10);--button-secondary-bg-hover: var(--base-20);--button-secondary-color: var(--base-70);--button-secondary-color-hover: var(--base-90);--button-secondary-inverted-bg: var(--base-60);--button-secondary-inverted-bg-hover: var(--base-60);--button-secondary-inverted-color: var(--base-10);--button-secondary-inverted-color-hover: var(--base-0);--button-outlined-bg: transparent;--button-outlined-bg-hover: rgba(0, 0, 0, 0.035);--button-outlined-border: var(--base-20);--button-outlined-border-hover: var(--base-40);--button-outlined-color: var(--base-70);--button-outlined-color-hover: var(--base-90);--button-outlined-inverted-bg: transparent;--button-outlined-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-outlined-inverted-border: var(--base-60);--button-outlined-inverted-border-hover: var(--base-40);--button-outlined-inverted-color: var(--base-30);--button-outlined-inverted-color-hover: var(--base-10);--button-ghost-bg: transparent;--button-ghost-bg-hover: rgba(0, 0, 0, 0.035);--button-ghost-color: var(--base-90);--button-ghost-color-hover: var(--base-100);--button-ghost-dimmed-color: var(--base-60);--button-ghost-dimmed-color-hover: var(--base-100);--button-ghost-inverted-bg: transparent;--button-ghost-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-ghost-inverted-color: var(--base-30);--button-ghost-inverted-color-hover: var(--base-10);--button-ghost-dimmed-inverted-color: var(--base-50);--button-ghost-dimmed-inverted-color-hover: var(--base-100);--form-bg: #fff7f9;--form-bg-focus: var(--base-0);--form-border: var(--base-50);--form-border-hover: var(--base-60);--form-border-focus: var(--base-60);--form-placeholder-color: var(--base-60);--label-primary: var(--base-100);--label-secondary: var(--base-90);--box: var(--card-bg);--box-darker: var(--base-100);--snackbar-bg: var(--base-90);--snackbar-border: var(--base-100);--snackbar-color: var(--body-color-inverted);--indicator-accent-bg: var(--link-brand-color);--indicator-accent-color: var(--body-color-inverted);--indicator-critical-bg: var(--base-80);--indicator-critical-color: var(--body-color-inverted);--indicator-dimmed-bg: var(--base-30);--indicator-dimmed-color: var(--base-70);--tab-color: var(--base-80);--tab-color-hover: var(--accent-brand);--tab-color-current: var(--base-100);--tab-bg-hover: var(--accent-brand-a10);--tab-bg-current: var(--accent-brand);--tab-muted-color: var(--base-80);--tab-muted-color-hover: var(--base-90);--tab-muted-color-current: var(--base-100);--tab-muted-bg-hover: var(--base-a10);--tab-muted-bg-current: var(--base-20);--tab-pill-color-current: var(--base-inverted);--tag-color: var(--base-70);--tag-color-hover: var(--base-100);--story-comments-bg: rgba(255, 255, 255, 0.05);--select-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDYgMTBIMThMMTIgMTZaIiBmaWxsPSIjNTcxOTJkIi8+Cjwvc3ZnPg==);--reaction-like-color: var(--accent-danger);--reaction-like-bg: var(--accent-danger-a10);--reaction-custom-color: var(--accent-success);--reaction-custom-bg: var(--accent-success-a10);--reaction-save-color: var(--accent-brand);--reaction-save-bg: var(--accent-brand-a10)}</style>'
+      } else if(bodyClass.includes('minimal-light-theme')) {
+        document.getElementById('body-styles').innerHTML = '<style>:root{--theme-secondary-color: #505159;--theme-container-background: #ffffff;--theme-container-accent-background: #f4f5f7;--theme-container-background-hover: #efefef;--theme-container-box-shadow: none;--theme-container-border: 1px solid #e3e3e5;--base: #0a0a0a;--base-a90: rgba(10, 10, 10, 0.9);--base-a80: rgba(10, 10, 10, 0.8);--base-a70: rgba(10, 10, 10, 0.7);--base-a60: rgba(10, 10, 10, 0.6);--base-a50: rgba(10, 10, 10, 0.5);--base-a40: rgba(10, 10, 10, 0.4);--base-a30: rgba(10, 10, 10, 0.3);--base-a20: rgba(10, 10, 10, 0.2);--base-a10: rgba(10, 10, 10, 0.1);--base-a5: rgba(10, 10, 10, 0.05);--base-100: var(--base);--base-90: #202020;--base-80: #353535;--base-70: #4b4b4b;--base-60: #626262;--base-50: #7a7a7a;--base-40: #939393;--base-30: #adadad;--base-20: #c8c8c8;--base-10: #e3e3e3;--base-0: #ffffff;--base-inverted: #ffffff;--accent-brand: #3b49df;--accent-brand-darker: #1827ce;--accent-brand-lighter: #8d95f2;--accent-brand-a10: rgba(59, 73, 223, 0.1);--accent-success: #26d9ca;--accent-success-darker: #1ab3a6;--accent-success-lighter: #79ece2;--accent-success-a10: rgba(38, 217, 202, 0.1);--accent-warning: #ffcf4c;--accent-warning-darker: #f5b400;--accent-warning-lighter: #ffe499;--accent-warning-a10: rgba(255, 207, 76, 0.1);--accent-danger: #dc1818;--accent-danger-darker: #c20a0a;--accent-danger-lighter: #ec5050;--accent-danger-a10: rgba(220, 24, 24, 0.1);--body-bg: #fcfcfc;--body-color: #0a0a0a;--body-color-inverted: var(--base-inverted);--card-bg: var(--base-inverted);--card-color: var(--base-100);--card-color-secondary: var(--base-70);--card-color-tertiary: var(--base-50);--card-secondary-bg: var(--base-0);--card-secondary-color: var(--base-90);--card-headline-color: var(--base-100);--card-border: var(--base-a5);--card-secondary-border: var(--base-a5);--card-hover-bg: var(--base-10);--card-selected-bg: var(--base-20);--header-bg: var(--base-0);--header-bg-hover: var(--base-10);--header-bg-current: var(--base-20);--header-shadow: rgba(0, 0, 0, 0.1);--header-icons-color: #0a0a0a;--header-icons-color-hover: #000;--logo-bg: #e3e5ed;--logo-color: #232426;--footer-bg: var(--base-inverted);--footer-copy-color: var(--base-80);--footer-copy-secondary-color: var(--base-60);--footer-link-color: var(--base-80);--footer-link-color-hover: var(--base-100);--link-color: var(--base-90);--link-color-hover: var(--accent-brand-darker);--link-color-current: var(--base-100);--link-color-secondary: var(--base-70);--link-color-secondary-hover: var(--base-80);--link-brand-color: var(--accent-brand);--link-bg-hover: var(--base-a5);--link-bg-hover-alt: var(--base-10);--link-bg-current: var(--base-inverted);--button-primary-bg: var(--base-90);--button-primary-bg-hover: var(--base-100);--button-primary-color: var(--base-10);--button-primary-color-hover: var(--base-0);--button-primary-inverted-bg: var(--base-10);--button-primary-inverted-bg-hover: var(--base-0);--button-primary-inverted-color: var(--base-90);--button-primary-inverted-color-hover: var(--base-100);--button-secondary-bg: var(--base-20);--button-secondary-bg-hover: var(--base-30);--button-secondary-color: var(--base-80);--button-secondary-color-hover: var(--base-100);--button-secondary-inverted-bg: var(--base-70);--button-secondary-inverted-bg-hover: var(--base-60);--button-secondary-inverted-color: var(--base-10);--button-secondary-inverted-color-hover: var(--base-0);--button-outlined-bg: transparent;--button-outlined-bg-hover: rgba(0, 0, 0, 0.035);--button-outlined-border: var(--base-20);--button-outlined-border-hover: var(--base-40);--button-outlined-color: var(--base-80);--button-outlined-color-hover: var(--base-100);--button-outlined-inverted-bg: transparent;--button-outlined-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-outlined-inverted-border: var(--base-60);--button-outlined-inverted-border-hover: var(--base-40);--button-outlined-inverted-color: var(--base-30);--button-outlined-inverted-color-hover: var(--base-10);--button-ghost-bg: transparent;--button-ghost-bg-hover: rgba(0, 0, 0, 0.035);--button-ghost-color: var(--base-80);--button-ghost-color-hover: var(--base-100);--button-ghost-dimmed-color: var(--base-60);--button-ghost-dimmed-color-hover: var(--base-100);--button-ghost-inverted-bg: transparent;--button-ghost-inverted-bg-hover: rgba(255, 255, 255, 0.15);--button-ghost-inverted-color: var(--base-30);--button-ghost-inverted-color-hover: var(--base-10);--button-ghost-dimmed-inverted-color: var(--base-50);--button-ghost-dimmed-inverted-color-hover: var(--base-100);--form-bg: #f4f5f7;--form-bg-focus: var(--base-0);--form-border: #f4f5f7;--form-border-hover: var(--base-40);--form-border-focus: var(--accent-brand);--form-placeholder-color: var(--base-60);--label-primary: var(--base-90);--label-secondary: var(--base-60);--box: var(--base-90);--box-darker: var(--base-100);--snackbar-bg: var(--base-90);--snackbar-border: var(--base-100);--snackbar-color: var(--body-color-inverted);--indicator-accent-bg: var(--accent-brand);--indicator-accent-color: var(--body-color-inverted);--indicator-critical-bg: var(--accent-danger);--indicator-critical-color: var(--body-color-inverted);--indicator-default-bg: var(--button-secondary-bg);--indicator-default-color: var(--button-secondary-color);--tab-color: var(--base-80);--tab-color-hover: var(--accent-brand);--tab-color-current: var(--base-100);--tab-bg-hover: var(--accent-brand-a10);--tab-bg-current: var(--accent-brand);--tab-muted-color: var(--base-80);--tab-muted-color-hover: var(--base-90);--tab-muted-color-current: var(--base-100);--tab-muted-bg-hover: var(--base-a10);--tab-muted-bg-current: var(--base-20);--tab-pill-color-current: var(--base-inverted);--tag-color: var(--base-70);--tag-color-hover: var(--base-100);--story-comments-bg: #fafafa;--select-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDYgMTBIMThMMTIgMTZaIiBmaWxsPSIjN2E3YTdhIi8+Cjwvc3ZnPg==);--reaction-like-color: var(--accent-danger);--reaction-like-bg: var(--accent-danger-a10);--reaction-custom-color: var(--accent-success);--reaction-custom-bg: var(--accent-success-a10);--reaction-save-color: var(--accent-brand);--reaction-save-bg: var(--accent-brand-a10)}</style>'
+      }
+
+      if (bodyClass.includes('open-dyslexic-article-body')) { // Preloading custom font for anticipated use
+        const link = document.createElement('link');
+        link.as = 'font'
+        link.rel = 'preload'
+        crossorigin = 'anonymous'
+        link.href = 'https://practicaldev-herokuapp-com.freetls.fastly.net/assets/OpenDyslexic-Regular-cf8f24aa1c9b34b36bb160bb1e3eb6f6e6ab6ec3b43ba558afee2c1c202753ca.otf';
+        document.head.appendChild(link);
+      }
+    }
+    if (navigator.userAgent === 'DEV-Native-ios') {
+      document.body.classList.add("dev-ios-native-body");
+    }
+    if (window.frameElement) { // Hide top bar and footer when loaded within iframe
+      document.body.classList.add("hidden-shell");
+    }
+    if (userString && userString.length > 0) {
+      const user = JSON.parse(userString)
+      const numTags = JSON.parse(user.followed_tags).length
+      if (numTags < 6) {
+        document.body.classList.add("user-tags-followed-"+numTags);
+      } else {
+        document.body.classList.add("user-tags-followed-max");
+      }
+    }
+  } catch(e) {
+    setTimeout(function(){
+      Honeybadger.notify(e);
+    },1000)
+  }
+</script>
+
+        <div id="audiocontent" data-podcast="">
+          
+        </div>
+        <div class="navigation-progress" id="navigation-progress"></div>
+<header class="crayons-header print-hidden" role="banner">
+  <a href="#articles-list" class="skip-content-link">Skip to content</a>
+  <div class="crayons-header__container">
+    <a href="/" class="site-logo" aria-label="DEV Home">
+    <svg width="50" height="40" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="40" rx="3" style="fill: currentColor;"></rect><path d="M19.099 23.508c0 1.31-.423 2.388-1.27 3.234-.838.839-1.942 1.258-3.312 1.258h-4.403V12.277h4.492c1.31 0 2.385.423 3.224 1.27.846.838 1.269 1.912 1.269 3.223v6.738zm-2.808 0V16.77c0-.562-.187-.981-.562-1.258-.374-.285-.748-.427-1.122-.427h-1.685v10.107h1.684c.375 0 .75-.138 1.123-.415.375-.285.562-.708.562-1.27zM28.185 28h-5.896c-.562 0-1.03-.187-1.404-.561-.375-.375-.562-.843-.562-1.404V14.243c0-.562.187-1.03.562-1.404.374-.375.842-.562 1.404-.562h5.896v2.808H23.13v3.65h3.088v2.808h-3.088v3.65h5.054V28zm7.12 0c-.936 0-1.684-.655-2.246-1.965l-3.65-13.758h3.089l2.807 10.804 2.808-10.804H41.2l-3.65 13.758C36.99 27.345 36.241 28 35.305 28z" style="fill: var(--base-inverted);"></path></svg>
+</a>
+
+
+    <div id="pwa-nav-buttons" class="pwa-nav-buttons">
+      <button type="button" id="app-back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 306 306" role="img" aria-labelledby="amfu2iqgh7ezac4x8gk52921rsnmb0nl" class="crayons-icon"><title id="amfu2iqgh7ezac4x8gk52921rsnmb0nl">Back</title>
+    <path d="M247.35 35.7L211.65 0l-153 153 153 153 35.7-35.7L130.05 153z"></path>
+</svg>
+
+      </button>
+      <button type="button" id="app-forward-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 306 306" role="img" aria-labelledby="agdhsxdytfiamr3h0ojb68h2wgnjj6h" class="crayons-icon"><title id="agdhsxdytfiamr3h0ojb68h2wgnjj6h">Forward</title>
+    <path d="M94.35 0l-35.7 35.7L175.95 153 58.65 270.3l35.7 35.7 153-153z"></path>
+</svg>
+
+      </button>
+      <button type="button" id="app-refresh-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 408 408" role="img" aria-labelledby="a6dsuw993g9gn0r7ole3adpwbt5mhlwn" class="crayons-icon"><title id="a6dsuw993g9gn0r7ole3adpwbt5mhlwn">Refresh</title>
+    <path d="M346.8 61.2C311.1 22.95 260.1 0 204 0 91.8 0 0 91.8 0 204s91.8 204 204 204c94.35 0 173.4-66.3 196.35-153H346.8c-20.4 58.65-76.5 102-142.8 102-84.15 0-153-68.85-153-153S119.85 51 204 51c43.35 0 79.05 17.85 107.1 45.9l-81.6 81.6H408V0l-61.2 61.2z"></path>
+</svg>
+
+      </button>
+    </div>
+
+    <div class="crayons-header--search" id="header-search"><form method="get" action="/search" accept-charset="UTF-8"><input type="hidden" name="utf8" id="" placeholder="" autocomplete="" value="✓"><input class="crayons-header--search-input crayons-textfield" type="text" name="q" id="nav-search" placeholder="Search..." autocomplete="off" aria-label="search"></form>
+      
+    </div>
+
+    <div class="crayons-header__links">
+        <a href="/new" class="crayons-btn hidden mr-2 whitespace-nowrap s:block">Write a post</a>
+
+        <a id="moderation-link" class="crayons-header__link trusted-visible-block" aria-label="Moderation" href="/mod">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="ag6f61cea7l6mvzizdh33ufe481etgmw" class="crayons-icon"><title id="ag6f61cea7l6mvzizdh33ufe481etgmw">Moderation</title>
+    <path d="M3.783 2.826L12 1l8.217 1.826a1 1 0 01.783.976v9.987a6 6 0 01-2.672 4.992L12 23l-6.328-4.219A6 6 0 013 13.79V3.802a1 1 0 01.783-.976zM5 4.604v9.185a4 4 0 001.781 3.328L12 20.597l5.219-3.48A4 4 0 0019 13.79V4.604L12 3.05 5 4.604zM13 10h3l-5 7v-5H8l5-7v5z"></path>
+</svg>
+
+        </a>
+
+        <a href="/connect" id="connect-link" class="crayons-header__link" aria-label="Connect">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="ar6v8i7ih2s6pmg6v6rct53iopvgyw66" class="crayons-icon"><title id="ar6v8i7ih2s6pmg6v6rct53iopvgyw66">Connect</title>
+    <path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10H2l2.929-2.929A9.969 9.969 0 012 12zm4.828 8H12a8 8 0 10-8-8c0 2.152.851 4.165 2.343 5.657l1.414 1.414-.929.929zM8 13h8a4 4 0 11-8 0z"></path>
+</svg>
+
+          <span class="crayons-indicator crayons-indicator--accent hidden" id="connect-number"></span>
+        </a>
+
+        <a href="/notifications" id="notifications-link" class="crayons-header__link" aria-label="Notifications">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="a4ngz166ikruee66h40p42xpojr6ld0s" class="crayons-icon"><title id="a4ngz166ikruee66h40p42xpojr6ld0s">Notifications</title>
+    <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1116 0v7zm-2 0v-7a6 6 0 10-12 0v7h12zm-9 4h6v2H9v-2z"></path>
+</svg>
+
+          <span class="crayons-indicator crayons-indicator--critical hidden" id="notifications-number"></span>
+        </a>
+      <div class="crayons-header__menu desktop" id="crayons-header__menu">
+        <button type="button" class="crayons-header__menu__trigger" id="navigation-butt" aria-label="Navigation menu">
+            <span class="crayons-avatar crayons-avatar--l"><img class="crayons-avatar__image" alt="" id="nav-profile-image" width="32" height="32" src="https://res.cloudinary.com/practicaldev/image/fetch/s--_HA_fG1a--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/503766/2580c47b-77d1-4112-af07-e86b78b42c27.jpeg"></span>
+        </button>
+        <div class="crayons-dropdown left-2 right-2 s:left-auto p-0 crayons-header__menu__dropdown block">
+    <div id="user-profile-link-placeholder" class="border-0 border-b-1 border-solid border-base-20 p-1">
+      <a id="first-nav-link" class="crayons-link crayons-link--block" href="/devmehta">
+        <div>
+          <span class="fw-medium block">Dev Mehta</span>
+          <small class="fs-s color-base-50">@devmehta</small>
+        </div>
+      </a>
+    </div>
+
+    <div class="border-0 border-b-1 border-solid border-base-20 p-1">
+      <a href="/admin" class="crayons-link crayons-link--block js-header-menu-admin-link hidden" data-no-instant="">Admin</a>
+      <a href="/dashboard" class="crayons-link crayons-link--block">Dashboard</a>
+      <a href="/new" class="crayons-link crayons-link--block">Write a Post</a>
+      <a href="/readinglist" class="crayons-link crayons-link--block">Reading list</a>
+      <a href="/settings" class="crayons-link crayons-link--block">Settings</a>
+      <a href="/p/information" class="crayons-link crayons-link--block" id="second-last-nav-link">Key Links</a>
+    </div>
+    <div class="p-1">
+      <a href="/signout_confirm" class="crayons-link crayons-link--block" id="last-nav-link">Sign Out</a>
+    </div>
+
+</div>
+
+      </div>
+    </div>
+  </div>
+    <script async="">
+      // Here we have some scripts we want to get working on before
+      // waiting for the page to stream in.
+
+      // Load the current user's pic as quickly as it's available
+      var currentUser = localStorage.getItem('current_user')
+      var navProfilePic = document.getElementById('nav-profile-image')
+      if (currentUser && navProfilePic) {
+        navProfilePic.src = JSON.parse(currentUser).profile_image_90;
+      }
+
+      // Load notifications count as quickly as it's available.
+      // Not if we're on the notifications page itself
+      if (
+        window.location.pathname !== '/notifications'
+      ) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var count = xmlhttp.response;
+            if (isNaN(count)) {
+              document
+                .getElementById('notifications-number')
+                .classList.add('hidden');
+            } else if (count != '0' && count != undefined && count != '') {
+              document.getElementById('notifications-number').innerHTML =
+                xmlhttp.response;
+              document
+                .getElementById('notifications-number')
+                .classList.remove('hidden');
+            } else {
+              document
+                .getElementById('notifications-number')
+                .classList.add('hidden');
+            }
+          }
+        };
+
+        xmlhttp.open('GET', '/notifications/counts', true);
+        xmlhttp.send();
+      }
+    </script>
+</header>
+
+        <div id="active-broadcast" class="broadcast-wrapper"></div>
+        <div id="message-notice"></div>
+        <div class="app-shell-loader">
+          loading...
+        </div>
+    <!-- End Top Shell -->
+
+
+  
+    <meta charset="utf-8">
+    <title>DEV Community 👩&zwj;💻👨&zwj;💻</title>
+  
+
+  <div id="base-payment-pointer" data-payment-pointer="$ilp.uphold.com/24HhrUGG7ekn"></div>
+<style>.app-shell-loader {display: none;}</style>
+<div id="page-content" class="wrapper articles articles-new" data-current-page="articles-new">
+  <div id="page-content-inner">
+    
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js" integrity="sha384-3HK5hxQbkFqOIxMbpROlRmRtYl2LBZ52t+tqcjzsmr9NJuOWQxl8RgQSyFvq2lhy" crossorigin="anonymous" defer=""></script>
+
+  <style>
+  body {
+    padding-top: 0 !important;
+  }
+
+  .crayons-footer,
+  .crayons-header {
+    display: none;
+  }
+
+  .wrapper {
+    overflow: unset;
+  }
+</style>
+
+<div id="js-article-form" data-article="{&quot;id&quot;:null,&quot;title&quot;:null,&quot;updated_at&quot;:null,&quot;main_image&quot;:null,&quot;published&quot;:false,&quot;body_markdown&quot;:null,&quot;organization_id&quot;:null,&quot;canonical_url&quot;:null,&quot;cached_tag_list&quot;:null,&quot;series&quot;:null,&quot;all_series&quot;:[]}" data-organizations="[]" data-version="v2" data-site-logo="<a href=&quot;/&quot; class=&quot;site-logo&quot; aria-label=&quot;DEV Home&quot;>
+    <svg width=&quot;50&quot; height=&quot;40&quot; viewBox=&quot;0 0 50 40&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect width=&quot;50&quot; height=&quot;40&quot; rx=&quot;3&quot; style=&quot;fill: currentColor;&quot;/><path d=&quot;M19.099 23.508c0 1.31-.423 2.388-1.27 3.234-.838.839-1.942 1.258-3.312 1.258h-4.403V12.277h4.492c1.31 0 2.385.423 3.224 1.27.846.838 1.269 1.912 1.269 3.223v6.738zm-2.808 0V16.77c0-.562-.187-.981-.562-1.258-.374-.285-.748-.427-1.122-.427h-1.685v10.107h1.684c.375 0 .75-.138 1.123-.415.375-.285.562-.708.562-1.27zM28.185 28h-5.896c-.562 0-1.03-.187-1.404-.561-.375-.375-.562-.843-.562-1.404V14.243c0-.562.187-1.03.562-1.404.374-.375.842-.562 1.404-.562h5.896v2.808H23.13v3.65h3.088v2.808h-3.088v3.65h5.054V28zm7.12 0c-.936 0-1.684-.655-2.246-1.965l-3.65-13.758h3.089l2.807 10.804 2.808-10.804H41.2l-3.65 13.758C36.99 27.345 36.241 28 35.305 28z&quot; style=&quot;fill: var(--base-inverted);&quot;/></svg>
+</a>
+">
+  <form id="article-form" class="crayons-article-form"><div class="crayons-article-form__header"><span class="crayons-article-form__logo"><a href="/" class="site-logo" aria-label="DEV Home">
+    <svg width="50" height="40" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="40" rx="3" style="fill: currentColor;"></rect><path d="M19.099 23.508c0 1.31-.423 2.388-1.27 3.234-.838.839-1.942 1.258-3.312 1.258h-4.403V12.277h4.492c1.31 0 2.385.423 3.224 1.27.846.838 1.269 1.912 1.269 3.223v6.738zm-2.808 0V16.77c0-.562-.187-.981-.562-1.258-.374-.285-.748-.427-1.122-.427h-1.685v10.107h1.684c.375 0 .75-.138 1.123-.415.375-.285.562-.708.562-1.27zM28.185 28h-5.896c-.562 0-1.03-.187-1.404-.561-.375-.375-.562-.843-.562-1.404V14.243c0-.562.187-1.03.562-1.404.374-.375.842-.562 1.404-.562h5.896v2.808H23.13v3.65h3.088v2.808h-3.088v3.65h5.054V28zm7.12 0c-.936 0-1.684-.655-2.246-1.965l-3.65-13.758h3.089l2.807 10.804 2.808-10.804H41.2l-3.65 13.758C36.99 27.345 36.241 28 35.305 28z" style="fill: var(--base-inverted);"></path></svg>
+</a>
+</span><div class="crayons-field__label flex items-center flex-1"><span class="hidden s:inline-block mr-2 whitespace-nowrap">Write a new post</span></div><div class="crayons-article-form__tabs crayons-tabs ml-auto"><button type="button" class="crayons-tabs__item crayons-tabs__item--current">Edit</button><button type="button" class="crayons-tabs__item false">Preview</button></div><div class="crayons-article-form__close"><a href="/" title="" class="crayons-btn crayons-btn--ghost crayons-btn--icon"><svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="as1mn15llu5e032u2pgzlc6yhvss2myk"><title id="as1mn15llu5e032u2pgzlc6yhvss2myk">Close the editor</title><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z"></path></svg></a></div></div><div class="crayons-article-form__content crayons-card"><div class="crayons-article-form__top text-padding drop-area"><div class="crayons-article-form__cover" role="presentation"><div class="flex items-center"><button class="crayons-btn crayons-btn--outlined mr-2 whitespace-nowrap" type="button"><label for="cover-image-input">Add a cover image</label><input id="cover-image-input" type="file" accept="image/*" class="w-100 h-100 absolute left-0 right-0 top-0 bottom-0 overflow-hidden opacity-0 cursor-pointer" data-max-file-size-mb="25"></button></div></div><div data-testid="article-form__title" class="crayons-article-form__title"><textarea class="crayons-textfield crayons-textfield--ghost fs-3xl s:fs-4xl l:fs-5xl fw-bold s:fw-heavy lh-tight" type="text" id="article-form-title" aria-label="Post Title" placeholder="New post title here..." autocomplete="off" autofocus="" style="height: 38px;"></textarea></div><div class="crayons-article-form__tagsfield"><div class="crayons-article-form__tagswrapper crayons-field"><input data-testid="tag-input" aria-label="Post Tags" id="tag-input" type="text" class="crayons-textfield crayons-textfield--ghost ff-monospace crayons-article-form__tags" name="listing[tag_list]" placeholder="Add up to 4 tags..." autocomplete="off" pattern="[0-9A-Za-z, ]+"></div></div></div><div data-testid="article-form__body" class="crayons-article-form__body drop-area text-padding"><div class="crayons-article-form__toolbar false"><div class="flex items-center"><button class="crayons-btn crayons-btn--ghost crayons-btn--icon-left mr-2 fw-normal" tabindex="-1" type="button"><svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="a17qec5pfhrwzk9w4kg0tp62v27qqu9t"><title id="a17qec5pfhrwzk9w4kg0tp62v27qqu9t">Upload image</title><path d="M20 5H4v14l9.292-9.294a1 1 0 011.414 0L20 15.01V5zM2 3.993A1 1 0 012.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 01-.992.993H2.992A.993.993 0 012 20.007V3.993zM8 11a2 2 0 110-4 2 2 0 010 4z"></path></svg>Upload image<input type="file" id="image-upload-field" class="w-100 h-100 absolute left-0 right-0 top-0 bottom-0 overflow-hidden opacity-0 cursor-pointer" multiple="" accept="image/*" data-max-file-size-mb="25" aria-label="Upload an image"></button></div></div><textarea class="crayons-textfield crayons-textfield--ghost crayons-article-form__body__field" id="article_body_markdown" aria-label="Post Content" placeholder="Write your post content here..." name="body_markdown" style="height: 27px;"></textarea></div></div><div class="crayons-article-form__aside"><div data-testid="article-form__help-section" class="sticky" style="top: 292px;"><div data-testid="format-help" class="crayons-article-form__help crayons-article-form__help--body"><h4 class="mb-2 fs-l">Editor Basics</h4><ul class="list-disc pl-6 color-base-70"><li>Use <a href="#markdown">Markdown</a> to write and format posts.<details class="fs-s my-1"><summary class="cursor-pointer">Commonly used syntax</summary><table class="crayons-card crayons-card--secondary crayons-table crayons-table--compact w-100 mt-2 mb-4 lh-tight"><tbody><tr><td class="ff-monospace"># Header<br>...<br>###### Header</td><td>H1 Header<br>...<br>H6 Header</td></tr><tr><td class="ff-monospace">*italics* or _italics_</td><td><em>italics</em></td></tr><tr><td class="ff-monospace">**bold**</td><td><strong>bold</strong></td></tr><tr><td class="ff-monospace">[Link](https://...)</td><td><a href="https://forem.com">Link</a></td></tr><tr><td class="ff-monospace">* item 1<br>* item 2</td><td><ul class="list-disc ml-5"><li>item 1</li><li>item 2</li></ul></td></tr><tr><td class="ff-monospace">1. item 1<br>2. item 2</td><td><ul class="list-decimal ml-5"><li>item 1</li><li>item 2</li></ul></td></tr><tr><td class="ff-monospace">&gt; quoted text</td><td><span class="pl-2 border-0 border-solid border-l-4 border-base-50">quoted text</span></td></tr><tr><td class="ff-monospace">`inline code`</td><td><code>inline code</code></td></tr><tr><td class="ff-monospace"><span class="fs-xs">```</span><br>code block<br><span class="fs-xs">```</span></td><td><div class="highlight p-2 overflow-hidden"><code>code block</code></div></td></tr></tbody></table></details></li><li>You can use <a href="#liquid">Liquid tags</a> to add rich content such as Tweets, YouTube videos, etc.</li><li>In addition to images for the post's content, you can also drag and drop a cover image</li></ul></div></div></div><div class="crayons-article-form__footer"><button class="crayons-btn mr-2 whitespace-nowrap" type="button">Publish</button><button class="crayons-btn crayons-btn--secondary mr-2 whitespace-nowrap" type="button">Save <span class="hidden s:inline">draft</span></button><div class="s:relative"><button class="crayons-btn crayons-btn--ghost crayons-btn--icon" title="Post options" type="button"><svg width="24" class="crayons-icon" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="75abcb76478519ca4eb9"><title id="75abcb76478519ca4eb9">Post options</title><path d="M12 1l9.5 5.5v11L12 23l-9.5-5.5v-11L12 1zm0 2.311L4.5 7.653v8.694l7.5 4.342 7.5-4.342V7.653L12 3.311zM12 16a4 4 0 110-8 4 4 0 010 8zm0-2a2 2 0 100-4 2 2 0 000 4z"></path></svg></button></div><button class="crayons-btn crayons-btn--ghost crayons-btn--s whitespace-nowrap fw-normal" type="button">Revert <span class="hidden s:inline">new changes</span></button></div></form>
+</div>
+
+<div class="hidden">
+  <div id="editor-markdown-help">
+  <div class="text-styles">
+    <p>Below are some examples of commonly used markdown syntax. If you want to dive deeper, check out
+      <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet" target="_blank" rel="noopener">this cheat sheet.</a>
+    </p>
+
+    <h3>Bold &amp; Italic</h3>
+    <p><em>Italics</em>: <code>*asterisks* or _underscores_</code></p>
+    <p><strong>Bold</strong>: <code>**double asterisks** or __double underscores__</code></p>
+
+    <h3>Links</h3>
+    <p><a href="https://dev.to">I'm an inline link</a>: <code>[I'm an inline link](put-link-here)</code></p>
+    <p><a name="anchored">Anchored links</a> (For things like a Table of Contents)</p>
+    <pre>      ## Table Of Contents
+        * [Chapter 1](#chapter-1)
+        * [Chapter 2](#chapter-2)
+
+      ### Chapter 1 &lt;a name="chapter-1"&gt;&lt;/a&gt;
+    </pre>
+
+    <h3>Inline Images</h3>
+    <p>
+      When adding GIFs to posts and comments, please note that there is a limit of 200 megapixels per frame/page.
+      <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--OsLaFSo9--/c_fill,f_auto,fl_progressive,h_220,q_auto,w_220/https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/31047/af153cd6-9994-4a68-83f4-8ddf3e13f0bf.jpg" alt="example image, with sloan">
+    </p>
+    <pre>![Alt text of image](put-link-to-image-here)</pre>
+    <figcaption> You can even add a caption using the HTML <code>figcaption</code> tag!</figcaption>
+
+    <h3>Headers</h3>
+    <p>Add a header to your post with this syntax:</p>
+    <pre># One '#' for a h1 header<br>## Two '#'s for a h2 header<br>...<br>###### Six '#'s for a h6 header</pre>
+    <h1>One '#' for a h1 header</h1>
+    <h2>Two '#'s for a h2 header</h2>
+    <h3>Three '#'s for a h3 header</h3>
+    <h4>Four '#'s for a h4 header</h4>
+    <h5>Five '#'s for a h5 header</h5>
+    <h6>Six '#'s for a h6 header</h6>
+
+    <h3>Author Notes/Comments</h3>
+    <p>Add some hidden notes/comments to your article with this syntax:</p>
+    <pre>&lt;!-- This won't show up in the content! --&gt;</pre>
+
+    <h3>Common Gotchas</h3>
+    <p>
+      Lists are written just like any other Markdown editor.
+      If you're adding an image in between numbered list, though, be sure to tab the image,
+      otherwise it'll restart the number of the list.
+      Here's an example of what to do:
+      <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--HjVUshkb--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/8l29vxiir8k5d097o9o8.png" alt="example image of writing lists with images in Markdown">
+    </p>
+    <p>
+      Here's the <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet" target="_blank" rel="noopener">Markdown cheatsheet</a> again for reference.
+    </p>
+  </div>
+</div>
+
+
+</div>
+
+  <div id="editor-frontmatter-help">
+  <div class="text-styles">
+    <div class="crayons-notice crayons-notice--info">
+      <p><strong>We have two editor versions</strong>. If you'd prefer to edit title and tags etc. as separate fields, switch to the "rich + markdown" option in <a href="/settings/ux">Settings » UX</a>. Otherwise, continue...</p>
+    </div>
+
+    <ul>
+      <li>This editor is a markdown editor that uses <a href="https://jekyllrb.com/docs/frontmatter">Jekyll front matter</a>.</li>
+      <li>Most of the time, you can write inline HTML directly into your posts.</li>
+      <li>We support native Liquid tags and created some fun custom ones, too! Trying embedding a Tweet or GitHub issue in your post.</li>
+      <li>Links to unpublished posts are shareable for feedback/review.</li>
+      <li>When you're ready to publish, set the published variable to <strong>true.</strong></li>
+    </ul>
+
+    <h3>Front Matter</h3>
+    <p>Custom variables set for each post, located between the triple-dashed lines in your editor. Here is a list of possibilities:</p>
+    <ul>
+      <li><strong>title:</strong> the title of your article</li>
+      <li><strong>published:</strong> boolean that determines whether or not your article is published</li>
+      <li><strong>description:</strong> description area in Twitter cards and open graph cards</li>
+      <li><strong>tags:</strong> max of four tags, needs to be comma-separated</li>
+      <li><strong>canonical_url:</strong> link for the canonical version of the content</li>
+      <li><strong>cover_image:</strong> cover image for post, accepts a URL. <br>The best size is 1000 x 420.</li>
+      <li><strong>series:</strong> post series name.</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<script async="">
+  function activateRunkitTags() {
+  if (!areAnyRunkitTagsPresent())
+    return
+
+  var checkRunkit = setInterval(function() {
+    try {
+      dynamicallyLoadRunkitLibrary()
+
+      if (typeof(RunKit) === 'undefined') {
+        return
+      }
+
+      replaceTagContentsWithRunkitWidget()
+      clearInterval(checkRunkit);
+    } catch(e) {
+      console.error(e);
+      clearInterval(checkRunkit);
+    }
+  }, 200);
+}
+
+function isRunkitTagAlreadyActive(runkitTag) {
+  return runkitTag.querySelector("iframe") !== null;
+};
+
+function areAnyRunkitTagsPresent() {
+  var presentRunkitTags = document.getElementsByClassName("runkit-element");
+
+  return presentRunkitTags.length > 0
+}
+
+function replaceTagContentsWithRunkitWidget() {
+  var targets = document.getElementsByClassName("runkit-element");
+  for (var i = 0; i < targets.length; i++) {
+    if (isRunkitTagAlreadyActive(targets[i])) {
+      continue;
+    }
+
+    var wrapperContent = targets[i].textContent;
+    if (/^(<iframe src)/.test(wrapperContent) === false) {
+      if (targets[i].children.length > 0) {
+        var preamble = targets[i].children[0].textContent;
+        var content = targets[i].children[1].textContent;
+        targets[i].innerHTML = "";
+        var notebook = RunKit.createNotebook({
+          element: targets[i],
+          source: content,
+          preamble: preamble
+        });
+      }
+    }
+  }
+};
+
+function dynamicallyLoadRunkitLibrary() {
+  if (typeof(dynamicallyLoadScript) === "undefined")
+    return
+
+  dynamicallyLoadScript("//embed.runkit.com")
+}
+
+activateRunkitTags();
+
+</script>
+
+  <script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~clipboardCopy-fca68f3ece57b0176f01.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/clipboardCopy-517ce7723117a01d360f.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~articleForm-82f060907a85b449c9e1.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/vendor-8a8dc187209d74194878.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/default~Chat~articleForm-218b9c6f955b35560d83.chunk.js" defer="defer"></script>
+<script src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/articleForm-8259887e20b0a44c88ba.chunk.js" defer="defer"></script>
+
+  </div>
+</div>
+<!-- Start Bottom Shell -->
+
+<!-- Start Bottom Shell -->
+    <footer class="crayons-footer print-hidden">
+  <div id="footer-container" class="crayons-layout crayons-footer__container">
+    <div class="crayons-footer__info">
+      <div><a href="/" class="site-logo" aria-label="DEV Home">
+    <svg width="50" height="40" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="40" rx="3" style="fill: currentColor;"></rect><path d="M19.099 23.508c0 1.31-.423 2.388-1.27 3.234-.838.839-1.942 1.258-3.312 1.258h-4.403V12.277h4.492c1.31 0 2.385.423 3.224 1.27.846.838 1.269 1.912 1.269 3.223v6.738zm-2.808 0V16.77c0-.562-.187-.981-.562-1.258-.374-.285-.748-.427-1.122-.427h-1.685v10.107h1.684c.375 0 .75-.138 1.123-.415.375-.285.562-.708.562-1.27zM28.185 28h-5.896c-.562 0-1.03-.187-1.404-.561-.375-.375-.562-.843-.562-1.404V14.243c0-.562.187-1.03.562-1.404.374-.375.842-.562 1.404-.562h5.896v2.808H23.13v3.65h3.088v2.808h-3.088v3.65h5.054V28zm7.12 0c-.936 0-1.684-.655-2.246-1.965l-3.65-13.758h3.089l2.807 10.804 2.808-10.804H41.2l-3.65 13.758C36.99 27.345 36.241 28 35.305 28z" style="fill: var(--base-inverted);"></path></svg>
+</a>
+</div>
+      <p>A constructive and inclusive social network. Open source and radically transparent.</p>
+      <div>  <a href="https://twitter.com/thepracticaldev" target="_blank" class="crayons-link crayons-link--secondary mx-2" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="a26kzrkj1afpt9ctsqerheq4b6ly8spg" class="crayons-icon"><title id="a26kzrkj1afpt9ctsqerheq4b6ly8spg">Twitter</title>
+    <path d="M22.162 5.656a8.383 8.383 0 01-2.402.658A4.196 4.196 0 0021.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 00-7.126 3.814 11.874 11.874 0 01-8.62-4.37 4.168 4.168 0 00-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 01-1.894-.523v.052a4.185 4.185 0 003.355 4.101 4.211 4.211 0 01-1.89.072A4.185 4.185 0 007.97 16.65a8.395 8.395 0 01-6.191 1.732 11.83 11.83 0 006.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.495 8.495 0 002.087-2.165l-.001-.001z" fill="#65bbf2"></path>
+</svg>
+
+  </a>
+  <a href="https://facebook.com/thepracticaldev" target="_blank" class="crayons-link crayons-link--secondary mx-2" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="agriufi11rtmaxgf1vk5dg6dobjdut73" class="crayons-icon"><title id="agriufi11rtmaxgf1vk5dg6dobjdut73">Facebook</title>
+    <path d="M15.402 21v-6.966h2.333l.349-2.708h-2.682V9.598c0-.784.218-1.319 1.342-1.319h1.434V5.857a19.188 19.188 0 00-2.09-.107c-2.067 0-3.482 1.262-3.482 3.58v1.996h-2.338v2.708h2.338V21H4a1 1 0 01-1-1V4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1h-4.598z"></path>
+</svg>
+
+  </a>
+  <a href="https://github.com/thepracticaldev" target="_blank" class="crayons-link crayons-link--secondary mx-2" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="acr7hd16n6k5kmp3txc4sk9zaniek4oj" class="crayons-icon"><title id="acr7hd16n6k5kmp3txc4sk9zaniek4oj">Github</title>
+    <path d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 006.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 012.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0022 12c0-5.525-4.475-10-10-10z"></path>
+</svg>
+
+  </a>
+  <a href="https://instagram.com/thepracticaldev" target="_blank" class="crayons-link crayons-link--secondary mx-2" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="app1cjidilzueawdiz919cy7hqlvzsx0" class="crayons-icon"><title id="app1cjidilzueawdiz919cy7hqlvzsx0">Instagram</title>
+    <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"></path>
+</svg>
+
+  </a>
+  <a href="https://twitch.com/thepracticaldev" target="_blank" class="crayons-link crayons-link--secondary mx-2" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="aaoa1irlc7u10ggitwlkd5pwby62q9sg" class="crayons-icon"><title id="aaoa1irlc7u10ggitwlkd5pwby62q9sg">Twitch</title>
+    <path d="M4.3 3H21v11.7l-4.7 4.7h-3.9l-2.5 2.4H7v-2.4H3V6.2L4.3 3zM5 17.4h4v2.4h.095l2.5-2.4h3.877L19 13.872V5H5v12.4zM15 8h2v4.7h-2V8zm0 0h2v4.7h-2V8zm-5 0h2v4.7h-2V8z"></path>
+</svg>
+
+  </a>
+</div>
+      <p class="fs-xs color-base-60">DEV Community copyright 2016 - 2020</p>
+      <p class="fs-xs color-base-60">Built on <a href="https://www.forem.com">Forem</a> — the <a href="https://dev.to/t/opensource">open source</a> software that powers <a href="https://dev.to">DEV</a> and other inclusive communities.</p>
+      <p class="fs-xs color-base-60">Made with love and <a href="https://dev.to/t/rails">Ruby on Rails</a>.</p>
+    </div>
+
+    <nav class="crayons-footer__nav">
+        <a href="/" class="crayons-link crayons-link--block">Home</a>
+            <a href="https://dev.to/readinglist" class="crayons-link crayons-link--block">
+              Reading List
+            </a>
+            <a href="https://dev.to/listings" class="crayons-link crayons-link--block">
+              Listings
+            </a>
+            <a href="https://dev.to/pod" class="crayons-link crayons-link--block">
+              Podcasts
+            </a>
+            <a href="https://dev.to/videos" class="crayons-link crayons-link--block">
+              Videos
+            </a>
+            <a href="https://dev.to/tags" class="crayons-link crayons-link--block">
+              Tags
+            </a>
+            <a href="https://dev.to/code-of-conduct" class="crayons-link crayons-link--block">
+              Code of Conduct
+            </a>
+            <a href="https://dev.to/faq" class="crayons-link crayons-link--block">
+              FAQ
+            </a>
+            <a href="https://shop.dev.to/" class="crayons-link crayons-link--block">
+              DEV Shop
+            </a>
+            <a href="https://dev.to/sponsors" class="crayons-link crayons-link--block">
+              Sponsors
+            </a>
+            <a href="https://dev.to/about" class="crayons-link crayons-link--block">
+              About
+            </a>
+            <a href="https://dev.to/privacy" class="crayons-link crayons-link--block">
+              Privacy Policy
+            </a>
+            <a href="https://dev.to/terms" class="crayons-link crayons-link--block">
+              Terms of use
+            </a>
+            <a href="https://dev.to/contact" class="crayons-link crayons-link--block">
+              Contact
+            </a>
+          <a href="/new" class="crayons-link crayons-link--block fw-bold">Write a post</a>
+    </nav>
+
+      <img class="crayons-footer__mascot" alt="Sloan, the sloth mascot" width="52" height="120" loading="lazy" src="https://res.cloudinary.com/practicaldev/image/fetch/s--4RkRuwpj--/c_limit,f_auto,fl_progressive,q_auto,w_100/https://dev-to-uploads.s3.amazonaws.com/i/wmv3mtusjwb3r13d5h2f.png">
+  </div>
+</footer>
+<div id="snack-zone"><div class="hidden"></div></div>
+
+    
+  <div id="live-article-indicator" class="live-article-indicator"></div>
+  <img class="icon-img" style="display:none" alt="twitter logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/twitter-logo-7693bfa09ce3f28fea334a5dcf36ddf1c8d58b01bbfd78cca3b1383498bd86a8.svg">
+  <img class="icon-img" style="display:none" alt="github logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/github-logo-ba8488d21cd8ee1fee097b8410db9deaa41d0ca30b004c0c63de0a479114156f.svg">
+    <script defer="">
+      if (!document.title) {
+        document.title = document.getElementsByTagName("TITLE")[1].textContent
+      }
+    </script>
+  
+  
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="https://platform.twitter.com/widgets/widget_iframe.96fd96193cc66c3e11d4c5e4c7c7ec97.html?origin=https%3A%2F%2Fdev.to" title="Twitter settings iframe" style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe"></iframe><textarea style="letter-spacing:normal;line-height:27px;padding-top:0px;padding-bottom:0px;font-family:&quot;SF Mono&quot;, SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;font-weight:400;font-size:18px;text-rendering:auto;text-transform:none;width:336px;text-indent:0px;padding-left:0px;padding-right:0px;border-width:0px;box-sizing:border-box;
+  min-height:0 !important;
+  max-height:none !important;
+  height:0 !important;
+  visibility:hidden !important;
+  overflow:hidden !important;
+  position:absolute !important;
+  z-index:-1000 !important;
+  top:0 !important;
+  right:0 !important
+"></textarea></body></html>

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="/">CodeSpot</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-icon"></span>
+    <span class="navbar-icon"></span>
+    <span class="navbar-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+      </li>
+  	</ul>
+    <nav class="ml-auto">
+      <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link btn-login" href="{% url 'login' %}" style="color: #000"><b>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
+    </li>
+    <li class="nav-item">
+    	<a class="nav-link" href="{% url 'register' %}"><b>Sign Up</b></a>
+    </li>
+  </ul>
+  </nav>
+</div>
+</nav>
+{% include "homepage_styles.html" %}
+<div class="container">
+	&nbsp;
+	<h3>A Community for the Programmers<br/> by a Programmer.</h3>
+	<br/>
+	<h3>Why Choose CodeSpot?</h3>
+	<h4>Because we believe in learning and sharing the knowledge to the community. You can share your knowledge here and learn from the top developers here, at the same place.</h4>
+	<center>
+		<br/>&nbsp;
+		<h2>Let's Start Learning</h2>
+		<br/>
+		<a href="{% url 'login' %}" class="btn-login" style="padding: 8px 40px;color: #000;font-size: 1.2rem;">Login</a>
+		&nbsp;
+		<a href="{% url 'register' %}" class="btn-login-outline" style="padding: 8px 30px;font-size: 1.2rem;color: #7ef957;">Register</a>
+    <p>&nbsp;</p>
+	</center>
+</div>
