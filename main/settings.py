@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'posts',
     'django_humanize',
+    'social_django'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -65,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -131,6 +136,19 @@ STATICFILES_DIRS = [
 # List of finder classes that know how to find static files in
 # various locations.
 # Login / Logout
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
+#  9222417c54075c89df52 
+# d35e4435f65f24a2331cfbbc8e2cd1ad3e01f259
+
+SOCIAL_AUTH_GITHUB_KEY = '9222417c54075c89df52'
+SOCIAL_AUTH_GITHUB_SECRET = 'd35e4435f65f24a2331cfbbc8e2cd1ad3e01f259'

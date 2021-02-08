@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="js-focus-visible" data-js-focus-visible="" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %} | CodeSpot Community 👩‍💻👨‍💻</title>
+    <link
+      rel="stylesheet"
+      media="all"
+      href="{% static 'css/crayons.css' %}"
+      id="main-crayons-stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      media="all"
+      href="{% static 'css/views.css' %}"
+      id="main-views-stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      media="all"
+      href="{% static 'css/minimal.css' %}"
+      id="main-minimal-stylesheet"
+    />
+
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/base-45c8fbe2d46d136491bf06fff5ef8ab0dd62f8d88074e24d6f3aa16a70ad30c5.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~base-0701f8139caa84b864fd.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/base-1e737414637b0bca8ac4.chunk.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~Search-cbf9c2b90b077c9a962f.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/vendors~Search-04687a41f54dccc0f386.chunk.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/Search-401583b9fa38be7cbd36.chunk.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~onboardingRedirectCheck-9df1c4b1ca15cf7c997b.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/vendors~Chat~Onboarding~articleForm~onboardingRedirectCheck-cef47f5b31584b449935.chunk.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/onboardingRedirectCheck-024db3855c79ba23738b.chunk.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~contentDisplayPolicy-c875c11a1d5d16b9fcac.js"
+      defer="defer"
+    ></script>
+    <script
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/contentDisplayPolicy-3cc5225fa4915b68856d.chunk.js"
+      defer="defer"
+    ></script>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'images/logo.png' %}"
+    />
+    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="{% static 'images/logo.png' %}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'images/logo.png' %}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="{% static 'images/logo.png' %}"
+    />
+    <link href="{% static 'images/logo.png' %}" rel="icon" sizes="192x192" />
+    <link href="{% static 'images/logo.png' %}" rel="icon" sizes="128x128" />
+    <meta name="apple-mobile-web-app-title" content="codespot" />
+    <meta name="application-name" content="codespot" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="{% static 'manifest.json' %}" />
+    <link
+      rel="search"
+      href="https://dev.to/open-search.xml"
+      type="application/opensearchdescription+xml"
+      title="DEV Community"
+    />
+    <script
+      charset="utf-8"
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/3-374dc5b180e8e53fe820.chunk.js"
+    ></script>
+    <script
+      charset="utf-8"
+      src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/92-2882958d89c0c280f8b1.chunk.js"
+    ></script>
+  </head>
+  <body
+    class="default sans-serif-article-body trusted-status-false default-header user-tags-followed-max"
+    >
+    <div id="body-styles">
+      <style>
+        :root {
+          --accent-brand: #3b49df;
+          --accent-brand-darker: #323ebe;
+          --accent-brand-lighter: #4150f5;
+          --accent-brand-a10: rgba(59, 73, 223, 0.1);
+        }
+      </style>
+    </div>
+    <div id="audiocontent" data-podcast=""></div>
+    <div class="navigation-progress" id="navigation-progress"></div>
+    
+    {% include 'header.html' %}
+    
+    {% block body %}
+    {% endblock %}
+    {% include 'footer.html' %}
+    <div id="snack-zone"></div>
+    <script defer="">
+      if (!document.title) {
+        document.title = document.getElementsByTagName("TITLE")[1].textContent;
+      }
+    </script>
+  </body>
+</html>

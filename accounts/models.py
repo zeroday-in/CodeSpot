@@ -1,5 +1,6 @@
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, PermissionsMixin, User
 from hashlib import sha256
 from io import BytesIO
 from PIL import Image
@@ -17,6 +18,9 @@ def compress(image):
 
 class Profile(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=80)
+	email = models.EmailField()
+	location = models.CharField(max_length=255)
 	profile_picture = models.ImageField(upload_to='media/images/profile_picture', max_length=500)
 	bio = models.TextField()
 	website = models.URLField(blank=True)
@@ -27,3 +31,4 @@ class Profile(models.Model):
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)
+		

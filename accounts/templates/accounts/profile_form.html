@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Create Profile
+{% endblock %}
+{% block body %}
+<div id="page-content" class="wrapper users users-edit">
+    <div class="crayons-layout crayons-layout--limited-l crayons-layout--1-col p-4">
+        <div class="crayons-card crayons-card--content-rows">
+            <h1 class="crayons-title">Create Profile</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% for i in form %}
+                    <div class="crayons-field">
+                        <label for="{{i.id_for_label}}">{{i.name.capitalize}}</label>
+                    {{i}}
+                    </div>
+                {% endfor %}
+                {% csrf_token %}
+                <p>&nbsp;</p>
+                <p>{{form.errors}}</p>
+                <button type="submit" class="crayons-btn" style="width: 100%;">Save Profile Information</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        document.querySelector('#id_name').classList.add('crayons-textfield')
+        document.querySelector('#id_email').classList.add('crayons-textfield')
+        document.querySelector('#id_bio').classList.add('crayons-textfield')
+        document.querySelector('#id_location').classList.add('crayons-textfield')
+        document.querySelector('#id_website').classList.add('crayons-textfield')    
+    }
+</script>
+{% endblock %}
