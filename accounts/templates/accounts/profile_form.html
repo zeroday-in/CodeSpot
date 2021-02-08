@@ -8,12 +8,16 @@ Create Profile
 <div id="page-content" class="wrapper users users-edit">
     <div class="crayons-layout crayons-layout--limited-l crayons-layout--1-col p-4">
         <div class="crayons-card crayons-card--content-rows">
-            <h1 class="crayons-title">Create Profile</h1>
+            <h1 class="crayons-title">Update Profile</h1>
             <form method="POST" enctype="multipart/form-data">
                 {% for i in form %}
                     <div class="crayons-field">
-                        <label for="{{i.id_for_label}}">{{i.name.capitalize}}</label>
-                    {{i}}
+					{% if i.field.required %}
+						<label for="{{i.id_for_label}}">{{i.name.capitalize}}*</label>
+					{% else %}
+					<label for="{{i.id_for_label}}">{{i.name.capitalize}}</label>
+					{% endif %}
+					{{i}}
                     </div>
                 {% endfor %}
                 {% csrf_token %}
@@ -30,6 +34,7 @@ Create Profile
         document.querySelector('#id_email').classList.add('crayons-textfield')
         document.querySelector('#id_bio').classList.add('crayons-textfield')
         document.querySelector('#id_location').classList.add('crayons-textfield')
+        document.querySelector('#id_bio').rows = 2;
         document.querySelector('#id_website').classList.add('crayons-textfield')    
     }
 </script>

@@ -11,5 +11,7 @@ urlpatterns = [
         extra_context={'user_count':User.objects.all().count()}
     ), name='login'),
     path('', login_required(views.HomePage.as_view()), name='home'),
-    path('<str:username>/create-profile/', login_required(views.CreateProfile.as_view()), name='create-profile'),
+    path('<slug:username>/create-profile/', login_required(views.CreateProfile.as_view()), name='create_profile'),
+	path('<slug:username>/', login_required(views.DetailProfile.as_view()), name='detail_profile'),
+	path('<slug:username>/edit-profile/',login_required(views.UpdateProfile.as_view()), name='update_profile')
 ]

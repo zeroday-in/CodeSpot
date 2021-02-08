@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Update Profile
+{% endblock %}
+{% block body %}
+<div id="page-content" class="wrapper users users-edit">
+    <div class="crayons-layout crayons-layout--limited-l crayons-layout--1-col p-4">
+        <div class="crayons-card crayons-card--content-rows">
+            <h1 class="crayons-title">Update Profile</h1>
+            <form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+                {% for i in form %}
+                    <div class="crayons-field">
+					{% ifequal i.name "profile_picture" %}
+						<label for="{{i.id_for_label}}">Profile Picture*</label>
+						<img id="profile_preview" 
+						src="{{profile.profile_picture.url}}" 
+						width="50"
+						height="50"
+						style="border: 2px solid #000;border-radius: 50%;"
+						alt="">
+						{{i}}
+					{% else %}
+						{% if i.field.required %}
+							<label for="{{i.id_for_label}}">{{i.name.capitalize}}*</label>
+						{% else %}
+						<label for="{{i.id_for_label}}">{{i.name.capitalize}}</label>
+						{% endif %}
+						{{i}}
+					{% endifequal %}
+                    </div>
+                {% endfor %}
+                {% csrf_token %}
+                <p>&nbsp;</p>
+                <p>{{form.errors}}</p>
+                <button type="submit" class="crayons-btn" style="width: 100%;">Save Profile Information</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        document.querySelector('#id_name').classList.add('crayons-textfield')
+        document.querySelector('#id_email').classList.add('crayons-textfield')
+        document.querySelector('#id_bio').classList.add('crayons-textfield')
+        document.querySelector('#id_location').classList.add('crayons-textfield')
+        document.querySelector('#id_bio').rows = 2;
+        document.querySelector('#id_website').classList.add('crayons-textfield')    
+		const name = "{{profile.name}}"
+		const bio = "{{profile.bio}}"
+		const location = "{{profile.location}}"
+		const email = "{{profile.email}}"
+		const website = "{{profile.webiste}}"
+		const profile_picture = "{{profile.profile_picture.url}}"
+		document.querySelector('#id_name').value = name;
+		document.querySelector('#id_email').value = email;
+		document.querySelector('#id_bio').value = bio;
+		document.querySelector('#id_location').value = location;
+		document.querySelector('#id_website').value = website;
+	}
+	const profile_picture_i = document.getElementById("id_profile_picture");
+	profile_picture_i.onchange = function(){
+		if (profile_picture_i.files && profile_picture_i.files[0]) {
+			var reader = new FileReader();			
+			reader.onload = function(e) {
+				document.querySelector('#profile_preview').src = e.target.result;
+			}
+			reader.readAsDataURL(profile_picture_i.files[0]);
+		}
+	};	
+</script>
+{% endblock %}

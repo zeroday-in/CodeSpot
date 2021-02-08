@@ -1,0 +1,668 @@
+{% extends 'base.html' %}
+ {% block title %} Profile {{request.user}} 
+{% endblock %} 
+{% block body %}
+<div
+  id="page-content"
+  class="wrapper stories stories-index"
+  data-current-page="stories-index"
+>
+  <div id="page-content-inner">
+    <style>
+      :root {
+        --profile-brand-color: #000000;
+      }
+    </style>
+    <div class="brand-bg">
+      <div class="crayons-layout crayons-layout--limited-l pt-7 m:pt-9">
+        <header class="profile-header crayons-card mt-2">
+          <div class="relative profile-header__top">
+            <span class="crayons-avatar crayons-avatar--3xl">
+              <img
+                src="{{profile.profile_picture.url}}"
+                alt="{{profile}} profile picture"
+                class="crayons-avatar__image"
+                width="128"
+                height="128"
+              />
+            </span>
+
+            <div class="profile-header__actions">
+              <div
+                class="profile-dropdown mr-2 relative"
+              >
+                <button
+                  id="user-profile-dropdown"
+                  class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    role="img"
+                    aria-labelledby="ajlge30w0qd3buvi8gw59hgeogb5y9ph"
+                    class="dropdown-icon crayons-icon"
+                  >
+                    <title id="ajlge30w0qd3buvi8gw59hgeogb5y9ph">
+                      Toggle dropdown menu
+                    </title>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7 12a2 2 0 11-4 0 2 2 0 014 0zm7 0a2 2 0 11-4 0 2 2 0 014 0zm5 2a2 2 0 100-4 2 2 0 000 4z"
+                    ></path>
+                  </svg>
+                </button>
+
+                <div
+                  id="user-profile-dropdownmenu"
+                  class="crayons-dropdown top-100 right-0 p-1"
+                >
+                  <a
+                    href="javascript:void(0);"
+                    id="user-profile-dropdownmenu-block-button"
+                    data-profile-user-id="503766"
+                    class="border-none crayons-link crayons-link--block"
+                    style="display: none"
+                    >Block @devmehta</a
+                  >
+                  <script
+                    src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~profileDropdown-5087c13b938e8c6a0747.js"
+                    defer="defer"
+                  ></script>
+                  <script
+                    src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/profileDropdown-1aebbcb3a13de7041fe8.chunk.js"
+                    defer="defer"
+                  ></script>
+                  <span
+                    class="report-abuse-link-wrapper"
+                    data-path="/report-abuse?url=https://dev.to/devmehta"
+                  ></span>
+                </div>
+              </div>
+              <a
+                href="/connect/@devmehta"
+                class="hidden mr-2"
+                id="user-connect-redirect"
+              >
+                <button
+                  class="chat-action-button crayons-btn crayons-btn--outlined hidden"
+                  id="modal-opener"
+                >
+                  Chat
+                </button>
+              </a>
+              <a
+			  	href="/{{profile}}/edit-profile"
+				target="_blank"
+                id="user-follow-butt"
+                class="crayons-btn whitespace-nowrap follow-action-button user-profile-follow-button showing"
+              >
+                Edit profile
+			  </a>
+            </div>
+          </div>
+
+          <div class="profile-header__details">
+            <h1 class="crayons-title fw-heavy mb-2">{{profile.name}}</h1>
+            <p
+              class="fs-base m:fs-l color-base-90 mb-4 mx-auto max-w-100 m:max-w-75"
+            >
+              {{profile.bio|linebreaks}}
+            </p>
+
+            <div class="profile-header__meta">
+              <span class="profile-header__meta__item">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-labelledby="aq36heco5nvojiahxeehb84fy8tydeah"
+                  class="crayons-icon mr-2 shrink-0"
+                >
+                  <title id="aq36heco5nvojiahxeehb84fy8tydeah">Joined</title>
+                  <path
+                    d="M8 6v3.999h3V6h2v3.999h3V6h2v3.999L19 10a3 3 0 012.995 2.824L22 13v1c0 1.014-.377 1.94-.999 2.645L21 21a1 1 0 01-1 1H4a1 1 0 01-1-1v-4.36a4.025 4.025 0 01-.972-2.182l-.022-.253L2 14v-1a3 3 0 012.824-2.995L5 10l1-.001V6h2zm11 6H5a1 1 0 00-.993.883L4 13v.971l.003.147a2 2 0 003.303 1.4c.363-.312.602-.744.674-1.218l.015-.153.005-.176c.036-1.248 1.827-1.293 1.989-.134l.01.134.004.147a2 2 0 003.992.031l.012-.282c.124-1.156 1.862-1.156 1.986 0l.012.282a2 2 0 003.99 0L20 14v-1a1 1 0 00-.883-.993L19 12zM7 1c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 11-2.898-.776C5.85 2.002 7 2.5 7 1zm5 0c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 01-2.898-.776C10.85 2.002 12 2.5 12 1zm5 0c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 01-2.898-.776C15.85 2.002 17 2.5 17 1z"
+                  ></path>
+                </svg>
+
+                Joined on&nbsp;
+                <time class="date"
+                  >{{profile.user.date_joined.date}}</time
+                >
+              </span>
+			  {% if profile.website %}
+              <span class="profile-header__meta__item -ml-1">
+                <a
+                  href="{{profile.website}}"
+                  target="_blank"
+                  rel="noopener nofollow me"
+                  class="px-1 align-middle inline-block"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-labelledby="arcjn7ryk1oymjbyph5mevzjqw82gq1r"
+                    class="crayons-icon"
+                  >
+                    <title id="arcjn7ryk1oymjbyph5mevzjqw82gq1r">
+                      External link icon
+                    </title>
+                    <path
+                      d="M10 6v2H5v11h11v-5h2v6a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1h6zm11-3v8h-2V6.413l-7.793 7.794-1.414-1.414L17.585 5H13V3h8z"
+                    ></path>
+                  </svg>
+                </a>
+              </span>
+			  {% endif %}
+            </div>
+          </div>
+
+          <div class="profile-header__bottom fs-base">
+            <div class="crayons-definition">
+              <strong class="crayons-definition__title">Work</strong>
+              <p class="crayons-definition__value">
+                Full Stack Web Developer
+                <span class="opacity-50"> at </span>
+                Self Employed
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3 pt-0 block m:hidden js-user-info-trigger-wrapper">
+            <button
+              type="button"
+              class="crayons-btn crayons-btn--outlined w-100 js-user-info-trigger"
+            >
+              More info about @devmehta
+            </button>
+          </div>
+
+          <div class="crayons-modal align-left hidden">
+            <div class="crayons-modal__box">
+              <div class="crayons-modal__box__header">
+                <h2 class="crayons-modal__box__header__title">
+                  Chat with Dev Mehta
+                </h2>
+                <button
+                  title="Close"
+                  class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon close-modal"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-labelledby="afeasppqpzetfaozb86phzsrry55f2hw"
+                    class="crayons-icon"
+                  >
+                    <title id="afeasppqpzetfaozb86phzsrry55f2hw">
+                      Close modal
+                    </title>
+                    <path
+                      d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="crayons-modal__box__body">
+                <form
+                  id="new-message-form"
+                  class="message-form mb-4"
+                  data-info='{"id":503766,"className":"User","username":"devmehta", "showChat":"private"}'
+                >
+                  <textarea
+                    id="new-message"
+                    rows="4"
+                    cols="70"
+                    placeholder="Enter your message here..."
+                    class="crayons-textfield"
+                  ></textarea>
+                  <button type="submit" class="submit-message crayons-btn">
+                    Send
+                  </button>
+                </form>
+                <p class="fs-s color-base-60">
+                  All private interactions <b>must</b> abide by the
+                  <a href="/code-of-conduct">code of conduct</a>.
+                </p>
+              </div>
+            </div>
+            <div class="crayons-modal__overlay"></div>
+          </div>
+        </header>
+      </div>
+    </div>
+
+    <div
+      class="crayons-layout crayons-layout--limited-l crayons-layout--2-cols crayons-layout--2-cols--1-2 pt-4 m:pt-0"
+      id="index-container"
+      data-params='{"user_id":503766,"class_name":"Article","sort_by":"published_at","sort_direction":"desc"}'
+      data-which="articles"
+      data-tag=""
+      data-feed="base-feed"
+      data-articles-since="0"
+    >
+      <div class="crayons-layout__sidebar-left">
+        <div class="gap-2 m:gap-4 hidden m:grid js-user-info">
+          <div class="crayons-card crayons-card--secondary">
+            <header class="crayons-card__header">
+              <h3 class="crayons-subtitle-3 flex items-center">
+                GitHub Repositories
+              </h3>
+            </header>
+
+            <div>
+              <a
+                href="https://github.com/Dev-Mehta/AskaDev"
+                target="_blank"
+                rel="noopener"
+                class="crayons-link crayons-link--contentful"
+              >
+                <p class="fw-bold flex items-center">AskaDev</p>
+                <p class="fs-s color-base-80 mb-1">
+                  Ask your queries and get solutions from other developers. A
+                  small django project to implement Followers and Likes System
+                  along with Image Compression of Profile Pictures from Base64
+                  DataURL
+                </p>
+                <p class="fs-s color-base-60 flex items-center">
+                  JavaScript
+
+                  <span class="opacity-50 inline-block px-1">•</span>
+
+                  3 stars
+                </p>
+              </a>
+              <a
+                href="https://github.com/Dev-Mehta/Dev-Mehta"
+                target="_blank"
+                rel="noopener"
+                class="crayons-link crayons-link--contentful"
+              >
+                <p class="fw-bold flex items-center">Dev-Mehta</p>
+                <p class="fs-s color-base-60 flex items-center">2 stars</p>
+              </a>
+              <a
+                href="https://github.com/Dev-Mehta/first-contributions"
+                target="_blank"
+                rel="noopener"
+                class="crayons-link crayons-link--contentful"
+              >
+                <p class="fw-bold flex items-center">first-contributions</p>
+                <p class="fs-s color-base-80 mb-1">
+                  🚀✨ Help beginners to contribute to open source projects
+                </p>
+                <p class="fs-s color-base-60 flex items-center">
+                  <span class="crayons-indicator mr-3">Fork</span>
+
+                  1 star
+                </p>
+              </a>
+            </div>
+          </div>
+
+          <div class="crayons-card crayons-card--secondary p-4">
+            <div class="flex items-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-labelledby="ag9aw3nh7gfehlp4sk15aa99r9uwplb"
+                class="crayons-icon mr-3 color-base-50"
+              >
+                <title id="ag9aw3nh7gfehlp4sk15aa99r9uwplb">Post</title>
+                <path
+                  d="M19 22H5a3 3 0 01-3-3V3a1 1 0 011-1h14a1 1 0 011 1v12h4v4a3 3 0 01-3 3zm-1-5v2a1 1 0 002 0v-2h-2zm-2 3V4H4v15a1 1 0 001 1h11zM6 7h8v2H6V7zm0 4h8v2H6v-2zm0 4h5v2H6v-2z"
+                ></path>
+              </svg>
+
+              1 post published
+            </div>
+            <div class="flex items-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-labelledby="aq426v9l2meh63ig3yc7vx5triqe8hmx"
+                class="crayons-icon mr-3 color-base-50"
+              >
+                <title id="aq426v9l2meh63ig3yc7vx5triqe8hmx">Comment</title>
+                <path
+                  d="M10 3h4a8 8 0 010 16v3.5c-5-2-12-5-12-11.5a8 8 0 018-8zm2 14h2a6 6 0 000-12h-4a6 6 0 00-6 6c0 3.61 2.462 5.966 8 8.48V17z"
+                ></path>
+              </svg>
+
+              1 comment written
+            </div>
+            <div class="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-labelledby="ap047yzd4gokhur822qm5tnjlgsqzh7m"
+                class="crayons-icon mr-3 color-base-50"
+              >
+                <title id="ap047yzd4gokhur822qm5tnjlgsqzh7m">Tag</title>
+                <path
+                  d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"
+                ></path>
+              </svg>
+
+              10 tags followed
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main class="crayons-layout__content articles-list" id="articles-list">
+        <div class="substories" id="substories">
+          <div class="crayons-story" data-content-user-id="503766">
+            <a
+              href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+              aria-labelledby="article-link-503506"
+              class="crayons-story__hidden-navigation-link"
+              >The Complete Python Basics Tutorial</a
+            >
+
+            <div class="crayons-story__body">
+              <div class="crayons-story__top">
+                <div class="crayons-story__meta">
+                  <div class="crayons-story__author-pic">
+                    <a
+                      href="/devmehta"
+                      class="crayons-avatar crayons-avatar--l"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/practicaldev/image/fetch/s--_HA_fG1a--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/503766/2580c47b-77d1-4112-af07-e86b78b42c27.jpeg"
+                        alt="devmehta profile"
+                        class="crayons-avatar__image"
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <p>
+                      <a
+                        href="/devmehta"
+                        class="crayons-story__secondary fw-medium"
+                      >
+                        Dev Mehta
+                      </a>
+                    </p>
+                    <a
+                      href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+                      class="crayons-story__tertiary fs-xs"
+                      ><time
+                        datetime="2020-11-01T15:58:04Z"
+                        title="Sunday, November 1, 2020, 9:28:04 PM"
+                        >Nov 1 '20</time
+                      ><span
+                        class="time-ago-indicator-initial-placeholder"
+                        data-seconds="1604246284"
+                      ></span
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="crayons-story__indention">
+                <h2 class="crayons-story__title">
+                  <a
+                    href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+                    data-preload-image="https://res.cloudinary.com/practicaldev/image/fetch/s--UV36blq8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/7pfnde2ti990e0d4uh2f.png"
+                    id="article-link-503506"
+                  >
+                    The Complete Python Basics Tutorial
+                  </a>
+                </h2>
+                <div class="crayons-story__tags">
+                  <a href="/t/python" class="crayons-tag"
+                    ><span class="crayons-tag__prefix">#</span>python</a
+                  >
+                  <a href="/t/beginners" class="crayons-tag"
+                    ><span class="crayons-tag__prefix">#</span>beginners</a
+                  >
+                  <a href="/t/tutorial" class="crayons-tag"
+                    ><span class="crayons-tag__prefix">#</span>tutorial</a
+                  >
+                  <a href="/t/programming" class="crayons-tag"
+                    ><span class="crayons-tag__prefix">#</span>programming</a
+                  >
+                </div>
+                <div class="crayons-story__bottom">
+                  <div class="crayons-story__details">
+                    <a
+                      href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+                      class="crayons-btn crayons-btn--s crayons-btn--ghost crayons-btn--icon-left"
+                      data-reaction-count=""
+                      data-reactable-id="503506"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        role="img"
+                        aria-labelledby="as1fm1xa31h6e52oxkdws2w57n3vim9m"
+                        class="crayons-icon"
+                      >
+                        <title id="as1fm1xa31h6e52oxkdws2w57n3vim9m">
+                          Reactions
+                        </title>
+                        <path
+                          d="M18.884 12.595l.01.011L12 19.5l-6.894-6.894.01-.01A4.875 4.875 0 0112 5.73a4.875 4.875 0 016.884 6.865zM6.431 7.037a3.375 3.375 0 000 4.773L12 17.38l5.569-5.569a3.375 3.375 0 10-4.773-4.773L9.613 10.22l-1.06-1.062 2.371-2.372a3.375 3.375 0 00-4.492.25v.001z"
+                        ></path>
+                      </svg>
+
+                      12
+                      <span class="hidden s:inline">&nbsp;reactions</span>
+                    </a>
+                  </div>
+                  <div class="crayons-story__save">
+                    <small class="crayons-story__tertiary fs-xs mr-2">
+                      4 min read
+                    </small>
+                    <button
+                      type="button"
+                      id="article-save-button-503506"
+                      class="crayons-btn crayons-btn--secondary crayons-btn--s bookmark-button selected"
+                      data-reactable-id="503506"
+                      aria-label="Save to reading list"
+                      title="Save to reading list"
+                    >
+                      <span class="bm-initial">Save</span>
+                      <span class="bm-success">Saved</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paged-stories"></div>
+          <div class="paged-stories"></div>
+
+          <div class="profile-comment-card crayons-card mt-2 m:mt-0 mb-2">
+            <div class="crayons-card__header">
+              <h3 class="crayons-subtitle-2">Recent comments</h3>
+            </div>
+            <a href="/devmehta/comment/17fko" class="profile-comment-row">
+              <h4 class="fw-bold fs-base m-0 mb-1">
+                Python Zero to Hero #Beginners⚡
+              </h4>
+              <div class="inline-flex items-center fs-s gap-2">
+                <p class="color-base-80">
+                  Awesome Post. Saved a lot of time🔥 Here is why I would
+                  recomm...
+                </p>
+                <p>
+                  <small
+                    class="color-base-60 fs-s comment-date whitespace-nowrap"
+                  >
+                    <time
+                      datetime="2020-11-02T15:49:09Z"
+                      title="Monday, November 2, 2020, 9:19:09 PM"
+                      >Nov 2 '20</time
+                    >
+                  </small>
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="placeholder-div"></div>
+        </div>
+        <div
+          class="loading-articles"
+          id="loading-articles"
+          style="display: none"
+        >
+          loading...
+        </div>
+      </main>
+    </div>
+
+    <script defer="">
+      var isTouchDevice =
+        "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      if (isTouchDevice) {
+        function hasClass(el, cls) {
+          return (
+            el.className &&
+            new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className)
+          );
+        }
+
+        var activeLinks = document.getElementsByClassName("active");
+        Array.prototype.forEach.call(activeLinks, function (el) {
+          el.classList.remove("active");
+        });
+
+        document
+          .getElementById("articles-list")
+          .addEventListener("click", function (event) {
+            var clickedEl = event.target;
+            if (
+              hasClass(clickedEl, "bm-initial") ||
+              hasClass(clickedEl, "bm-success")
+            ) {
+              //do nothing
+            } else if (hasClass(clickedEl.parentNode, "crayons-story")) {
+              clickedEl.parentNode.classList.add("active");
+            } else if (
+              hasClass(clickedEl.parentNode.parentNode, "crayons-story")
+            ) {
+              clickedEl.parentNode.parentNode.classList.add("active");
+            } else if (
+              hasClass(
+                clickedEl.parentNode.parentNode.parentNode,
+                "crayons-story"
+              )
+            ) {
+              clickedEl.parentNode.parentNode.parentNode.classList.add(
+                "active"
+              );
+            }
+          });
+      }
+
+      // A custom event that gets dispatched to notify search forms to synchronize their state.
+      window.dispatchEvent(
+        new CustomEvent("syncSearchForms", {
+          detail: { querystring: location.search },
+        })
+      );
+    </script>
+
+    <meta name="page-cached-at" content="1612783738" />
+
+    <meta
+      name="proper-stylesheet-crayons"
+      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/crayons-bd44486a8fe80207d4983b124383727fc2e8ead99b75bb18c4170dc990c1afcb.css"
+    />
+    <meta
+      name="proper-stylesheet-views"
+      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/views-3b30212f1ef705ad9365ca770a6c0d4a36ea71e75db0284e72a6e67d4b394e0f.css"
+    />
+    <meta
+      name="proper-stylesheet-minimal"
+      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/minimal-4d4e73a8ae1ea981c952b382e417719b4e412e4dc8e1c516cfdf494a33389816.css"
+    />
+
+    <script async="">
+      // This area is designed to reconcile issues of mismatched caches stylesheets.
+      // Currently it handles a scenario where the head assets are out of date and need to be updated.
+      // There is a legitimate reverse scenario we do not yet handle where we *should* use the "out-of-date"
+      // content on the page, but since we may have issues persisting old stylesheets etc.
+      // this only handles the most troubling issues of pages that load with no styles.
+
+      var headCacheCheck = document.querySelector(
+        "meta[name='head-cached-at']"
+      );
+      var pageCacheCheck = document.querySelector(
+        "meta[name='page-cached-at']"
+      );
+      var headCrayons = document.getElementById("main-crayons-stylesheet");
+      var headViews = document.getElementById("main-views-stylesheet");
+      var headMinimal = document.getElementById("main-minimal-stylesheet");
+      var pageCrayons = document.querySelector(
+        "meta[name='proper-stylesheet-crayons']"
+      );
+      var pageViews = document.querySelector(
+        "meta[name='proper-stylesheet-views']"
+      );
+      var pageMinimal = document.querySelector(
+        "meta[name='proper-stylesheet-minimal']"
+      );
+      if (
+        headCacheCheck &&
+        headCrayons && // If these elements exist, we can proceed.
+        parseInt(pageCacheCheck.content) > parseInt(headCacheCheck.content) && // If page cached-at is larger than head cached-at
+        (pageCrayons.content != headCrayons.href || // If the head-cached values do not match page-cached, we replace
+          pageViews.content != headViews.href ||
+          pageMinimal.content != headMinimal.href)
+      ) {
+        var docBody = document.body;
+        // Add new stylesheets if we deem we should.
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = pageCrayons.content;
+        docBody.appendChild(link);
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = pageViews.content;
+        docBody.appendChild(link);
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = pageMinimal.content;
+        docBody.appendChild(link);
+
+        // Take a breath and then remove the old ones.
+        // If we call this immediately it could cause a flash of unstyled comments.
+        // We're giving *a little bit* of time before we remove the old css.
+        // The old CSS is most likely compatible with the new stuff, so for most changes
+        // It won't show a difference.
+        setTimeout(function () {
+          headCrayons.remove();
+          headViews.remove();
+          headMinimal.remove();
+        }, 350);
+      }
+    </script>
+  </div>
+</div>
+{% endblock %}
