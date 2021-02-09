@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
- {% block title %} Profile {{request.user}} 
-{% endblock %} 
+{% extends 'base.html' %} {% load static %} {% load humanizelib %} 
+{% block title %} Profile {{request.user}} {% endblock %}
 {% block body %}
 <div
   id="page-content"
@@ -28,58 +27,7 @@
             </span>
 
             <div class="profile-header__actions">
-              <div
-                class="profile-dropdown mr-2 relative"
-              >
-                <button
-                  id="user-profile-dropdown"
-                  class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    role="img"
-                    aria-labelledby="ajlge30w0qd3buvi8gw59hgeogb5y9ph"
-                    class="dropdown-icon crayons-icon"
-                  >
-                    <title id="ajlge30w0qd3buvi8gw59hgeogb5y9ph">
-                      Toggle dropdown menu
-                    </title>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M7 12a2 2 0 11-4 0 2 2 0 014 0zm7 0a2 2 0 11-4 0 2 2 0 014 0zm5 2a2 2 0 100-4 2 2 0 000 4z"
-                    ></path>
-                  </svg>
-                </button>
-
-                <div
-                  id="user-profile-dropdownmenu"
-                  class="crayons-dropdown top-100 right-0 p-1"
-                >
-                  <a
-                    href="javascript:void(0);"
-                    id="user-profile-dropdownmenu-block-button"
-                    data-profile-user-id="503766"
-                    class="border-none crayons-link crayons-link--block"
-                    style="display: none"
-                    >Block @devmehta</a
-                  >
-                  <script
-                    src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/runtime~profileDropdown-5087c13b938e8c6a0747.js"
-                    defer="defer"
-                  ></script>
-                  <script
-                    src="https://practicaldev-herokuapp-com.freetls.fastly.net/packs/js/profileDropdown-1aebbcb3a13de7041fe8.chunk.js"
-                    defer="defer"
-                  ></script>
-                  <span
-                    class="report-abuse-link-wrapper"
-                    data-path="/report-abuse?url=https://dev.to/devmehta"
-                  ></span>
-                </div>
-              </div>
+              <div class="profile-dropdown mr-2 relative"></div>
               <a
                 href="/connect/@devmehta"
                 class="hidden mr-2"
@@ -93,13 +41,13 @@
                 </button>
               </a>
               <a
-			  	href="/{{profile}}/edit-profile"
-				target="_blank"
+                href="/{{profile}}/edit-profile"
+                target="_blank"
                 id="user-follow-butt"
                 class="crayons-btn whitespace-nowrap follow-action-button user-profile-follow-button showing"
               >
                 Edit profile
-			  </a>
+              </a>
             </div>
           </div>
 
@@ -119,10 +67,29 @@
                   height="24"
                   viewBox="0 0 24 24"
                   role="img"
-                  aria-labelledby="aq36heco5nvojiahxeehb84fy8tydeah"
+                  aria-labelledby="agtrunt21894bjzvnvktdef62ze3d777"
                   class="crayons-icon mr-2 shrink-0"
                 >
-                  <title id="aq36heco5nvojiahxeehb84fy8tydeah">Joined</title>
+                  <title id="agtrunt21894bjzvnvktdef62ze3d777">Location</title>
+                  <path
+                    d="M18.364 17.364L12 23.728l-6.364-6.364a9 9 0 1112.728 0zM12 13a2 2 0 100-4 2 2 0 000 4z"
+                  ></path>
+                </svg>
+
+                {{profile.location}}
+              </span>
+
+              <span class="profile-header__meta__item">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-labelledby="aphz6t0t2b18we9l4i0dccc17lqpd2rf"
+                  class="crayons-icon mr-2 shrink-0"
+                >
+                  <title id="aphz6t0t2b18we9l4i0dccc17lqpd2rf">Joined</title>
                   <path
                     d="M8 6v3.999h3V6h2v3.999h3V6h2v3.999L19 10a3 3 0 012.995 2.824L22 13v1c0 1.014-.377 1.94-.999 2.645L21 21a1 1 0 01-1 1H4a1 1 0 01-1-1v-4.36a4.025 4.025 0 01-.972-2.182l-.022-.253L2 14v-1a3 3 0 012.824-2.995L5 10l1-.001V6h2zm11 6H5a1 1 0 00-.993.883L4 13v.971l.003.147a2 2 0 003.303 1.4c.363-.312.602-.744.674-1.218l.015-.153.005-.176c.036-1.248 1.827-1.293 1.989-.134l.01.134.004.147a2 2 0 003.992.031l.012-.282c.124-1.156 1.862-1.156 1.986 0l.012.282a2 2 0 003.99 0L20 14v-1a1 1 0 00-.883-.993L19 12zM7 1c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 11-2.898-.776C5.85 2.002 7 2.5 7 1zm5 0c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 01-2.898-.776C10.85 2.002 12 2.5 12 1zm5 0c1.32.871 1.663 2.088 1.449 2.888a1.5 1.5 0 01-2.898-.776C15.85 2.002 17 2.5 17 1z"
                   ></path>
@@ -130,11 +97,61 @@
 
                 Joined on&nbsp;
                 <time class="date"
-                  >{{profile.user.date_joined.date}}</time
+                  >{{profile.user.date_joined.date|naturaltime}}</time
                 >
               </span>
-			  {% if profile.website %}
               <span class="profile-header__meta__item -ml-1">
+				{% if profile.github_url %}
+				<a
+                  href="{{profile.github_url}}"
+                  target="_blank"
+                  rel="noopener me"
+                  class="px-1 align-middle inline-block"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-labelledby="aqi6lzux3kwgloou3m416mzzye4wn7pj"
+                    class="crayons-icon"
+                  >
+                    <title id="aqi6lzux3kwgloou3m416mzzye4wn7pj">
+                      GitHub logo
+                    </title>
+                    <path
+                      d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 006.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 012.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0022 12c0-5.525-4.475-10-10-10z"
+                    ></path>
+                  </svg>
+                </a>
+				{% endif %}
+				{% if profile.instagram_url %}
+                <a
+                  href="{{profile.instagram_url}}"
+                  target="_blank"
+                  rel="noopener nofollow me"
+                  class="px-1 align-middle inline-block"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-labelledby="adnyfezvli81qya5n77w9me922ur9s6t"
+                    class="crayons-icon"
+                  >
+                    <title id="adnyfezvli81qya5n77w9me922ur9s6t">
+                      Instagram logo
+                    </title>
+                    <path
+                      d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"
+                    ></path>
+                  </svg>
+                </a>
+				{% endif %}
+				{% if profile.website %}
                 <a
                   href="{{profile.website}}"
                   target="_blank"
@@ -147,10 +164,10 @@
                     height="24"
                     viewBox="0 0 24 24"
                     role="img"
-                    aria-labelledby="arcjn7ryk1oymjbyph5mevzjqw82gq1r"
+                    aria-labelledby="ab4t7lluv229nls6jv1z7y59skrqi4gv"
                     class="crayons-icon"
                   >
-                    <title id="arcjn7ryk1oymjbyph5mevzjqw82gq1r">
+                    <title id="ab4t7lluv229nls6jv1z7y59skrqi4gv">
                       External link icon
                     </title>
                     <path
@@ -158,8 +175,8 @@
                     ></path>
                   </svg>
                 </a>
+				{% endif %}
               </span>
-			  {% endif %}
             </div>
           </div>
 

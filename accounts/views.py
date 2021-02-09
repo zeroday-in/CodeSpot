@@ -1,3 +1,5 @@
+from django.core.files.base import ContentFile
+from django.utils.datastructures import MultiValueDictKeyError
 from accounts.forms import ProfileForm
 from django.http import request
 from django.http.response import HttpResponse
@@ -9,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views.generic import View
-
+import base64
 
 def register(request):
     if request.method == 'POST':
@@ -32,12 +34,12 @@ class HomePage(View):
 		    user=User.objects.get(username=request.user.username))
 		if not p.exists():
 			return redirect('create_profile', username=request.user.username)
-		return render(request, "homepage.html")
+		return render(request, "homepage.html", {"profile":p[0]})
 
 
 class CreateProfile(CreateView):
 	model = Profile
-	fields = ['name', 'email', 'bio', 'location', 'profile_picture', 'website']
+	fields = ['name', 'email', 'bio', 'location', 'profile_picture', 'website', 'gitlab_url','github_url','instagram_url','behance_url']
 
 	def get(self, request, *args, **kwargs):
 		if request.user.username != self.kwargs['username']:
@@ -76,18 +78,41 @@ class UpdateProfile(View):
 			email = self.request.POST.get('email')
 			bio = self.request.POST.get('bio')
 			location = self.request.POST.get('location')
-			profile_picture = self.request.FILES['profile_picture']
 			website = self.request.POST.get('website')
+			gitlab_url = self.request.POST.get('gitlab_url')
+			instagram_url = self.request.POST.get('instagram_url')
+			github_url = self.request.POST.get('github_url')
+			behance_url = self.request.POST.get('behance_url')
+
 			user = User.objects.get(username=self.request.user.username)
 			p = Profile.objects.get(user=User.objects.get(username=request.user))
 			p.name = name
 			p.email = email
 			p.bio = bio
 			p.location = location
-			p.profile_picture = profile_picture
 			p.website = website
+			p.gitlab_url = gitlab_url
+			p.github_url = github_url
+			p.instagram_url = instagram_url
+			p.behance_url = behance_url
 			p.save()
-			print(p)
+			try:
+				profile_picture = self.request.FILES['profile_picture']
+				base_64_profile = False
+				if profile_picture == None:
+					profile_picture = self.request.POST.get('profile_base64')
+					base_64_profile = True
+				if base_64_profile:
+					format, imgstr = profile_picture.split(';base64,')
+					ext = format.split('/')[-1]
+					data = ContentFile(base64.b64decode(imgstr), name=f"{user.username}." + ext)
+					p.profile_picture.save(f"{user.username}.ext", data, save=True)
+					p.save()
+				else:
+					p.profile_picture = profile_picture
+					p.save()
+			except MultiValueDictKeyError:
+				return redirect("detail_profile", username=user.username)
 			return redirect("detail_profile", username=user.username)
 		else:
 			profile = Profile.objects.get(user=User.objects.get(username=self.request.user))

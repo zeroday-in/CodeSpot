@@ -1,41 +1,148 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-{% block title %}
-Create Profile
-{% endblock %}
+{% load crispy_forms_tags %} 
+{% block title %} Create Profile {% endblock %} 
 {% block body %}
 <div id="page-content" class="wrapper users users-edit">
-    <div class="crayons-layout crayons-layout--limited-l crayons-layout--1-col p-4">
-        <div class="crayons-card crayons-card--content-rows">
-            <h1 class="crayons-title">Update Profile</h1>
-            <form method="POST" enctype="multipart/form-data">
-                {% for i in form %}
-                    <div class="crayons-field">
-					{% if i.field.required %}
-						<label for="{{i.id_for_label}}">{{i.name.capitalize}}*</label>
-					{% else %}
-					<label for="{{i.id_for_label}}">{{i.name.capitalize}}</label>
-					{% endif %}
-					{{i}}
-                    </div>
-                {% endfor %}
-                {% csrf_token %}
-                <p>&nbsp;</p>
-                <p>{{form.errors}}</p>
-                <button type="submit" class="crayons-btn" style="width: 100%;">Save Profile Information</button>
-            </form>
+  <div
+    class="crayons-layout crayons-layout--limited-l crayons-layout--1-col p-4"
+  >
+    <h1 class="crayons-title">Create Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="crayons-card crayons-card--content-rows">
+        <h2>User</h2>
+        {% csrf_token %}
+        <div class="crayons-field">
+          {% if form.name.field.required %}
+          <label for="{{i.id_for_label}}">{{form.name.name.capitalize}}*</label>
+          {% else %}
+          <label for="{{i.id_for_label}}">{{form.name.name.capitalize}}</label>
+          {% endif %} {{form.name}}
         </div>
-    </div>
+        <div class="crayons-field">
+          {% if form.email.field.required %}
+          <label for="{{i.id_for_label}}"
+            >{{form.email.name.capitalize}}*</label
+          >
+          {% else %}
+          <label for="{{i.id_for_label}}">{{form.email.name.capitalize}}</label>
+          {% endif %} {{form.email}}
+        </div>
+        <div class="crayons-field">
+          <label for="{{i.id_for_label}}">Profile Picture</label>
+          <div class="flex items-center">
+            <span class="crayons-avatar crayons-avatar--xl mr-2"
+              ><img
+			  	id="profile_preview"
+                alt="{{profile.name}} profile image"
+                src="{{profile.profile_picture.url}}"
+                class="crayons-avatar__image"
+            /></span>
+			<input type="hidden" id="profile_base64" name="profile_base64"
+			 value="">
+            {{form.profile_picture}}
+          </div>
+          <p>&nbsp;</p>
+          <p>{{form.errors}}</p>
+        </div>
+      </div>
+      <div class="crayons-card crayons-card--content-rows">
+        <h2>Basic</h2>
+        <div class="crayons-field">
+          {% if form.location.field.required %}
+          <label for="{{i.id_for_label}}"
+            >{{form.location.name.capitalize}}*</label
+          >
+          {% else %}
+          <label for="{{i.id_for_label}}"
+            >{{form.location.name.capitalize}}</label
+          >
+          {% endif %} {{form.location}}
+        </div>
+        <div class="crayons-field">
+          {% if form.bio.field.required %}
+          <label for="{{i.bio_for_label}}">{{form.bio.name.capitalize}}*</label>
+          {% else %}
+          <label for="{{i.id_for_label}}">{{form.bio.name.capitalize}}</label>
+          {% endif %} {{form.bio}}
+        </div>
+        <div class="crayons-field">
+          <label for="{{i.id_for_label}}">Website</label>
+          {{form.website}}
+        </div>
+      </div>
+      <div class="crayons-card crayons-card--content-rows">
+        <h2>Links</h2>
+        <div class="crayons-field">
+          <label for="">GitLab URL</label>
+          {{form.gitlab_url}}
+          <label for="">Behance URL</label>
+          {{form.behance_url}}
+          <label for="">Instagram URL</label>
+          {{form.instagram_url}}
+          <label for="">GitHub URL</label>
+          {{form.github_url}}
+        </div>
+      </div>
+      <div class="crayons-card crayons-card--content-rows">
+        <button type="submit" class="crayons-btn" style="width: 100%">
+          Save Profile Information
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 <script>
-    window.onload = function(){
-        document.querySelector('#id_name').classList.add('crayons-textfield')
-        document.querySelector('#id_email').classList.add('crayons-textfield')
-        document.querySelector('#id_bio').classList.add('crayons-textfield')
-        document.querySelector('#id_location').classList.add('crayons-textfield')
-        document.querySelector('#id_bio').rows = 2;
-        document.querySelector('#id_website').classList.add('crayons-textfield')    
+  window.onload = function () {
+    document.querySelector("#id_name").classList.add("crayons-textfield");
+    document.querySelector("#id_email").classList.add("crayons-textfield");
+    document.querySelector("#id_bio").classList.add("crayons-textfield");
+    document.querySelector("#id_location").classList.add("crayons-textfield");
+    document.querySelector("#id_bio").rows = 2;
+    document.querySelector("#id_website").classList.add("crayons-textfield");
+    document.querySelector("#id_gitlab_url").classList.add("crayons-textfield");
+    document.querySelector("#id_github_url").classList.add("crayons-textfield");
+    document.querySelector("#id_instagram_url").classList.add("crayons-textfield");
+    document.querySelector("#id_behance_url").classList.add("crayons-textfield");
+    const name = "{{profile.name}}";
+    const bio = "{{profile.bio}}";
+    const location = "{{profile.location}}";
+    const email = "{{profile.email}}";
+    const website = "{{profile.webiste}}";
+    const profile_picture = "{{profile.profile_picture.url}}";
+    const gitlab_url = "{{profile.gitlab_url}}";
+    const github_url = "{{profile.github_url}}";
+    const behance_url = "{{profile.behance_url}}";
+    const instagram_url = "{{profile.instagram_url}}";
+    document.querySelector("#id_name").value = name;
+    document.querySelector("#id_email").value = email;
+    document.querySelector("#id_bio").value = bio;
+    document.querySelector("#id_location").value = location;
+    document.querySelector("#id_website").value = website;
+    document.querySelector("#id_gitlab_url").value = gitlab_url;
+    document.querySelector("#id_github_url").value = github_url;
+    document.querySelector("#id_instagram_url").value = instagram_url;
+    document.querySelector("#id_behance_url").value = behance_url;
+  };
+  const profile_picture_i = document.getElementById("id_profile_picture");
+  profile_picture_i.required = false 
+  profile_picture_i.classList.add("crayons-card");
+  profile_picture_i.classList.add("crayons-card--secondary");
+  profile_picture_i.classList.add("p-3");
+  profile_picture_i.classList.add("flex");
+  profile_picture_i.classList.add("items-center");
+  profile_picture_i.classList.add("flex-1");
+  profile_picture_i.classList.add("w-100");
+  // const class_list = ['crayons-card', ]
+  profile_picture_i.onchange = function () {
+    if (profile_picture_i.files && profile_picture_i.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("profile_preview").src = e.target.result;
+		document.getElementById('profile_base64').value = e.target.result;
+	};
+      reader.readAsDataURL(profile_picture_i.files[0]);
     }
+  };
 </script>
 {% endblock %}

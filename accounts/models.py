@@ -26,6 +26,10 @@ class Profile(models.Model):
 	website = models.URLField(blank=True)
 	followers = models.ManyToManyField('Profile',related_name='followed_by')
 	following = models.ManyToManyField('Profile')
+	gitlab_url = models.URLField(blank=True)
+	behance_url = models.URLField(blank=True)
+	instagram_url = models.URLField(blank=True)
+	github_url = models.URLField(blank=True)
 	def __str__(self):
 		return str(self.user.username)
 
