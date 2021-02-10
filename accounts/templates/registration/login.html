@@ -1091,49 +1091,9 @@
               >
                 <div class="registration__hr">
                   <span class="registration__hr-label">
-                    Have a password? Continue with your email address
+                    We strive for transparency and don't collect excess data.
                   </span>
                 </div>
-                <form class="new_user" id="new_user" 
-                action="/login/"
-                method="post">
-                  {% csrf_token %} {{form|crispy}}
-                  <div
-                    class="crayons-field crayons-field--checkbox inline-flex flex-row items-center"
-                  >
-                    <input
-                      name="user[remember_me]"
-                      type="hidden"
-                      value="0"
-                    /><input
-                      class="crayons-checkbox"
-                      type="checkbox"
-                      value="1"
-                      checked="checked"
-                      name="user[remember_me]"
-                      id="user_remember_me"
-                    />
-                    <label
-                      class="crayons-field__label fw-normal"
-                      for="user_remember_me"
-                      >Remember me</label
-                    >
-                  </div>
-                  <div class="actions pt-3">
-                    <button
-                      type="submit"
-                      name="commit"
-                      value="Continue"
-                      class="crayons-btn crayons-btn--l w-100"
-                      data-disable-with="Continue"
-                    >
-                      Continue
-                    </button>
-                  </div>
-                </form>
-                <p class="pt-6 fs-s align-center">
-                  <a href="/users/password/new"> I forgot my password </a>
-                </p>
               </div>
             </div>
           </div>
@@ -1175,7 +1135,6 @@
                 ></path>
               </svg>
             </p>
-            <p>We strive for transparency and don't collect excess data.</p>
           </footer>
         </section>
       </div>

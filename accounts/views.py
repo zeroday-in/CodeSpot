@@ -13,21 +13,6 @@ from django.contrib.auth.models import User
 from django.views.generic import View
 import base64
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form, 'user_count': User.objects.all().count()})
-
-
 class HomePage(View):
 	def get(self, request, *args, **kwargs):
 		p = Profile.objects.filter(
@@ -44,6 +29,9 @@ class CreateProfile(CreateView):
 	def get(self, request, *args, **kwargs):
 		if request.user.username != self.kwargs['username']:
 			return redirect('home')
+		p = Profile.objects.filter(user=User.objects.get(username=request.user))
+		if p.exists():
+			return redirect('update_profile', username=request.user.username)
 		
 		else:
 			return super().get(request, *args, **kwargs)
@@ -56,8 +44,13 @@ class CreateProfile(CreateView):
 		profile_picture = self.request.FILES['profile_picture']
 		website = self.request.POST.get('website')
 		user = User.objects.get(username=self.request.user.username)
+		gitlab_url = self.request.POST.get('gitlab_url')
+		instagram_url = self.request.POST.get('instagram_url')
+		github_url = self.request.POST.get('github_url')
+		behance_url = self.request.POST.get('behance_url')
 		p = Profile(name=name, email=email, bio=bio, location=location,
-		user=user,profile_picture=profile_picture,website=website)
+		user=user,profile_picture=profile_picture,website=website, github_url=github_url,
+		gitlab_url=gitlab_url,instagram_url=instagram_url,behance_url=behance_url)
 		p.save()
 		print(p)
 		return redirect("detail_profile", username=user.username)

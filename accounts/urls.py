@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 
 urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('register/', views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(
+    path('enter/', auth_views.LoginView.as_view(
         extra_context={'user_count':User.objects.all().count()}
     ), name='login'),
     path('', login_required(views.HomePage.as_view()), name='home'),

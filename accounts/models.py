@@ -5,6 +5,7 @@ from hashlib import sha256
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+import requests
 
 def compress(image):
     im = Image.open(image)
@@ -34,5 +35,46 @@ class Profile(models.Model):
 		return str(self.user.username)
 
 	def save(self, *args, **kwargs):
+		r = requests.get(f'https://gh-pinned-repos.now.sh/?username={self.user}')
+		response = r.json()
+		for i in response:
+			name = i['repo']
+			description = i['description']
+			try:
+				language = i['language']
+			except KeyError:
+				language = ''
+			stars = i['stars']
+			gh_repo = GitHubRepo(user=self.user,
+				name=name,
+				description=description,
+				top_language=language,
+				stars=stars,
+				fork=False
+			)
+			gh_repo.save()
+		gh_profile = GitHubProfile(user=self.user)
+		gh_profile.save()
+		gh_repos = GitHubRepo.objects.filter(user=self.user)
+		for i in gh_repos:
+			gh_profile.repos.add(i)
+			gh_profile.save()
 		super().save(*args, **kwargs)
 		
+class GitHubRepo(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=255)
+	description = models.TextField(blank=True)
+	top_language = models.CharField(max_length=255,blank=True)
+	stars = models.IntegerField(blank=True)
+	fork = models.BooleanField(default=False)
+
+	def __str__(self) -> str:
+		return str(self.name)
+		
+class GitHubProfile(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	repos = models.ManyToManyField(GitHubRepo)
+
+	def __str__(self) -> str:
+		return str(self.user)
