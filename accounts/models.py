@@ -6,6 +6,7 @@ from io import BytesIO
 from PIL import Image
 from django.core.files import File
 import requests
+from threading import Thread
 
 def compress(image):
     im = Image.open(image)
@@ -35,30 +36,8 @@ class Profile(models.Model):
 		return str(self.user.username)
 
 	def save(self, *args, **kwargs):
-		r = requests.get(f'https://gh-pinned-repos.now.sh/?username={self.user}')
-		response = r.json()
-		for i in response:
-			name = i['repo']
-			description = i['description']
-			try:
-				language = i['language']
-			except KeyError:
-				language = ''
-			stars = i['stars']
-			gh_repo = GitHubRepo(user=self.user,
-				name=name,
-				description=description,
-				top_language=language,
-				stars=stars,
-				fork=False
-			)
-			gh_repo.save()
-		gh_profile = GitHubProfile(user=self.user)
-		gh_profile.save()
-		gh_repos = GitHubRepo.objects.filter(user=self.user)
-		for i in gh_repos:
-			gh_profile.repos.add(i)
-			gh_profile.save()
+		t = Thread(target=GithubTask(self.user))
+		t.start()
 		super().save(*args, **kwargs)
 		
 class GitHubRepo(models.Model):
@@ -68,7 +47,7 @@ class GitHubRepo(models.Model):
 	top_language = models.CharField(max_length=255,blank=True)
 	stars = models.IntegerField(blank=True)
 	fork = models.BooleanField(default=False)
-
+	url = models.URLField(blank=True)
 	def __str__(self) -> str:
 		return str(self.name)
 		
@@ -78,3 +57,41 @@ class GitHubProfile(models.Model):
 
 	def __str__(self) -> str:
 		return str(self.user)
+
+
+def GithubTask(user):
+	r = requests.get(f'https://gh-pinned-repos-5l2i19um3.vercel.app/?username={user}')
+	response = r.json()
+	gh = GitHubProfile.objects.filter(user=user)
+	if not gh.exists():
+		for i in response:
+			name = i['repo']
+			description = i['description']
+			try:
+				language = i['language']
+			except KeyError:
+				language = ''
+			stars = i['stars']
+			url = i['link']
+			gh_repo = GitHubRepo(user=user,
+				name=name,
+				description=description,
+				top_language=language,
+				stars=stars,
+				fork=False,
+				url=url
+			)
+			gh_repo.save()
+		gh_profile = GitHubProfile(user=user)
+		gh_profile.save()
+		gh_repos = GitHubRepo.objects.filter(user=user)
+		for i in gh_repos:
+			gh_profile.repos.add(i)
+			gh_profile.save()
+
+		for i in gh_repos:
+			req = requests.get(f'https://api.github.com/repos/{i.user.username}/{i.name}')
+			res = req.json()
+			if res['fork'] == True:
+				i.fork = True
+				i.save()

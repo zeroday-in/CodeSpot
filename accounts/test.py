@@ -1,7 +1,7 @@
 import requests
 import json
 
-r = requests.get('https://gh-pinned-repos.now.sh/?username=Dev-Mehta')
+r = requests.get('https://api.github.com/repos/Dev-Mehta/first-contributions')
 response = r.json()
 for i in response:
-	print(i)
+	print(response)

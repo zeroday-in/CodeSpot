@@ -1,5 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% load humanizelib %} 
-{% block title %} Profile {{request.user}} {% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% load humanizelib %} 
+{% block title %} Profile {{profile.user}} {% endblock %} 
 {% block body %}
 <div
   id="page-content"
@@ -40,6 +42,7 @@
                   Chat
                 </button>
               </a>
+              {% if sameUser %}
               <a
                 href="/{{profile}}/edit-profile"
                 target="_blank"
@@ -48,6 +51,14 @@
               >
                 Edit profile
               </a>
+              {% else %}
+              <button
+                id="user-follow-butt"
+                class="crayons-btn whitespace-nowrap follow-action-button user-profile-follow-button showing"
+              >
+                {{follow_action_text}}
+              </button>
+              {% endif %}
             </div>
           </div>
 
@@ -101,8 +112,8 @@
                 >
               </span>
               <span class="profile-header__meta__item -ml-1">
-				{% if profile.github_url %}
-				<a
+                {% if profile.github_url %}
+                <a
                   href="{{profile.github_url}}"
                   target="_blank"
                   rel="noopener me"
@@ -125,8 +136,7 @@
                     ></path>
                   </svg>
                 </a>
-				{% endif %}
-				{% if profile.instagram_url %}
+                {% endif %} {% if profile.instagram_url %}
                 <a
                   href="{{profile.instagram_url}}"
                   target="_blank"
@@ -150,8 +160,7 @@
                     ></path>
                   </svg>
                 </a>
-				{% endif %}
-				{% if profile.website %}
+                {% endif %} {% if profile.website %}
                 <a
                   href="{{profile.website}}"
                   target="_blank"
@@ -175,19 +184,8 @@
                     ></path>
                   </svg>
                 </a>
-				{% endif %}
+                {% endif %}
               </span>
-            </div>
-          </div>
-
-          <div class="profile-header__bottom fs-base">
-            <div class="crayons-definition">
-              <strong class="crayons-definition__title">Work</strong>
-              <p class="crayons-definition__value">
-                Full Stack Web Developer
-                <span class="opacity-50"> at </span>
-                Self Employed
-              </p>
             </div>
           </div>
 
@@ -277,52 +275,29 @@
             </header>
 
             <div>
+              {% for i in github_profile.repos.all %}
               <a
-                href="https://github.com/Dev-Mehta/AskaDev"
+                href="{{i.url}}"
                 target="_blank"
                 rel="noopener"
                 class="crayons-link crayons-link--contentful"
               >
-                <p class="fw-bold flex items-center">AskaDev</p>
-                <p class="fs-s color-base-80 mb-1">
-                  Ask your queries and get solutions from other developers. A
-                  small django project to implement Followers and Likes System
-                  along with Image Compression of Profile Pictures from Base64
-                  DataURL
-                </p>
+                <p class="fw-bold flex items-center">{{i.name}}</p>
+                <p class="fs-s color-base-80 mb-1">{{i.description}}</p>
                 <p class="fs-s color-base-60 flex items-center">
-                  JavaScript
-
+                  {% ifnotequal i.top_language '' %} {{ i.top_language }}
                   <span class="opacity-50 inline-block px-1">•</span>
-
-                  3 stars
-                </p>
-              </a>
-              <a
-                href="https://github.com/Dev-Mehta/Dev-Mehta"
-                target="_blank"
-                rel="noopener"
-                class="crayons-link crayons-link--contentful"
-              >
-                <p class="fw-bold flex items-center">Dev-Mehta</p>
-                <p class="fs-s color-base-60 flex items-center">2 stars</p>
-              </a>
-              <a
-                href="https://github.com/Dev-Mehta/first-contributions"
-                target="_blank"
-                rel="noopener"
-                class="crayons-link crayons-link--contentful"
-              >
-                <p class="fw-bold flex items-center">first-contributions</p>
-                <p class="fs-s color-base-80 mb-1">
-                  🚀✨ Help beginners to contribute to open source projects
-                </p>
-                <p class="fs-s color-base-60 flex items-center">
+                  {% endifnotequal %} {% if i.fork %}
                   <span class="crayons-indicator mr-3">Fork</span>
-
-                  1 star
+                  {% endif %}
+				  {% ifequal i.stars 1 %}
+				  {{i.stars}} star 
+				  {% else %}
+				  {{ i.stars }} stars 
+				  {% endifequal %}
                 </p>
               </a>
+              {% endfor %}
             </div>
           </div>
 
@@ -549,137 +524,37 @@
         </div>
       </main>
     </div>
-
-    <script defer="">
-      var isTouchDevice =
-        "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      if (isTouchDevice) {
-        function hasClass(el, cls) {
-          return (
-            el.className &&
-            new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className)
-          );
-        }
-
-        var activeLinks = document.getElementsByClassName("active");
-        Array.prototype.forEach.call(activeLinks, function (el) {
-          el.classList.remove("active");
-        });
-
-        document
-          .getElementById("articles-list")
-          .addEventListener("click", function (event) {
-            var clickedEl = event.target;
-            if (
-              hasClass(clickedEl, "bm-initial") ||
-              hasClass(clickedEl, "bm-success")
-            ) {
-              //do nothing
-            } else if (hasClass(clickedEl.parentNode, "crayons-story")) {
-              clickedEl.parentNode.classList.add("active");
-            } else if (
-              hasClass(clickedEl.parentNode.parentNode, "crayons-story")
-            ) {
-              clickedEl.parentNode.parentNode.classList.add("active");
-            } else if (
-              hasClass(
-                clickedEl.parentNode.parentNode.parentNode,
-                "crayons-story"
-              )
-            ) {
-              clickedEl.parentNode.parentNode.parentNode.classList.add(
-                "active"
-              );
-            }
-          });
-      }
-
-      // A custom event that gets dispatched to notify search forms to synchronize their state.
-      window.dispatchEvent(
-        new CustomEvent("syncSearchForms", {
-          detail: { querystring: location.search },
-        })
-      );
-    </script>
-
-    <meta name="page-cached-at" content="1612783738" />
-
-    <meta
-      name="proper-stylesheet-crayons"
-      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/crayons-bd44486a8fe80207d4983b124383727fc2e8ead99b75bb18c4170dc990c1afcb.css"
-    />
-    <meta
-      name="proper-stylesheet-views"
-      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/views-3b30212f1ef705ad9365ca770a6c0d4a36ea71e75db0284e72a6e67d4b394e0f.css"
-    />
-    <meta
-      name="proper-stylesheet-minimal"
-      content="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/minimal-4d4e73a8ae1ea981c952b382e417719b4e412e4dc8e1c516cfdf494a33389816.css"
-    />
-
-    <script async="">
-      // This area is designed to reconcile issues of mismatched caches stylesheets.
-      // Currently it handles a scenario where the head assets are out of date and need to be updated.
-      // There is a legitimate reverse scenario we do not yet handle where we *should* use the "out-of-date"
-      // content on the page, but since we may have issues persisting old stylesheets etc.
-      // this only handles the most troubling issues of pages that load with no styles.
-
-      var headCacheCheck = document.querySelector(
-        "meta[name='head-cached-at']"
-      );
-      var pageCacheCheck = document.querySelector(
-        "meta[name='page-cached-at']"
-      );
-      var headCrayons = document.getElementById("main-crayons-stylesheet");
-      var headViews = document.getElementById("main-views-stylesheet");
-      var headMinimal = document.getElementById("main-minimal-stylesheet");
-      var pageCrayons = document.querySelector(
-        "meta[name='proper-stylesheet-crayons']"
-      );
-      var pageViews = document.querySelector(
-        "meta[name='proper-stylesheet-views']"
-      );
-      var pageMinimal = document.querySelector(
-        "meta[name='proper-stylesheet-minimal']"
-      );
-      if (
-        headCacheCheck &&
-        headCrayons && // If these elements exist, we can proceed.
-        parseInt(pageCacheCheck.content) > parseInt(headCacheCheck.content) && // If page cached-at is larger than head cached-at
-        (pageCrayons.content != headCrayons.href || // If the head-cached values do not match page-cached, we replace
-          pageViews.content != headViews.href ||
-          pageMinimal.content != headMinimal.href)
-      ) {
-        var docBody = document.body;
-        // Add new stylesheets if we deem we should.
-        var link = document.createElement("link");
-        link.type = "text/css";
-        link.rel = "stylesheet";
-        link.href = pageCrayons.content;
-        docBody.appendChild(link);
-        var link = document.createElement("link");
-        link.type = "text/css";
-        link.rel = "stylesheet";
-        link.href = pageViews.content;
-        docBody.appendChild(link);
-        var link = document.createElement("link");
-        link.type = "text/css";
-        link.rel = "stylesheet";
-        link.href = pageMinimal.content;
-        docBody.appendChild(link);
-
-        // Take a breath and then remove the old ones.
-        // If we call this immediately it could cause a flash of unstyled comments.
-        // We're giving *a little bit* of time before we remove the old css.
-        // The old CSS is most likely compatible with the new stuff, so for most changes
-        // It won't show a difference.
-        setTimeout(function () {
-          headCrayons.remove();
-          headViews.remove();
-          headMinimal.remove();
-        }, 350);
-      }
-    </script>
   </div>
 </div>
+{% if not sameUser %}
+<script>
+	const button = document.querySelector("#user-follow-butt");
+	var following = "{{following}}"
+	button.onclick = () => {
+		button.disabled = true;
+		if(following=="True"){
+			button.innerHTML = "Follow"
+			following = "False"
+		} 
+		else{
+			button.innerHTML = "Following"
+			following = "True" 
+		}
+		var xhttp = new XMLHttpRequest();
+		if(window.XMLHttpRequest){
+			xhttp = new XMLHttpRequest();
+		} else {
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhttp.onreadystatechange = () => {
+			if(xhttp.readyState == 4 && xhttp.status == 200){
+				button.disabled = false;				
+			}
+		}
+		xhttp.open("GET", "/follow/{{profile.user.username}}");
+		xhttp.send()
+	}
+
+</script>
+{% endif %}
 {% endblock %}

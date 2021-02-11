@@ -1,13 +1,9 @@
 from django.core.files.base import ContentFile
+from django.http.response import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from accounts.forms import ProfileForm
-from django.http import request
-from django.http.response import HttpResponse
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
-from accounts.models import Profile
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+from accounts.models import GitHubProfile, Profile
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views.generic import View
@@ -116,5 +112,37 @@ class DetailProfile(View):
 		u = User.objects.filter(username=self.kwargs['username'])
 		if u.exists():
 			u = u[0]
+			context = {}
 			p = Profile.objects.get(user=u)
-			return render(request, "accounts/profile_detail.html", {"profile":p})
+			sameUser = True if u.username == request.user.username else False
+			gh = GitHubProfile.objects.filter(user=u)
+			if gh.exists():
+				context['github_profile'] = gh[0]
+			context['profile'] = p
+			context['sameUser'] = sameUser
+			if not sameUser:
+				following = p.followers.filter(user=User.objects.get(username=self.request.user))
+				following = following.exists()
+				if following:
+					res = "Following"
+				else:
+					res = "Follow"
+				context['following'] = following
+				context['follow_action_text'] = res	
+			return render(request, "accounts/profile_detail.html", context)
+
+def follow(request, *args, **kwargs):
+	p = Profile.objects.filter(user=User.objects.get(username=kwargs['username']))
+	# print(p)
+	if p.exists():
+		p = p[0]
+		following = p.followers.filter(user=User.objects.get(username=request.user))
+		following = following.exists()
+		if following:
+			p.followers.remove(p.followers.get(user=User.objects.get(username=request.user)))
+			p.save()
+		else:
+			p.followers.add(Profile.objects.get(user=User.objects.get(username=request.user.username)))
+			p.save()
+		print(p.followers.all())
+	return HttpResponse(request.user.username)
