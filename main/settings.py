@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^f2(v#=b1!!+4m6@wa@%k*_()xp)1*5eta#2=^$$@0-jb)^c_f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['http://codespotclone.herokuapp.com/']
+ALLOWED_HOSTS = ['codespotclone.herokuapp.com']
 
 
 # Application definition
