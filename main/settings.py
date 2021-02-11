@@ -154,5 +154,6 @@ LOGIN_URL = '/enter/'
 
 SOCIAL_AUTH_GITHUB_KEY = '9222417c54075c89df52'
 SOCIAL_AUTH_GITHUB_SECRET = 'd35e4435f65f24a2331cfbbc8e2cd1ad3e01f259'
-
+DEBUG_PROPAGATE_EXCEPTIONS = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
