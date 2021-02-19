@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^f2(v#=b1!!+4m6@wa@%k*_()xp)1*5eta#2=^$$@0-jb)^c_f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['codespotclone.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -53,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'social_django.middleware.SocialAuthExceptionMiddleware',
-	'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -130,11 +129,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
     # location of your application, should not be public web accessible 
-    # os.path.join(BASE_DIR,'static'),
-# ]
+    os.path.join(BASE_DIR,'static'),
+]
 # List of finder classes that know how to find static files in
 # various locations.
 # Login / Logout
@@ -155,5 +154,4 @@ LOGIN_URL = '/enter/'
 SOCIAL_AUTH_GITHUB_KEY = '9222417c54075c89df52'
 SOCIAL_AUTH_GITHUB_SECRET = 'd35e4435f65f24a2331cfbbc8e2cd1ad3e01f259'
 DEBUG_PROPAGATE_EXCEPTIONS = True
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'

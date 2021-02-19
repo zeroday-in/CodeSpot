@@ -222,15 +222,11 @@ function buildTagsHTML(e) {
       e.name +
       "</a>" +
       t +
-      '</h3><p class="grid-cell__summary truncate-at-3"></p><form class="edit_follow flex items-center flex-nowrap mb-4" id="edit_follow_' +
+      '</h3><p class="grid-cell__summary truncate-at-3"></p><input name="follows[][id]" id="follow_id" type="hidden" form="follows_update_form" value="' +
       e.id +
-      '" action="/follows/' +
-      e.id +
-      '" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="\u2713"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="' +
-      e.token +
-      '"><label for="follow_points" class="fs-s flex-1 pr-2 color-base-60 align-right whitespace-nowrap">Follow weight:</label><input step="any" class="crayons-textfield flex-1 fs-s" required="required" type="number" style="max-width:90px" value="' +
+      '"><input step="any" class="crayons-textfield flex-1 fs-s" required="required" type="number" form="follows_update_form" value="' +
       e.points +
-      '" name="follow[points]" id="follow_points"><button type="submit" class="crayons-btn crayons-btn--ghost crayons-btn--s" name="commit">Save</button></form></div>'
+      '" name="follows[][explicit_points]" id="follow_points"></div>'
   );
 }
 function fetchNextFollowingPage(e) {
@@ -457,13 +453,17 @@ function hideChatModal(e) {
   e.style.display = "none";
 }
 function toggleModal() {
-  document.querySelector(".crayons-modal").classList.toggle("hidden");
+  document
+    .getElementsByClassName("crayons-modal")[0]
+    .classList.toggle("hidden");
 }
 function initModal() {
-  var e = document.querySelector(".crayons-modal");
-  e.querySelector(".close-modal").addEventListener("click", toggleModal),
+  var e = document.getElementsByClassName("crayons-modal")[0];
+  e
+    .getElementsByClassName("close-modal")[0]
+    .addEventListener("click", toggleModal),
     e
-      .querySelector(".crayons-modal__overlay")
+      .getElementsByClassName("crayons-modal__overlay")[0]
       .addEventListener("click", toggleModal);
 }
 function handleChatButtonPress(e) {
@@ -641,7 +641,8 @@ function handleOptimisticButtRender(e) {
     try {
       var t = JSON.parse(e.dataset.info).id,
         n = e.dataset.verb;
-      document.querySelectorAll(".follow-action-button").forEach(function (e) {
+      let o = document.getElementsByClassName("follow-action-button");
+      Array.from(o).forEach(function (e) {
         try {
           if (e.dataset.info) {
             var a = JSON.parse(e.dataset.info).id;
@@ -1076,34 +1077,23 @@ function trackAdClick(e, t) {
   }
   adClicked = !0;
 }
-function initializeUserProfileContent(e) {
-  (document.getElementById("sidebar-profile--avatar").src = e.profile_image_90),
-    (document.getElementById("sidebar-profile--avatar").alt = e.username),
-    (document.getElementById("sidebar-profile--name").innerHTML = filterXSS(
-      e.name
-    )),
-    (document.getElementById("sidebar-profile--username").innerHTML =
-      "@" + e.username),
-    (document.getElementById("sidebar-profile").href = "/" + e.username);
-}
 function initializeProfileImage(e) {
   document.getElementById("comment-primary-user-profile--avatar") &&
     (document.getElementById("comment-primary-user-profile--avatar").src =
       e.profile_image_90);
 }
-function initializeUserSidebar(e) {
-  document.getElementById("sidebar-nav") && initializeUserProfileContent(e);
-}
 function addRelevantButtonsToArticle(e) {
   var t = document.getElementById("article-show-container");
   if (t && parseInt(t.dataset.authorId, 10) === e.id) {
     let n = [
-      `<a class="crayons-btn crayons-btn--s crayons-btn--secondary" href="${t.dataset.path}/edit" rel="nofollow">Edit</a>`,
-    ];
-    !0 === JSON.parse(t.dataset.published) &&
-      n.push(
-        `<a class="crayons-btn crayons-btn--s crayons-btn--secondary ml-1" href="${t.dataset.path}/manage" rel="nofollow">Manage</a>`
-      ),
+        `<a class="crayons-btn crayons-btn--s crayons-btn--secondary" href="${t.dataset.path}/edit" rel="nofollow">Edit</a>`,
+      ],
+      a = document.getElementById("author-click-to-edit");
+    a && (a.style.display = "inline-block"),
+      !0 === JSON.parse(t.dataset.published) &&
+        n.push(
+          `<a class="crayons-btn crayons-btn--s crayons-btn--secondary ml-1" href="${t.dataset.path}/manage" rel="nofollow">Manage</a>`
+        ),
       e.pro &&
         n.push(
           `<a class="crayons-btn crayons-btn--s crayons-btn--secondary ml-1" href="${t.dataset.path}/stats" rel="nofollow">Stats</a>`
@@ -1148,18 +1138,17 @@ function addRelevantButtonsToComments(e) {
 function setCurrentUserToNavBar(e) {
   const t = document.getElementById("first-nav-link");
   (t.href = `/${e.username}`),
-    (t.querySelector("span").textContent = e.name),
-    (t.querySelector("small").textContent = `@${e.username}`),
+    (t.getElementsByTagName("span")[0].textContent = e.name),
+    (t.getElementsByTagName("small")[0].textContent = `@${e.username}`),
     (document.getElementById("nav-profile-image").src = e.profile_image_90),
     e.admin &&
       document
-        .querySelector(".js-header-menu-admin-link")
+        .getElementsByClassName("js-header-menu-admin-link")[0]
         .classList.remove("hidden");
 }
 function initializeBaseUserData() {
   const e = userData();
   setCurrentUserToNavBar(e),
-    initializeUserSidebar(e),
     initializeProfileImage(e),
     addRelevantButtonsToArticle(e),
     addRelevantButtonsToComments(e);
@@ -1250,6 +1239,20 @@ function initializeBroadcast() {
       o.classList.toggle("broadcast-visible")
     : renderBroadcast(o, n);
 }
+function initializeColorPicker() {
+  function e(e) {
+    var t = e.target;
+    (t.nextElementSibling
+      ? t.nextElementSibling
+      : t.previousElementSibling
+    ).value = t.value;
+  }
+  Array.from(document.getElementsByClassName("js-color-field")).forEach(
+    function (t) {
+      t.addEventListener("change", e);
+    }
+  );
+}
 function initializeCommentDate() {
   addLocalizedDateTimeToElementsTitles(
     document.querySelectorAll(".comment-date time"),
@@ -1267,42 +1270,51 @@ function initializeCommentDropdown() {
     const { activeElement: e } = document,
       t =
         "clipboard-copy" === e.localName
-          ? e.querySelector("input")
+          ? e.getElementsByTagName("input")[0]
           : document.getElementById("article-copy-link-input");
-    t.focus(), t.setSelectionRange(0, t.value.length), (f.hidden = !1);
+    t.focus(), t.setSelectionRange(0, t.value.length), (p.hidden = !1);
   }
   function a() {
-    f && (f.hidden = !0);
+    p && (p.hidden = !0);
   }
-  function o() {
+  function o(e) {
+    e.preventDefault();
+    const t = e.target.href;
+    Runtime.copyToClipboard(t).then(() => {
+      addSnackbarItem({ message: "Copied to clipboard" });
+    });
+  }
+  function i() {
     const e = document.getElementById("article-copy-link-input").value;
     Runtime.copyToClipboard(e).then(() => {
       n();
     });
   }
-  function i(e) {
+  function r(e) {
+    var t = document.getElementById("article-copy-icon"),
+      n = t && t.contains(e.target);
     return !(
       e.target.matches(".dropdown-icon") ||
       e.target.matches(".dropbtn") ||
       e.target.matches("clipboard-copy") ||
-      document.getElementById("article-copy-icon").contains(e.target) ||
+      n ||
       e.target.parentElement.classList.contains("dropdown-link-row")
     );
   }
-  function r() {
-    document.removeEventListener("click", l);
-  }
   function s() {
-    const e = document.getElementsByTagName("clipboard-copy")[0];
-    e && e.removeEventListener("click", o);
+    document.removeEventListener("click", d);
   }
   function c() {
+    const e = document.getElementsByTagName("clipboard-copy")[0];
+    e && e.removeEventListener("click", i);
+  }
+  function l() {
     t("crayons-dropdown").forEach(e("block"));
   }
-  function l(e) {
-    i(e) && (c(), a(), r());
-  }
   function d(e) {
+    r(e) && (l(), a(), s());
+  }
+  function u(e) {
     const t = e.currentTarget,
       n = t.parentElement.getElementsByClassName("crayons-dropdown")[0];
     if (n)
@@ -1312,29 +1324,32 @@ function initializeCommentDropdown() {
       )
         AndroidBridge.shareText(location.href);
       else if (
-        (u(n.querySelector(".report-abuse-link-wrapper")),
+        (m(n.getElementsByClassName("report-abuse-link-wrapper")[0]),
         n.classList.contains("block"))
       )
-        n.classList.remove("block"), r(), s(), a();
+        n.classList.remove("block"), s(), c(), a();
       else {
-        c(), n.classList.add("block");
+        l(), n.classList.add("block");
         const e = document.getElementsByTagName("clipboard-copy")[0];
-        document.addEventListener("click", l),
-          e && e.addEventListener("click", o);
+        document.addEventListener("click", d),
+          e && e.addEventListener("click", i);
       }
   }
-  function u(e) {
-    e &&
-      (e.innerHTML = `<a href="${e.dataset.path}" class="crayons-link crayons-link--block">Report Abuse</a>`);
-  }
   function m(e) {
+    e &&
+      (e.innerHTML = `<a href="${e.dataset.path}" class="crayons-link crayons-link--block">Report abuse</a>`);
+  }
+  function f(e) {
     e.getAttribute("has-dropdown-listener") ||
-      (e.addEventListener("click", d),
+      (e.addEventListener("click", u),
       e.setAttribute("has-dropdown-listener", "true"));
   }
-  const f = document.getElementById("article-copy-link-announcer");
+  function g(e) {
+    e.addEventListener("click", o);
+  }
+  const p = document.getElementById("article-copy-link-announcer");
   setTimeout(function () {
-    t("dropbtn").forEach(m);
+    t("dropbtn").forEach(f), t("permalink-copybtn").forEach(g);
   }, 100);
 }
 function getAndShowPreview(e, t) {
@@ -1353,9 +1368,9 @@ function getAndShowPreview(e, t) {
 function handleCommentPreview(e) {
   e.preventDefault();
   const { form: t } = e.target,
-    n = t.querySelector(".comment-textarea"),
-    a = t.querySelector(".comment-form__preview"),
-    o = t.querySelector(".preview-toggle");
+    n = t.getElementsByClassName("comment-textarea")[0],
+    a = t.getElementsByClassName("comment-form__preview")[0],
+    o = t.getElementsByClassName("preview-toggle")[0];
   if ("" !== n.value)
     if (t.classList.contains("preview-open"))
       t.classList.toggle("preview-open"), (o.innerHTML = "Preview");
@@ -1368,105 +1383,110 @@ function handleCommentPreview(e) {
     }
 }
 function initializeCommentPreview() {
-  const e = document.querySelector(".preview-toggle");
+  const e = document.getElementsByClassName("preview-toggle")[0];
   e && e.addEventListener("click", handleCommentPreview);
 }
 function initializeCommentsPage() {
   if (document.getElementById("comments-container")) {
     toggleCodeOfConduct();
-    var e = document.getElementById("comments-container").dataset.commentableId,
-      t = document.getElementById("comments-container").dataset.commentableType;
-    commentableIdList = e.split(",");
-    (function () {
-      for (var e = 0; e < commentableIdList.length; e++)
-        !(function (e) {
-          var n;
-          ((n = window.XMLHttpRequest
-            ? new XMLHttpRequest()
-            : new ActiveXObject(
-                "Microsoft.XMLHTTP"
-              )).onreadystatechange = function () {
-            if (n.readyState === XMLHttpRequest.DONE) {
-              for (
-                var e = JSON.parse(n.response),
-                  t = e.reactions,
-                  a = document.getElementsByClassName("single-comment-node"),
-                  o = e.public_reaction_counts,
-                  i = 0;
-                i < t.length;
-                i++
-              ) {
-                (r = document.getElementById(
-                  "button-for-comment-" + t[i].reactable_id
-                )) && r.classList.add("reacted");
-              }
-              for (i = 0; i < o.length; i++) {
-                var r;
-                (r = document.getElementById(
-                  "button-for-comment-" + o[i].id
-                )) &&
-                  o[i].count > 0 &&
-                  (document.getElementById("reactions-count-" + o[i].id)
-                    ? (document.getElementById(
-                        "reactions-count-" + o[i].id
-                      ).innerHTML = o[i].count)
-                    : (r.innerHTML =
-                        r.innerHTML +
-                        "<span class='reactions-count' id='reactions-count-" +
-                        o[i].id +
-                        "'>" +
-                        o[i].count +
-                        "</span>"));
-              }
-              for (i = 0; i < a.length; i++)
-                if (a[i].dataset.commentAuthorId == e.current_user.id) {
-                  a[i].dataset.currentUserComment = "true";
-                  var s = a[i].children[0].children[2].children[0],
-                    c = document.getElementById(
-                      "button-for-comment-" + a[i].dataset.commentId
-                    );
-                  s &&
-                    c &&
-                    ((s.className = "current-user-actions"),
-                    (s.innerHTML =
-                      '<a data-no-instant href="' +
-                      s.parentNode.dataset.path +
-                      '/delete_confirm" class="edit-butt">Delete</a>                                                <a href="' +
-                      s.parentNode.dataset.path +
-                      '/edit">Edit</a>'),
-                    (s.style.display = "inline-block"),
-                    document
-                      .getElementById(
-                        "button-for-comment-" + a[i].dataset.commentId
-                      )
-                      .classList.add("reacted"));
+    var e = document.body.getAttribute("data-user-status"),
+      t = document.getElementById("comments-container").dataset.commentableId,
+      n = document.getElementById("comments-container").dataset.commentableType,
+      a = document.getElementById("comments-container").dataset
+        .hasRecentCommentActivity;
+    if (
+      ((commentableIdList = t.split(",")), "logged-in" === e || "false" !== a)
+    )
+      (function () {
+        for (var e = 0; e < commentableIdList.length; e++)
+          !(function (e) {
+            var t;
+            ((t = window.XMLHttpRequest
+              ? new XMLHttpRequest()
+              : new ActiveXObject(
+                  "Microsoft.XMLHTTP"
+                )).onreadystatechange = function () {
+              if (t.readyState === XMLHttpRequest.DONE) {
+                for (
+                  var e = JSON.parse(t.response),
+                    n = e.reactions,
+                    a = document.getElementsByClassName("single-comment-node"),
+                    o = e.public_reaction_counts,
+                    i = 0;
+                  i < n.length;
+                  i++
+                ) {
+                  (r = document.getElementById(
+                    "button-for-comment-" + n[i].reactable_id
+                  )) && r.classList.add("reacted");
                 }
-            }
-          }),
-            n.open(
-              "GET",
-              "/reactions?commentable_id=" +
-                commentableIdList[e] +
-                "&commentable_type=" +
-                t,
-              !0
-            ),
-            n.send();
-        })(e);
-    })();
+                for (i = 0; i < o.length; i++) {
+                  var r;
+                  if (
+                    (r = document.getElementById(
+                      "button-for-comment-" + o[i].id
+                    ))
+                  ) {
+                    var s = r.querySelector(".reactions-count"),
+                      c = r.querySelector(".reactions-label");
+                    o[i].count > 0
+                      ? (o[i].count > 1
+                          ? (c.innerHTML = "&nbsp;likes")
+                          : (c.innerHTML = "&nbsp;like"),
+                        (s.id = "reactions-count-" + o[i].id),
+                        (s.innerHTML = o[i].count),
+                        s.classList.remove("hidden"))
+                      : (s.classList.add("hidden"), (s.innerHTML = "0"));
+                  }
+                }
+                for (i = 0; i < a.length; i++)
+                  if (a[i].dataset.commentAuthorId == e.current_user.id) {
+                    a[i].dataset.currentUserComment = "true";
+                    var l = a[i].dataset.path,
+                      d = a[i].querySelector(".current-user-actions"),
+                      u = document.getElementById(
+                        "button-for-comment-" + a[i].dataset.commentId
+                      );
+                    d &&
+                      u &&
+                      ((d.innerHTML = `<li><a href="${l}/edit" class="crayons-link crayons-link--block" aria-label="Edit this comment">Edit</a></li>\n                                                <li><a data-no-instant href="${l}/delete_confirm" class="edit-butt crayons-link crayons-link--block" aria-label="Delete this comment">Delete</a></li>`),
+                      d.classList.remove("hidden"));
+                  }
+              }
+            }),
+              t.open(
+                "GET",
+                "/reactions?commentable_id=" +
+                  commentableIdList[e] +
+                  "&commentable_type=" +
+                  n,
+                !0
+              ),
+              t.send();
+          })(e);
+      })();
     for (
-      var n = document.getElementsByClassName("reaction-button"), a = 0;
-      a < n.length;
-      a++
+      var o = document.getElementsByClassName("reaction-button"), i = 0;
+      i < o.length;
+      i++
     ) {
-      n[a].onclick = function (e) {
+      o[i].onclick = function (e) {
         function t(e) {
-          var t = n.children[2];
+          var t = n.querySelector(".reactions-count"),
+            a = n.querySelector(".reactions-label");
           "create" === e.result
             ? (n.classList.add("reacted"),
-              t && (t.innerHTML = parseInt(t.innerHTML) + 1))
+              t &&
+                ((t.innerHTML = parseInt(t.innerHTML) + 1),
+                t.classList.remove("hidden"),
+                1 == parseInt(t.innerHTML)
+                  ? (a.innerHTML = "&nbsp;like")
+                  : parseInt(t.innerHTML) > 1 && (a.innerHTML = "&nbsp;likes")))
             : (n.classList.remove("reacted"),
-              t && (t.innerHTML = parseInt(t.innerHTML) - 1));
+              t &&
+                ((t.innerHTML = parseInt(t.innerHTML) - 1),
+                0 == parseInt(t.innerHTML) &&
+                  (t.classList.add("hidden"), (a.innerHTML = "Like"))));
         }
         var n = this;
         if (
@@ -1486,21 +1506,21 @@ function initializeCommentsPage() {
         } else showModal("react-to-comment");
       };
     }
-    var o = document.getElementsByClassName("toggle-reply-form");
-    for (a = 0; a < o.length; a++) {
-      o[a].onclick = function (n) {
+    var r = document.getElementsByClassName("toggle-reply-form");
+    for (i = 0; i < r.length; i++) {
+      r[i].onclick = function (e) {
         if (
-          (n.preventDefault(), n.target.classList.contains("thread-indication"))
+          (e.preventDefault(), e.target.classList.contains("thread-indication"))
         )
           return !1;
         if ("logged-out" != document.body.getAttribute("data-user-status")) {
-          var a = n.target.parentNode.dataset.commentId,
+          var a = e.target.closest(".comment").dataset.commentId,
             o = setInterval(function () {
               document.querySelector("meta[name='csrf-token']") &&
                 (clearInterval(o),
-                (commentWrapper = n.target.closest(".inner-comment")),
+                (commentWrapper = e.target.closest(".comment__details")),
                 commentWrapper.classList.add("replying"),
-                (commentWrapper.innerHTML += buildCommentFormHTML(e, t, a)),
+                (commentWrapper.innerHTML += buildCommentFormHTML(t, n, a)),
                 initializeCommentsPage(),
                 setTimeout(function () {
                   commentWrapper.getElementsByTagName("textarea")[0].focus();
@@ -1510,10 +1530,6 @@ function initializeCommentsPage() {
         }
         showModal("reply-to-comment");
       };
-    }
-    var i = document.getElementsByClassName("edit-butt");
-    for (a = 0; a < i.length; a++) {
-      i[a].onclick = function () {};
     }
     document.getElementById("new_comment") &&
       document
@@ -1533,21 +1549,6 @@ function toggleCodeOfConduct() {
         '<input type="checkbox" name="checked_code_of_conduct" class="checkbox" required/>                                  <label for="checked_code_of_conduct">I\'ve read the <a href="/code-of-conduct">code of conduct</a></label>');
   }
 }
-function replaceActionButts(e) {
-  var t = "",
-    n = e.getElementsByClassName("actions")[0];
-  "true" == e.dataset.currentUserComment &&
-    (t =
-      '<a data-no-instant href="' +
-      e.parentNode.parentNode.dataset.path +
-      '/delete_confirm" class="edit-butt">Delete</a>                            <a href="' +
-      e.parentNode.parentNode.dataset.path +
-      '/edit">Edit</a>'),
-    (n.innerHTML =
-      '<span class="current-user-actions">' +
-      t +
-      '</span><a href="#" class="toggle-reply-form">Reply</a>');
-}
 function handleCommentSubmit(e) {
   e.preventDefault();
   var t = e.target;
@@ -1555,76 +1556,84 @@ function handleCommentSubmit(e) {
   var n = t.getElementsByClassName("comment-textarea")[0];
   n && ((n.style.height = null), n.blur());
   var a = document.getElementById("comment-node-" + e.target.dataset.commentId),
-    o = JSON.stringify({
+    o = t.querySelector("#comment_parent_id"),
+    i = JSON.stringify({
       comment: {
         body_markdown: t.getElementsByTagName("textarea")[0].value,
         commentable_id: t.querySelector("#comment_commentable_id").value,
         commentable_type: t.querySelector("#comment_commentable_type").value,
-        parent_id: t.querySelector("#comment_parent_id")
-          ? t.querySelector("#comment_parent_id").value
-          : null,
+        parent_id: o ? o.value : null,
       },
     });
   return (
     getCsrfToken()
-      .then(sendFetch("comment-creation", o))
+      .then(sendFetch("comment-creation", i))
       .then(function (n) {
-        return (
-          200 === n.status
-            ? n.json().then(function (n) {
-                var o = document.createElement("div");
-                o.innerHTML = buildCommentHTML(n);
-                var i = document.body,
-                  r = JSON.parse(i.getAttribute("data-user"));
-                (r.checked_code_of_conduct = !0),
-                  (i.dataset.user = JSON.stringify(r));
-                var s = t.getElementsByClassName("code-of-conduct")[0];
-                s && (s.innerHTML = "");
-                var c = document.getElementById("new_comment");
-                if (a) {
-                  handleFormClose(e),
-                    n.depth > 2 &&
-                      (a.getElementsByClassName(
-                        "toggle-reply-form"
-                      )[0].innerHTML = "");
-                  var l = a.getElementsByClassName("inner-comment")[0];
-                  l.parentNode.insertBefore(o, l.nextSibling);
-                } else if (c) {
-                  (c = document.getElementById("new_comment")).classList.remove(
-                    "submitting"
+        if (200 !== n.status) {
+          t.classList.remove("submitting");
+          var o = n.status;
+          return (
+            n.json().then(function (e) {
+              429 === o
+                ? showRateLimitModal("made a comment", "making another comment")
+                : showUserAlertModal(
+                    "Error posting comment",
+                    "Your comment could not be posted due to an error: " +
+                      e.error,
+                    "OK"
                   );
-                  const e = t.querySelector(".comment-textarea");
-                  e
-                    .closest(".comment-form")
-                    .classList.remove("comment-form--initiated"),
-                    (e.value = n.comment_template || "");
-                  var d = document.getElementById("preview-div");
-                  d.classList.add("preview-toggle"), (d.innerHTML = "");
-                  var u = document.getElementById("comment-trees-container");
-                  u.insertBefore(o, u.firstChild);
-                } else if (document.getElementById("notifications-container")) {
-                  var m = document.createElement("span");
-                  (m.innerHTML =
-                    '<div class="crayons-notice align-center p-2 m-2 crayons-notice--success reply-sent-notice reply-sent-notice">Reply sent \u2014 <a href="' +
-                    n.url +
-                    '">Check it out</a></div>'),
-                    t.replaceWith(m);
-                } else window.location.replace(n.url);
-                initializeCommentsPage(),
-                  initializeCommentDate(),
-                  initializeCommentDropdown(),
-                  activateRunkitTags();
-              })
-            : n.json().then(function () {
-                return (
-                  t.classList.remove("submitting"),
-                  showRateLimitModal(
-                    "made a comment",
-                    "making another comment"
-                  ),
-                  !1
-                );
-              }),
+            }),
+            !1
+          );
+        }
+        return (
+          n.json().then(function (n) {
+            var o = document.createElement("div");
+            o.innerHTML = buildCommentHTML(n);
+            var i = document.body,
+              r = JSON.parse(i.getAttribute("data-user"));
+            (r.checked_code_of_conduct = !0),
+              (i.dataset.user = JSON.stringify(r));
+            var s = t.getElementsByClassName("code-of-conduct")[0];
+            s && (s.innerHTML = "");
+            var c = document.getElementById("new_comment");
+            if (a) {
+              if ((handleFormClose(e), n.depth > 3)) {
+                var l = a.getElementsByClassName("toggle-reply-form")[0],
+                  d = `<span class="fs-s inline-flex items-center fs-italic color-base-50 pl-1">${iconSmallThread}Thread</span>`;
+                l.classList.replace("inline-flex", "hidden"),
+                  (l.parentNode.innerHTML += d);
+              }
+              var u = a.getElementsByClassName("comment__inner")[0];
+              u.parentNode.insertBefore(o, u.nextSibling);
+            } else if (c) {
+              (c = document.getElementById("new_comment")).classList.remove(
+                "submitting"
+              ),
+                c.classList.remove("preview-open");
+              const e = t.getElementsByClassName("comment-textarea")[0];
+              e
+                .closest(".comment-form")
+                .classList.remove("comment-form--initiated"),
+                (e.value = n.comment_template || "");
+              var m = document.getElementById("preview-div");
+              m.classList.add("preview-toggle"), (m.innerHTML = "");
+              var f = document.getElementById("comment-trees-container");
+              f.insertBefore(o, f.firstChild);
+            } else if (document.getElementById("notifications-container")) {
+              var g = document.createElement("span");
+              (g.innerHTML =
+                '<div class="crayons-notice align-center p-2 m-2 crayons-notice--success reply-sent-notice reply-sent-notice">Reply sent \u2014 <a href="' +
+                n.url +
+                '">Check it out</a></div>'),
+                t.replaceWith(g);
+            } else window.location.replace(n.url);
+            updateCommentsCount(),
+              initializeCommentsPage(),
+              initializeCommentDate(),
+              initializeCommentDropdown(),
+              activateRunkitTags();
+          }),
           !1
         );
       }),
@@ -1704,15 +1713,16 @@ function handleSizeChange(e) {
   t.style.height = t.scrollHeight + (t.scrollHeight > n ? 15 : 0) + "px";
 }
 function handleButtonsActivation(e) {
-  var t = e.target;
-  t.closest(".comment-form")
-    .querySelectorAll(".js-btn-enable")
-    .forEach(function (e) {
-      t.value.length > 0 ? (e.disabled = !1) : (e.disabled = !0);
-    });
+  var t = e.target,
+    n = t.closest(".comment-form").getElementsByClassName("js-btn-enable");
+  Array.from(n).forEach(function (e) {
+    t.value.length > 0 ? (e.disabled = !1) : (e.disabled = !0);
+  });
 }
 function validateField(e) {
-  var t = e.target.closest(".comment-form").querySelector(".comment-textarea");
+  var t = e.target
+    .closest(".comment-form")
+    .getElementsByClassName("comment-textarea")[0];
   t && "" == t.value && e.preventDefault();
 }
 function handleChange(e) {
@@ -1784,20 +1794,25 @@ function handleImageUpload(e, t) {
 }
 function listenForDetailsToggle() {
   for (
-    var e = document.getElementsByTagName("DETAILS"), t = 0;
+    var e = document.querySelectorAll(".js-comment-wrapper"), t = 0;
     t < e.length;
     t++
   )
     e[t].addEventListener("toggle", (e) => {
       var t = e.target,
-        n = t.getElementsByTagName("SPAN")[0],
-        a = t.getElementsByClassName("comment-username"),
+        n = t.getElementsByClassName("js-collapse-comment-content")[0],
+        a = t.getElementsByClassName("js-comment-username"),
         o = "";
       a.length > 1 && (o = " + " + (a.length - 1) + " replies");
       var i = a[0].textContent + o;
-      t.open ? (n.innerHTML = "&nbsp;") : (n.innerHTML = i),
+      t.open ? (n.innerHTML = "") : (n.innerHTML = i),
         t.getElementsByTagName("SUMMARY")[0].blur();
     });
+}
+function updateCommentsCount() {
+  var e = document.getElementsByClassName("js-comments-count")[0],
+    t = parseInt(e.dataset.commentsCount) + 1;
+  (e.dataset.commentsCount = t), (e.innerHTML = `(${t})`);
 }
 function initializeCreditsPage() {
   localizeTimeElements(document.querySelectorAll(".ledger time"), {
@@ -1834,30 +1849,28 @@ function initializeDateHelpers() {
     });
 }
 function initializeDrawerSliders() {
-  initializeSwipeGestures.called ||
-    ((swipeState = "middle"), initializeSwipeGestures()),
-    document.getElementById("on-page-nav-controls") &&
-      (document.getElementById("sidebar-bg-left") &&
-        (document.getElementById("sidebar-bg-left").onclick = () => {
-          (swipeState = "middle"), slideSidebar("left", "outOfView");
-        }),
-      document.getElementById("sidebar-bg-right") &&
-        (document.getElementById("sidebar-bg-right").onclick = () => {
-          (swipeState = "middle"), slideSidebar("right", "outOfView");
-        }),
-      document.getElementById("on-page-nav-butt-left") &&
-        (document.getElementById("on-page-nav-butt-left").onclick = () => {
-          (swipeState = "left"), slideSidebar("left", "intoView");
-        }),
-      document.getElementById("on-page-nav-butt-right") &&
-        (document.getElementById("on-page-nav-butt-right").onclick = () => {
-          (swipeState = "right"), slideSidebar("right", "intoView");
-        }),
-      InstantClick.on("change", () => {
-        document.getElementsByTagName("body")[0].classList.remove("modal-open"),
-          slideSidebar("right", "outOfView"),
-          slideSidebar("left", "outOfView");
-      }));
+  document.getElementById("on-page-nav-controls") &&
+    (document.getElementById("sidebar-bg-left") &&
+      (document.getElementById("sidebar-bg-left").onclick = () => {
+        slideSidebar("left", "outOfView");
+      }),
+    document.getElementById("sidebar-bg-right") &&
+      (document.getElementById("sidebar-bg-right").onclick = () => {
+        slideSidebar("right", "outOfView");
+      }),
+    document.getElementById("on-page-nav-butt-left") &&
+      (document.getElementById("on-page-nav-butt-left").onclick = () => {
+        slideSidebar("left", "intoView");
+      }),
+    document.getElementById("on-page-nav-butt-right") &&
+      (document.getElementById("on-page-nav-butt-right").onclick = () => {
+        slideSidebar("right", "intoView");
+      }),
+    InstantClick.on("change", () => {
+      document.body.classList.remove("modal-open"),
+        slideSidebar("right", "outOfView"),
+        slideSidebar("left", "outOfView");
+    }));
   const e = document.getElementById("feed-filter-select");
   e &&
     e.addEventListener("change", (e) => {
@@ -1868,7 +1881,7 @@ function initializeDrawerSliders() {
 function getFormValues(e) {
   for (
     var t = e.action.match(/\/(\d+)$/)[1],
-      n = e.querySelectorAll("input"),
+      n = e.getElementsByTagName("input"),
       a = { id: t, article: {} },
       o = 0;
     o < n.length;
@@ -1900,7 +1913,7 @@ function onXhrSuccess(e, t, n) {
     var a = e.querySelector('[type="submit"]');
     toggleNotifications(a, a.getAttribute("value"));
   }
-  t.querySelector(".js-dashboard-row-more").classList.add("hidden");
+  t.getElementsByClassName("js-ellipsis-menu")[0].classList.add("hidden");
 }
 function handleFormSubmit(e) {
   e.preventDefault(), e.stopPropagation();
@@ -1920,16 +1933,16 @@ function handleFormSubmit(e) {
           "Mute Notifications" === n.commit
             ? "Notifications Muted"
             : "Notifications Restored";
-        e.querySelector(".js-dashboard-story-details").innerHTML = a;
+        e.getElementsByClassName("js-dashboard-story-details")[0].innerHTML = a;
       } else
-        e.querySelector(".js-dashboard-story-details").innerHTML =
+        e.getElementsByClassName("js-dashboard-story-details")[0].innerHTML =
           "Failed to update article.";
     });
 }
 function initializeFormSubmit() {
   for (
     var e = document.querySelectorAll(
-        ".js-dashboard-row-more-dropdown .js-archive-toggle"
+        ".js-ellipsis-menu-dropdown .js-archive-toggle"
       ),
       t = 0;
     t < e.length;
@@ -1939,24 +1952,24 @@ function initializeFormSubmit() {
 }
 function getMenu(e) {
   return e
-    .closest(".js-dashboard-row-more")
-    .querySelector(".js-dashboard-row-more-dropdown");
+    .closest(".js-ellipsis-menu")
+    .getElementsByClassName("js-ellipsis-menu-dropdown")[0];
 }
 function hideIfNotAlreadyHidden(e) {
   e.classList.contains("block") && e.classList.remove("block");
 }
 function hideAllEllipsisMenusExcept(e) {
   for (
-    var t = document.querySelectorAll(".js-dashboard-row-more-dropdown"), n = 0;
+    var t = document.getElementsByClassName("js-ellipsis-menu-dropdown"), n = 0;
     n < t.length;
     n += 1
   )
     t[n] !== e && hideIfNotAlreadyHidden(t[n]);
 }
 function hideEllipsisMenus(e) {
-  if (!e.target.closest(".js-dashboard-row-more"))
+  if (!e.target.closest(".js-ellipsis-menu"))
     for (
-      var t = document.querySelectorAll(".js-dashboard-row-more-dropdown"),
+      var t = document.getElementsByClassName("js-ellipsis-menu-dropdown"),
         n = 0;
       n < t.length;
       n += 1
@@ -1972,8 +1985,7 @@ function toggleEllipsisMenu(e) {
 }
 function initializeEllipsisMenuToggle() {
   for (
-    var e = document.getElementsByClassName("js-dashboard-row-more-trigger"),
-      t = 0;
+    var e = document.getElementsByClassName("js-ellipsis-menu-trigger"), t = 0;
     t < e.length;
     t += 1
   )
@@ -1989,10 +2001,11 @@ function initializeHeroBannerClose() {
     t = document.getElementById("js-hero-banner__x");
   e &&
     t &&
+    (t.setAttribute("aria-label", "Close campaign banner"),
     t.addEventListener("click", () => {
       localStorage.setItem("exited_hero", e.dataset.name),
         (e.style.display = "none");
-    });
+    }));
 }
 function initializeLocalStorageRender() {
   try {
@@ -2072,7 +2085,7 @@ function initializePodcastPlayback() {
     return (
       window.name || (window.name = Math.random()),
       {
-        html: document.getElementById("audiocontent").innerHTML,
+        html: e("audiocontent").innerHTML,
         currentTime: 0,
         playing: !1,
         muted: !1,
@@ -2131,7 +2144,7 @@ function initializePodcastPlayback() {
   function d(t) {
     var n = a();
     (e("barPlayPause").onclick = function () {
-      L(t);
+      B(t);
     }),
       (e("mutebutt").onclick = function () {
         I(t);
@@ -2140,17 +2153,17 @@ function initializePodcastPlayback() {
         I(t);
       }),
       (e("bufferwrapper").onclick = function (e) {
-        x(e, t);
+        S(e, t);
       }),
       (e("volumeslider").value = 100 * n.volume),
       (e("volumeslider").onchange = function (e) {
-        B(e, t);
+        x(e, t);
       }),
       (e("speed").onclick = function () {
         h(t);
       }),
       (e("closebutt").onclick = function () {
-        A(t);
+        M(t);
       });
   }
   function u(t) {
@@ -2161,21 +2174,21 @@ function initializePodcastPlayback() {
       var t = 0;
       e.currentTime > 0 &&
         (t = (e.buffered.end(e.buffered.length - 1) / e.duration) * 100);
-      S(e.currentTime, e.duration, t);
+      C(e.currentTime, e.duration, t);
     };
   }
   function f(e) {
     Runtime.podcastMessage
       ? Runtime.podcastMessage({
           action: "load",
-          url: e.querySelector("source").src,
+          url: e.getElementsByTagName("source")[0].src,
         })
       : e.load();
   }
   function g(t) {
     e("audiocontent").innerHTML = e(`hidden-audio-${t}`).innerHTML;
     var n = e("audio");
-    n.addEventListener("timeupdate", m(n), !1), f(n), L(n), d(n);
+    n.addEventListener("timeupdate", m(n), !1), f(n), B(n), d(n);
   }
   function p() {
     var t = c();
@@ -2185,7 +2198,7 @@ function initializePodcastPlayback() {
       t.onclick = function () {
         if (u(n)) {
           var t = e("audio");
-          t && L(t);
+          t && B(t);
         } else s(), g(n);
       };
     });
@@ -2209,15 +2222,15 @@ function initializePodcastPlayback() {
           })
         : (t.playbackRate = n.playbackRate);
   }
-  function y(t) {
-    var n = e(`status-message-${window.activeEpisode}`);
-    n
-      ? t
-        ? (n.classList.add("showing"), (n.innerHTML = t))
-        : n.classList.remove("showing")
-      : "initializing..." === t &&
-        document.querySelector(".status-message") &&
-        (document.querySelector(".status-message").innerHTML = t);
+  function y(n) {
+    var a = e(`status-message-${window.activeEpisode}`);
+    a
+      ? n
+        ? (a.classList.add("showing"), (a.innerHTML = n))
+        : a.classList.remove("showing")
+      : "initializing..." === n &&
+        t("status-message")[0] &&
+        (t("status-message")[0].innerHTML = n);
   }
   function v() {
     e("barPlayPause").classList.add("playing"),
@@ -2234,19 +2247,19 @@ function initializePodcastPlayback() {
       Runtime.podcastMessage
         ? (Runtime.podcastMessage({
             action: "play",
-            url: e.querySelector("source").src,
+            url: e.getElementsByTagName("source")[0].src,
             seconds: o.currentTime.toString(),
           }),
-          O(!0),
+          D(!0),
           t())
         : ((e.currrentTime = o.currentTime),
           e
             .play()
             .then(function () {
-              O(!0), t();
+              D(!0), t();
             })
             ["catch"](function (e) {
-              console.log(e), O(!1), n();
+              console.log(e), D(!1), n();
             }));
     });
   }
@@ -2285,23 +2298,25 @@ function initializePodcastPlayback() {
     Runtime.podcastMessage
       ? Runtime.podcastMessage({ action: "pause" })
       : e.pause(),
-      O(!1),
+      D(!1),
       s(),
       b();
   }
   function L(e) {
-    (window.activeEpisode = e.getAttribute("data-episode")),
-      (window.activePodcast = e.getAttribute("data-podcast"));
-    var t = a(),
-      n = {
-        episode: window.activeEpisode,
-        podcast: window.activePodcast,
-        deviceType: D,
-      };
-    t.playing
-      ? ((n.action = "pause"), T(e), y(null))
-      : ((n.action = "play"), y("initializing..."), E(e)),
-      ahoy.track("Podcast Player Streaming", n);
+    (window.activeEpisode = P.getAttribute("data-episode")),
+      (window.activePodcast = P.getAttribute("data-podcast"));
+    var t = {
+      action: e,
+      episode: window.activeEpisode,
+      podcast: window.activePodcast,
+      deviceType: z,
+    };
+    ahoy.track("Podcast Player Streaming", t);
+  }
+  function B(e) {
+    a().playing
+      ? (L("pause"), T(e), y(null))
+      : (L("play"), y("initializing..."), E(e));
   }
   function I(t) {
     var n = a();
@@ -2315,7 +2330,7 @@ function initializePodcastPlayback() {
         : (t.muted = n.muted),
       l(n);
   }
-  function B(e, t) {
+  function x(e, t) {
     var n = a();
     (n.volume = e.target.value / 100),
       Runtime.podcastMessage
@@ -2323,7 +2338,7 @@ function initializePodcastPlayback() {
         : (t.volume = n.volume),
       l(n);
   }
-  function S(t, n, o) {
+  function C(t, n, o) {
     var i = e("progress"),
       r = e("buffer"),
       s = e("time"),
@@ -2338,9 +2353,9 @@ function initializePodcastPlayback() {
       t > 0 &&
       ((i.style.width = c + "%"),
       (r.style.width = o + "%"),
-      (s.innerHTML = C(t) + " / " + C(n)));
+      (s.innerHTML = A(t) + " / " + A(n)));
   }
-  function x(t, n) {
+  function S(t, n) {
     var o = a(),
       i = e("progress"),
       r = e("time");
@@ -2354,11 +2369,11 @@ function initializePodcastPlayback() {
               seconds: o.currentTime.toString(),
             })
           : (n.currentTime = o.currentTime),
-        (r.innerHTML = C(o.currentTime) + " / " + C(o.duration)),
+        (r.innerHTML = A(o.currentTime) + " / " + A(o.duration)),
         (i.style.width = 100 * s + "%");
     }
   }
-  function C(e) {
+  function A(e) {
     var t = Math.floor(e),
       n = Math.floor(t / 60);
     return (
@@ -2367,14 +2382,14 @@ function initializePodcastPlayback() {
       (t = (t = Math.floor(t % 60)) >= 10 ? t : "0" + t)
     );
   }
-  function A(t) {
+  function M(t) {
     t.removeEventListener("timeupdate", m(t), !1),
       (e("audiocontent").innerHTML = ""),
       s(),
       l(n()),
       Runtime.podcastMessage && Runtime.podcastMessage({ action: "terminate" });
   }
-  function M(t) {
+  function N(t) {
     if ("attributes" === t.type) {
       var n = {};
       try {
@@ -2384,26 +2399,31 @@ function initializePodcastPlayback() {
         return void console.log(r);
       }
       var i = a();
-      "tick" === n.action
-        ? ((i.currentTime = n.currentTime),
-          (i.duration = n.duration),
-          S(i.currentTime, i.duration, 100))
-        : "init" === n.action
-        ? ((e("time").innerHTML = "initializing..."), (i.currentTime = 0))
-        : console.log("Unrecognized podcast message: ", n),
-        l(i);
+      switch (n.action) {
+        case "init":
+          (e("time").innerHTML = "initializing..."), (i.currentTime = 0);
+          break;
+        case "tick":
+          (i.currentTime = n.currentTime),
+            (i.duration = n.duration),
+            C(i.currentTime, i.duration, 100);
+          break;
+        default:
+          console.log("Unrecognized podcast message: ", n);
+      }
+      l(i);
     }
   }
-  function N() {
+  function H() {
     new MutationObserver(function (e) {
       e.forEach(function (e) {
-        M(e);
+        N(e);
       });
     }).observe(e("audiocontent"), { attributes: !0 });
   }
-  function H() {
+  function R() {
     Runtime.isNativeIOS("podcast")
-      ? ((D = "iOS"),
+      ? ((z = "iOS"),
         (Runtime.podcastMessage = function (e) {
           try {
             window.webkit.messageHandlers.podcast.postMessage(e);
@@ -2412,7 +2432,7 @@ function initializePodcastPlayback() {
           }
         }))
       : Runtime.isNativeAndroid("podcastMessage") &&
-        ((D = "Android"),
+        ((z = "Android"),
         (Runtime.podcastMessage = function (e) {
           try {
             AndroidBridge.podcastMessage(JSON.stringify(e));
@@ -2421,7 +2441,7 @@ function initializePodcastPlayback() {
           }
         }));
   }
-  function R() {
+  function O() {
     var t = a();
     document.getElementById("audiocontent").innerHTML = t.html;
     var n = e("audio");
@@ -2433,20 +2453,20 @@ function initializePodcastPlayback() {
             b();
           }),
         setTimeout(function () {
-          n.addEventListener("timeupdate", m(n), !1), N();
+          n.addEventListener("timeupdate", m(n), !1), H();
         }, 500),
         d(n))
       : (audioInitialized = !1);
   }
-  function O(e) {
+  function D(e) {
     var t = a();
     (t.playing = e), l(t);
   }
-  var D = "web";
-  H(), r(), p(), audioInitialized || ((audioInitialized = !0), R());
+  var z = "web";
+  R(), r(), p(), audioInitialized || ((audioInitialized = !0), O());
   var P = e("audio"),
-    z = e("audiocontent");
-  P && z && z.innerHTML.length < 25 && f(P);
+    j = e("audiocontent");
+  P && j && j.innerHTML.length < 25 && f(P);
 }
 function initializeReadingListIcons() {
   setReadingListButtonsState(),
@@ -2643,96 +2663,6 @@ function initializeSponsorshipVisibility() {
       ? e.classList.add("hidden")
       : e && (e.classList.remove("hidden"), listenForSponsorClick());
 }
-function slideContent(e) {
-  var t = function (e, t) {
-      var n = document.createEvent("CustomEvent");
-      return (
-        n.initCustomEvent(t, !0, !0, e.target),
-        e.target.dispatchEvent(n),
-        (n = null),
-        !1
-      );
-    },
-    n = !0,
-    a = { x: 0, y: 0 },
-    o = { x: 0, y: 0 },
-    i = {
-      touchstart: function (e) {
-        a = {
-          x: e.touches[0].pageX,
-          y: e.touches[0].pageY,
-          scrollY: window.scrollY,
-        };
-      },
-      touchmove: function (e) {
-        (n = !1),
-          (o = {
-            x: e.touches[0].pageX,
-            y: e.touches[0].pageY,
-            scrollY: window.scrollY,
-          });
-      },
-      touchend: function (e) {
-        if (n) t(e, "fc");
-        else {
-          var i = o.x - a.x,
-            r = Math.abs(i),
-            s = o.y - a.y,
-            c = Math.abs(s),
-            l = Math.abs(a.scrollY - o.scrollY);
-          if (Math.max(r, c) > 15)
-            t(
-              e,
-              r / 2 > c && l < 5
-                ? i < 0
-                  ? "swl"
-                  : "swr"
-                : s < 0
-                ? "swu"
-                : "swd"
-            );
-        }
-        n = !0;
-      },
-      touchcancel: function () {
-        n = !1;
-      },
-    };
-  for (var r in i) e.addEventListener(r, i[r], !1);
-}
-function initializeSwipeGestures() {
-  initializeSwipeGestures.called = !0;
-  let e = "middle";
-  setTimeout(function () {
-    slideContent(document);
-    document.body.addEventListener(
-      "swl",
-      (t) => {
-        e = handleSwipeLeft(t, e);
-      },
-      !1
-    ),
-      document.body.addEventListener(
-        "swr",
-        (t) => {
-          e = handleSwipeRight(t, e);
-        },
-        !1
-      );
-  }, 50);
-}
-function handleSwipeLeft(e, t) {
-  if (document.getElementById("on-page-nav-controls"))
-    return "middle" == t
-      ? ((t = "right"), slideSidebar("right", "intoView"), t)
-      : ((t = "middle"), slideSidebar("left", "outOfView"), t);
-}
-function handleSwipeRight(e, t) {
-  if (document.getElementById("on-page-nav-controls"))
-    return "middle" == t
-      ? ((t = "left"), slideSidebar("left", "intoView"), t)
-      : ((t = "middle"), slideSidebar("right", "outOfView"), t);
-}
 function formatDateTime(e, t) {
   return new Intl.DateTimeFormat("en-US", e).format(t);
 }
@@ -2770,52 +2700,6 @@ function initializeTimeFixer() {
     updateLocalDateTime(t, convertUtcDate, (e) => e.dataset.datetime),
     updateLocalDateTime(n, convertCalEvent, (e) => e.innerHTML));
 }
-function getById(e) {
-  return document.getElementById(e);
-}
-function getClassList(e) {
-  return getById(e).classList;
-}
-function blur(e, t) {
-  setTimeout(() => {
-    document.activeElement !== getById(t) &&
-      getClassList("crayons-header__menu").remove("showing");
-  }, 10);
-}
-function removeShowingMenu() {
-  getClassList("crayons-header__menu").remove("showing"),
-    setTimeout(() => {
-      getClassList("crayons-header__menu").remove("showing");
-    }, 5),
-    setTimeout(() => {
-      getClassList("crayons-header__menu").remove("showing");
-    }, 150);
-}
-function toggleMenu() {
-  getClassList("crayons-header__menu").toggle("showing");
-}
-function initializeTouchDevice() {
-  var e = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|DEV-Native-ios/i.test(
-    navigator.userAgent
-  );
-  "DEV-Native-ios" === navigator.userAgent &&
-    document.body.classList.add("dev-ios-native-body"),
-    setTimeout(() => {
-      removeShowingMenu(),
-        e
-          ? getById("navigation-butt").addEventListener("click", toggleMenu)
-          : (getClassList("crayons-header__menu").add("desktop"),
-            getById("navigation-butt").addEventListener("focus", () =>
-              getClassList("crayons-header__menu").add("showing")
-            ),
-            getById("last-nav-link").addEventListener("blur", (e) =>
-              blur(e, "second-last-nav-link")
-            ),
-            getById("navigation-butt").addEventListener("blur", (e) =>
-              blur(e, "first-nav-link")
-            ));
-    }, 10);
-}
 function initializeUserProfilePage() {
   const e = document.getElementsByClassName("profile-dropdown")[0];
   if (e) {
@@ -2828,11 +2712,35 @@ function initializeUserProfilePage() {
         const n = document.getElementById("user-profile-dropdownmenu");
         t.addEventListener("click", () => {
           n.classList.toggle("block");
-          var t = e.querySelector(".report-abuse-link-wrapper");
+          var t = e.getElementsByClassName("report-abuse-link-wrapper")[0];
           t.innerHTML = `<a href="${t.dataset.path}" class="crayons-link crayons-link--block">Report Abuse</a>`;
         });
       }
     }
+  }
+}
+function initializeProfileInfoToggle() {
+  const e = document.getElementsByClassName("js-user-info")[0],
+    t = document.getElementsByClassName("js-user-info-trigger")[0],
+    n = document.getElementsByClassName("js-user-info-trigger-wrapper")[0];
+  t &&
+    e &&
+    t.addEventListener("click", () => {
+      n.classList.replace("block", "hidden"),
+        e.classList.replace("hidden", "grid");
+    });
+}
+function initializeProfileBadgesToggle() {
+  const e = document.getElementsByClassName("js-profile-badges")[0],
+    t = document.getElementsByClassName("js-profile-badges-trigger")[0];
+  if (e && t) {
+    const n = e.querySelectorAll(".js-profile-badge.hidden");
+    t.addEventListener("click", () => {
+      n.forEach((e) => {
+        e.classList.remove("hidden");
+      }),
+        t.classList.add("hidden");
+    });
   }
 }
 function initializeVideoPlayback() {
@@ -2926,11 +2834,23 @@ function initializeVideoPlayback() {
       } catch (i) {
         return void console.log(i);
       }
-      "pause" == n.action
-        ? (e("pause-butt").classList.remove("active"),
-          e("play-butt").classList.add("active"),
-          a(!1))
-        : "tick" == n.action && (l = n.currentTime);
+      switch (n.action) {
+        case "play":
+          e("pause-butt").classList.add("active"),
+            e("play-butt").classList.remove("active"),
+            a(!0);
+          break;
+        case "pause":
+          e("pause-butt").classList.remove("active"),
+            e("play-butt").classList.add("active"),
+            a(!1);
+          break;
+        case "tick":
+          l = n.currentTime;
+          break;
+        default:
+          console.log("Unrecognized video message: ", n);
+      }
     }
   }
   function c(a) {
@@ -3050,24 +2970,26 @@ function buildArticleHTML(e) {
           '<span class="hidden s:inline">&nbsp;comments</span></a>');
     var c,
       l,
-      d = e.public_reactions_count || "0",
-      u = "";
+      d = e.public_reactions_count,
+      u = "",
+      m = 1 === d ? "reaction" : "reactions";
     "User" !== e.class_name &&
+      d > 0 &&
       (u =
         '<a href="' +
         e.path +
         '" class="crayons-btn crayons-btn--s crayons-btn--ghost crayons-btn--icon-left"><svg class="crayons-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M18.884 12.595l.01.011L12 19.5l-6.894-6.894.01-.01A4.875 4.875 0 0112 5.73a4.875 4.875 0 016.884 6.865zM6.431 7.037a3.375 3.375 0 000 4.773L12 17.38l5.569-5.569a3.375 3.375 0 10-4.773-4.773L9.613 10.22l-1.06-1.062 2.371-2.372a3.375 3.375 0 00-4.492.25v.001z"/></svg>' +
         d +
-        '<span class="hidden s:inline">&nbsp;reactions</span></a>'),
+        `<span class="hidden s:inline">&nbsp;${m}</span></a>`),
       "PodcastEpisode" === e.class_name
         ? ((c = e.main_image), (l = e.slug), e.title)
         : ((c = e.user.profile_image_90), (l = e.user.username), e.user.name);
-    var m = "",
-      f = "",
-      g = "crayons-avatar--l";
+    var f = "",
+      g = "",
+      p = "crayons-avatar--l";
     e.organization &&
       !document.getElementById("organization-article-index") &&
-      ((f =
+      ((g =
         '<a href="/' +
         e.organization.slug +
         '" class="crayons-logo crayons-logo--l"><img alt="' +
@@ -3075,35 +2997,35 @@ function buildArticleHTML(e) {
         ' logo" src="' +
         e.organization.profile_image_90 +
         '" class="crayons-logo__image" loading="lazy"/></a>'),
-      (m =
+      (f =
         '<span><span class="crayons-story__tertiary fw-normal"> for </span><a href="/' +
         e.organization.slug +
         '" class="crayons-story__secondary fw-medium">' +
         e.organization.name +
         "</a></span>"),
-      (g =
+      (p =
         "crayons-avatar--s absolute -right-2 -bottom-2 border-solid border-2 border-base-inverted"));
-    var p = "";
-    e.published_at_int &&
-      (p = timeAgo({ oldTimeInSeconds: e.published_at_int }));
     var h = "";
+    e.published_at_int &&
+      (h = timeAgo({ oldTimeInSeconds: e.published_at_int }));
+    var y = "";
     e.readable_publish_date &&
-      (h = e.published_timestamp
+      (y = e.published_timestamp
         ? '<time datetime="' +
           e.published_timestamp +
           '">' +
           e.readable_publish_date +
           " " +
-          p +
+          h +
           "</time>"
-        : "<time>" + e.readable_publish_date + " " + p + "</time>");
-    var y =
+        : "<time>" + e.readable_publish_date + " " + h + "</time>");
+    var v =
         '<div class="crayons-story__meta">      <div class="crayons-story__author-pic">        ' +
-        f +
+        g +
         '        <a href="/' +
         l +
         '" class="crayons-avatar ' +
-        g +
+        p +
         '">          <img src="' +
         c +
         '" alt="' +
@@ -3113,78 +3035,66 @@ function buildArticleHTML(e) {
         '" class="crayons-story__secondary fw-medium">' +
         filterXSS(e.user.name) +
         "</a>          " +
-        m +
+        f +
         '        </p>        <a href="' +
         e.path +
         '" class="crayons-story__tertiary fs-xs">          ' +
-        h +
+        y +
         "        </a>      </div>    </div>",
-      v = "",
-      b = "";
+      b = "",
+      w = "";
     if (e.highlight && e.highlight.body_text.length > 0) {
-      var w = e.highlight.body_text[0],
-        k = "";
-      w.toLowerCase() !== w.toUpperCase() && (k = "\u2026"),
-        (v = k + e.highlight.body_text.join("...") + "\u2026").length > 0 &&
-          (b = '<div class="crayons-story__snippet mb-1">' + v + "</div>");
+      var k = e.highlight.body_text[0],
+        _ = "";
+      k.toLowerCase() !== k.toUpperCase() && (_ = "\u2026"),
+        (b = _ + e.highlight.body_text.join("...") + "\u2026").length > 0 &&
+          (w = '<div class="crayons-story__snippet mb-1">' + b + "</div>");
     }
-    var _ = "";
+    var E = "";
     "Article" === e.class_name &&
-      (_ =
+      (E =
         '<small class="crayons-story__tertiary fs-xs mr-2">' +
         ((e.reading_time || null) < 1 ? "1 min" : e.reading_time + " min") +
         " read</small>");
-    var E = "";
+    var T = "";
     "Article" === e.class_name
-      ? (E =
+      ? (T =
           '<button type="button" id="article-save-button-' +
           e.id +
           '" class="crayons-btn crayons-btn--secondary crayons-btn--s bookmark-button" data-reactable-id="' +
           e.id +
           '">                      <span class="bm-initial">Save</span>                      <span class="bm-success">Saved</span>                    </button>')
       : "User" === e.class_name &&
-        (E =
+        (T =
           '<button type="button" class="crayons-btn crayons-btn--secondary crayons-btn--icon-left fs-s bookmark-button article-engagement-count engage-button follow-action-button follow-user"                       data-info=\'{"id":' +
           e.id +
           ',"className":"User"}\' data-follow-action-button>                       &nbsp;                    </button>');
-    var T = "";
-    return (
-      e.cloudinary_video_url &&
-        (T =
-          '<a href="' +
-          e.path +
-          '" class="crayons-story__video" style="background-image:url(' +
-          e.cloudinary_video_url +
-          ')"><div class="crayons-story__video__time">' +
-          (e.video_duration_string || e.video_duration_in_minutes) +
-          "</div></a>"),
-      '<article class="crayons-story" data-article-path="' +
+    var L = "";
+    e.cloudinary_video_url &&
+      (L =
+        '<a href="' +
         e.path +
-        '" data-content-user-id="' +
-        e.user_id +
-        '">      <div role="presentation">        ' +
-        T +
-        '        <div class="crayons-story__body">          <div class="crayons-story__top">            ' +
-        y +
-        '          </div>          <div class="crayons-story__indention">            <h2 class="crayons-story__title"><a href="' +
-        e.path +
-        '" id="article-link-' +
-        e.id +
-        '">' +
-        filterXSS(e.title) +
-        '</a></h2>            <div class="crayons-story__tags">' +
-        o +
-        "</div>            " +
-        b +
-        '            <div class="crayons-story__bottom">              <div class="crayons-story__details">' +
-        u +
-        r +
-        '</div>                <div class="crayons-story__save">                ' +
-        _ +
-        "                " +
-        E +
-        "              </div>            </div>          </div>        </div>      </div>    </article>"
-    );
+        '" class="crayons-story__video" style="background-image:url(' +
+        e.cloudinary_video_url +
+        ')"><div class="crayons-story__video__time">' +
+        (e.video_duration_string || e.video_duration_in_minutes) +
+        "</div></a>");
+    var B = `\n      <a\n        href="${
+      e.path
+    }"\n        aria-labelledby="article-link-${
+      e.id
+    }"\n        class="crayons-story__hidden-navigation-link"\n      >\n        ${filterXSS(
+      e.title
+    )}\n      </a>\n    `;
+    return `<article class="crayons-story"\n      data-article-path="${
+      e.path
+    }"\n      id="article-${e.id}"\n      data-content-user-id="${
+      e.user_id
+    }">        ${B}        <div role="presentation">          ${L}          <div class="crayons-story__body">            <div class="crayons-story__top">              ${v}\n            </div>            <div class="crayons-story__indention">\n              <h3 class="crayons-story__title">\n                <a href="${
+      e.path
+    }" id="article-link-${e.id}">\n                  ${filterXSS(
+      e.title
+    )}\n                </a>\n              </h3>              <div class="crayons-story__tags">\n                ${o}\n              </div>              ${w}              <div class="crayons-story__bottom">                <div class="crayons-story__details">\n                  ${u} ${r}\n                </div>                <div class="crayons-story__save">                  ${E}                  ${T}\n                </div>              </div>            </div>          </div>        </div>      </article>`;
   }
   return "";
 }
@@ -3195,143 +3105,90 @@ function buildCommentFormHTML(e, t, n) {
     o = userData();
   o && !o.codeOfConduct && o.commentCount;
   var i = Math.floor(1991 * Math.random());
-  return `<form class="comment-form pt-4" onsubmit="handleCommentSubmit.bind(this)(event)" id="new-comment-${n}" action="/comments" accept-charset="UTF-8" method="post" data-comment-id="${n}">\n      <input name="utf8" type="hidden" value="&#x2713;" />\n      <input type="hidden" name="authenticity_token" value="${a}">\n      <input value="${e}" type="hidden" name="comment[commentable_id]" id="comment_commentable_id" />\n      <input value="${t}" type="hidden" name="comment[commentable_type]" id="comment_commentable_type" />\n      <input value="${n}" type="hidden" name="comment[parent_id]" id="comment_parent_id" />\n      <div class="comment-form__inner">\n        <div class="comment-form__field">\n          <textarea id="textarea-for-${n}" class="crayons-textfield crayons-textfield--ghost comment-textarea" name="comment[body_markdown]" placeholder="Reply..." required="required" onkeydown="handleKeyDown(event)" onfocus="handleFocus(event)" oninput="handleChange(event)" onkeykup="handleKeyUp(event)"></textarea>\n          <div class="comment-form__toolbar">\n            <div class="editor-image-upload">\n              <input type="file" id="image-upload-${i}"  name="file" accept="image/*" style="display:none">\n              <button type="button" class="crayons-btn crayons-btn--s crayons-btn--icon-left crayons-btn--ghost-dimmed" onclick="handleImageUpload(event, ${i})" id="image-upload-button-${i}">\n                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="crayons-icon"><path d="M20 5H4v14l9.292-9.294a1 1 0 011.414 0L20 15.01V5zM2 3.993A1 1 0 012.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 01-.992.993H2.992A.993.993 0 012 20.007V3.993zM8 11a2 2 0 110-4 2 2 0 010 4z"/></svg>\n                <span class="hidden s:inline-block">Upload image</span>\n              </button>\n              <label  class="image-upload-file-label" id="image-upload-file-label-${i}"></label>\n              <input type="submit" id="image-upload-submit-${i}" value="Upload" style="display:none">\n              <input class="crayons-textfield fs-s w-auto uploaded-image hidden" type="text" id="uploaded-image-${i}" />\n            </div>\n            <button type="button" class="crayons-btn crayons-btn--s crayons-btn--icon-left crayons-btn--ghost-dimmed response-templates-button" title="Use a response template" data-has-listener="false">\n              <svg width="24" height="24" class="crayons-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18.5V5a3 3 0 013-3h14a1 1 0 011 1v18a1 1 0 01-1 1H6.5A3.5 3.5 0 013 18.5zM19 20v-3H6.5a1.5 1.5 0 100 3H19zM10 4H6a1 1 0 00-1 1v10.337A3.485 3.485 0 016.5 15H19V4h-2v8l-3.5-2-3.5 2V4z"/></svg>\n              <span class="hidden s:inline-block">Templates</span>\n            </button>\n            <a href="/p/editor_guide" class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon crayons-btn--s ml-auto" target="_blank" rel="noopener" title="Markdown Guide">\n              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="crayons-icon"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>\n            </a>\n          </div>\n        </div>\n        <div class="response-templates-container crayons-card crayons-card--secondary p-4 mb-4 fs-base comment-form__templates hidden">\n          <header>\n            <button type="button" class="personal-template-button active" data-target-type="personal" data-form-id="new_comment">Personal</button>\n            <button type="button" class="moderator-template-button hidden" data-target-type="moderator" data-form-id="new_comment">Moderator</button>\n          </header>\n          <img class="loading-img hidden" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/loading-ellipsis-b714cf681fd66c853ff6f03dd161b77aa3c80e03cdc06f478b695f42770421e9.svg" alt="loading">\n          <div class="personal-responses-container"></div>\n          <div class="moderator-responses-container hidden"></div>\n          <a target="_blank" rel="noopener nofollow" href="/settings/response-templates">Create template</a>\n          <p>Templates let you quickly answer FAQs or store snippets for re-use.</p>\n        </div>\n        <div class="comment-form__preview text-styles text-styles--secondary"></div>\n        <div class="comment-form__buttons mb-4">\n          <button type="submit" class="crayons-btn comment-action-button mr-2 js-btn-enable" name="submit" disabled>Submit</button>\n          <button type="button" class="preview-toggle crayons-btn crayons-btn--secondary comment-action-button comment-action-preview mr-2 js-btn-enable" onclick="handleCommentPreview(event)" disabled>Preview</button>\n          <button type="button" class="crayons-btn crayons-btn--ghost" onclick="handleFormClose(event)">Dismiss</button>\n        </div>\n      </div>\n    </form>`;
+  return `<form class="comment-form pt-4" onsubmit="handleCommentSubmit.bind(this)(event)" id="new-comment-${n}" action="/comments" accept-charset="UTF-8" method="post" data-comment-id="${n}">\n      <input name="utf8" type="hidden" value="&#x2713;" />\n      <input type="hidden" name="authenticity_token" value="${a}">\n      <input value="${e}" type="hidden" name="comment[commentable_id]" id="comment_commentable_id" />\n      <input value="${t}" type="hidden" name="comment[commentable_type]" id="comment_commentable_type" />\n      <input value="${n}" type="hidden" name="comment[parent_id]" id="comment_parent_id" />\n      <div class="comment-form__inner">\n        <div class="comment-form__field">\n          <textarea id="textarea-for-${n}" class="crayons-textfield crayons-textfield--ghost comment-textarea" name="comment[body_markdown]" placeholder="Reply..." aria-label="Reply to a comment..." required="required" onkeydown="handleKeyDown(event)" onfocus="handleFocus(event)" oninput="handleChange(event)" onkeykup="handleKeyUp(event)"></textarea>\n          <div class="comment-form__toolbar">\n            <div class="editor-image-upload">\n              <input type="file" id="image-upload-${i}"  name="file" accept="image/*" style="display:none">\n              <button type="button" class="crayons-btn crayons-btn--s crayons-btn--icon-left crayons-btn--ghost-dimmed" onclick="handleImageUpload(event, ${i})" id="image-upload-button-${i}">\n                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="crayons-icon"><path d="M20 5H4v14l9.292-9.294a1 1 0 011.414 0L20 15.01V5zM2 3.993A1 1 0 012.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 01-.992.993H2.992A.993.993 0 012 20.007V3.993zM8 11a2 2 0 110-4 2 2 0 010 4z"/></svg>\n                <span class="hidden s:inline-block">Upload image</span>\n              </button>\n              <label  class="image-upload-file-label" id="image-upload-file-label-${i}"></label>\n              <input type="submit" id="image-upload-submit-${i}" value="Upload" style="display:none">\n              <input class="crayons-textfield fs-s w-auto uploaded-image hidden" type="text" id="uploaded-image-${i}" />\n            </div>\n            <button type="button" class="crayons-btn crayons-btn--s crayons-btn--icon-left crayons-btn--ghost-dimmed response-templates-button" title="Use a response template" data-has-listener="false">\n              <svg width="24" height="24" class="crayons-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18.5V5a3 3 0 013-3h14a1 1 0 011 1v18a1 1 0 01-1 1H6.5A3.5 3.5 0 013 18.5zM19 20v-3H6.5a1.5 1.5 0 100 3H19zM10 4H6a1 1 0 00-1 1v10.337A3.485 3.485 0 016.5 15H19V4h-2v8l-3.5-2-3.5 2V4z"/></svg>\n              <span class="hidden s:inline-block">Templates</span>\n            </button>\n            <a href="/p/editor_guide" class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon crayons-btn--s ml-auto" target="_blank" rel="noopener" title="Markdown Guide">\n              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="crayons-icon"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>\n            </a>\n          </div>\n        </div>\n        <div class="response-templates-container crayons-card crayons-card--secondary p-4 mb-4 fs-base comment-form__templates hidden">\n          <header>\n            <button type="button" class="personal-template-button active" data-target-type="personal" data-form-id="new_comment">Personal</button>\n            <button type="button" class="moderator-template-button hidden" data-target-type="moderator" data-form-id="new_comment">Moderator</button>\n          </header>\n          <img class="loading-img hidden" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/loading-ellipsis-b714cf681fd66c853ff6f03dd161b77aa3c80e03cdc06f478b695f42770421e9.svg" alt="loading">\n          <div class="personal-responses-container"></div>\n          <div class="moderator-responses-container hidden"></div>\n          <a target="_blank" rel="noopener nofollow" href="/settings/response-templates">Create template</a>\n          <p>Templates let you quickly answer FAQs or store snippets for re-use.</p>\n        </div>\n        <div class="comment-form__preview text-styles text-styles--secondary"></div>\n        <div class="comment-form__buttons mb-4 whitespace-nowrap">\n          <button type="submit" class="crayons-btn comment-action-button mr-2 js-btn-enable" name="submit" disabled>Submit</button>\n          <button type="button" class="preview-toggle crayons-btn crayons-btn--secondary comment-action-button comment-action-preview mr-2 js-btn-enable" onclick="handleCommentPreview(event)" disabled>Preview</button>\n          <button type="button" class="crayons-btn crayons-btn--ghost" onclick="handleFormClose(event)">Dismiss</button>\n        </div>\n      </div>\n    </form>`;
 }
 function buildCommentHTML(e) {
-  var t = "",
-    n = "",
-    a = "",
+  var t =
+      '<svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon pointer-events-none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 12a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm5.25 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm3.75 1.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /></svg>',
+    n =
+      '<svg width="24" height="24" class="crayons-icon expanded" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 10.6771L8 6.93529L8.99982 6L12 8.80653L15.0002 6L16 6.93529L12 10.6771ZM12 15.1935L8.99982 18L8 17.0647L12 13.3229L16 17.0647L15.0002 17.9993L12 15.1935Z" /></svg>',
+    a =
+      '<svg width="24" height="24" class="crayons-icon collapsed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18L8 14.2287L8.99982 13.286L12 16.1147L15.0002 13.286L16 14.2287L12 18ZM12 7.88533L8.99982 10.714L8 9.77133L12 6L16 9.77133L15.0002 10.7133L12 7.88533Z" /></svg>',
     o = "",
     i = "",
-    r = "";
+    r = "",
+    s = "",
+    c = "",
+    l = "";
   return (
-    (t = e.newly_created
-      ? 0 == e.depth
-        ? "root"
-        : e.depth < 3
-        ? "child"
-        : "child flat-node"
-      : "child flat-node"),
-    e.user.twitter_username &&
-      e.user.twitter_username.length > 0 &&
-      (a =
-        '<a href="http://twitter.com/' +
-        e.user.twitter_username +
-        '" rel="noopener noreferrer" target="_blank"><img class="icon-img" alt="twitter logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/twitter-logo-7693bfa09ce3f28fea334a5dcf36ddf1c8d58b01bbfd78cca3b1383498bd86a8.svg" /></a>'),
-    e.user.github_username &&
-      e.user.github_username.length > 0 &&
-      (n =
-        '<a href="http://github.com/' +
-        e.user.github_username +
-        '" rel="noopener noreferrer" target="_blank"><img class="icon-img" alt="github logo" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/github-logo-ba8488d21cd8ee1fee097b8410db9deaa41d0ca30b004c0c63de0a479114156f.svg" /></a>'),
-    e.newly_created && (o = "comment-created-via-fetch"),
+    0 == e.depth ? (o += "root ") : (o += "child "),
+    e.depth > 3 && (o += "comment--too-deep "),
+    e.newly_created && "comment-created-via-fetch",
     e.depth < 3 &&
-      ((i = "<details open><summary><span>&nbsp;</span></summary>"),
+      ((i = `\n      <details class="comment-wrapper comment-wrapper--deep-${
+        e.depth
+      } js-comment-wrapper" open>\n        <summary aria-label="Toggle this comment (and replies)">\n          <span class="inline-block align-middle ${
+        e.depth > 0 ? "mx-0" : "m:mx-1"
+      }">\n            ${n}\n            ${a}\n          </span>\n          <span class="js-collapse-comment-content inline-block align-middle"></span>\n        </summary>\n    `),
       (r = "</details>")),
-    "<style>" +
-      e.css +
-      "</style>          " +
-      i +
-      '          <div class="comment-hash-marker" id="' +
-      e.id_code +
-      '"></div>          <div id="comment-node-' +
-      e.id +
-      '" class="single-comment-node ' +
-      t +
-      " comment-deep-" +
-      e.depth +
-      '" "          data-comment-id="' +
-      e.id +
-      '" data-comment-author-id="' +
-      e.user.id +
-      '" data-current-user-comment="' +
-      e.newly_created +
-      '" data-content-user-id="' +
-      e.user.id +
-      '">          <div class="inner-comment ' +
-      o +
-      '">            <div class="details">              <a href="/' +
-      e.user.username +
-      '">                <img class="profile-pic" src="' +
-      e.user.profile_pic +
-      '" alt="' +
-      e.user.username +
-      '">                <span class="comment-username"><span class="comment-username-inner">' +
-      e.user.name +
-      "</span></span>              </a>                " +
-      a +
-      "                " +
-      n +
-      '              <div class="comment-date">                <a href="' +
-      e.url +
-      '">                  <time datetime="' +
-      e.published_timestamp +
-      '">                    ' +
-      e.readable_publish_date +
-      '                  </time>                </a>              </div>              <button class="dropbtn">                <img class="dropdown-icon" alt="Toggle dropdown menu" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/overflow-horizontal-7a243cb5137329ddcc6343e87bf32ccf344eed3af8e33803a6a07cefa7d1e974.svg" />              </button>              <div class="dropdown">                  <div class="crayons-dropdown p-1 z-30 right-1 left-1 s:right-0 s:left-auto fs-base">                    <a href="' +
-      e.url +
-      '" class="crayons-link crayons-link--block">                      Permalink                    </a>                    <a href="' +
-      e.url +
-      '/settings" class="crayons-link crayons-link--block">                      Settings                    </a>                    <a href="/report-abuse?url=' +
-      e.url +
-      '" class="crayons-link crayons-link--block">Report Abuse</a>                  </div>              </div>            </div>            <div class="body">              ' +
-      e.body_html +
-      "              " +
-      reactions(e) +
-      "            </div>            " +
-      actions(e) +
-      "          </div>      </div>      " +
-      r
+    (l = `<a href="/${e.user.username}" class="shrink-0 crayons-avatar ${
+      0 == e.depth ? "m:crayons-avatar--l mt-4 m:mt-3" : "mt-4"
+    }">\n    <img class="crayons-avatar__image" width="32" height="32" src="${
+      e.user.profile_pic
+    }" alt="${e.user.username} profile" />\n  </a>`),
+    (s = `<header class="comment__header">\n    <a href="/${
+      e.user.username
+    }" class="crayons-link crayons-link--secondary flex items-center fw-medium">\n      <span class="js-comment-username">${
+      e.user.name
+    }</span>\n    </a>\n    \n    <span class="color-base-30 px-2" role="presentation">&bull;</span>\n    \n    <a href="${
+      e.url
+    }" class="comment-date crayons-link crayons-link--secondary fs-s">\n      <time datetime="${
+      e.published_timestamp
+    }">\n        ${
+      e.readable_publish_date
+    }\n      </time>\n    </a>\n\n    <div class="comment__dropdown">\n      <button class="dropbtn comment__dropdown-trigger crayons-btn crayons-btn--s crayons-btn--ghost crayons-btn--icon" aria-label="Toggle dropdown menu" aria-haspopup="true">\n        ${t}\n      </button>\n      <ul class="crayons-dropdown p-1 right-1 s:right-0 s:left-auto fs-base dropdown">\n        <li><a href="${
+      e.url
+    }" class="crayons-link crayons-link--block permalink-copybtn" aria-label="Copy link to ${
+      e.user.name
+    }'s comment" data-no-instant>Copy link</a></li>\n        <li><a href="${
+      e.url
+    }/settings" class="crayons-link crayons-link--block" aria-label="Go to ${
+      e.user.name
+    }'s comment settings">Settings</a></li>\n        <li><a href="/report-abuse?url=${
+      e.url
+    }" class="crayons-link crayons-link--block" aria-label="Report ${
+      e.user.name
+    }'s comment as abusive or violating our code of conduct and/or terms and conditions">Report abuse</a></li>\n        <li class="${
+      e.newly_created ? "" : "hidden"
+    }"><a href="${
+      e.url
+    }/edit" class="crayons-link crayons-link--block" rel="nofollow" aria-label="Delete this comment">Edit</a></li>\n        <li class="${
+      e.newly_created ? "" : "hidden"
+    }"><a data-no-instant="" href="${
+      e.url
+    }/delete_confirm" class="crayons-link crayons-link--block" rel="nofollow" aria-label="Delete this comment">Delete</a></li>\n      </ul>\n    </div>\n  </header>`),
+    (c = `<footer class="comment__footer">\n    ${react(e)}\n    ${reply(
+      e
+    )}\n  </footer>`),
+    `${i}\n    <div class="comment single-comment-node ${o} comment--deep-${e.depth}" id="comment-node-${e.id}" data-comment-id="${e.id}" data-path="${e.url}" data-comment-author-id="${e.user.id}" data-current-user-comment="${e.newly_created}" data-content-user-id="${e.user.id}">\n      <div class="comment__inner">\n        ${l}\n        <div class="inner-comment comment__details">\n          <div class="comment__content crayons-card">\n            ${s}\n            <div class="comment__body text-styles text-styles--secondary body">\n              ${e.body_html}\n            </div>\n          </div>\n          ${c}\n        </div>\n      </div>\n    </div>\n  ${r}`
   );
 }
-function actions(e) {
-  return e.newly_created
-    ? '<div class="actions" data-comment-id="' +
-        e.id +
-        '" data-path="' +
-        e.url +
-        '">              <span class="current-user-actions" style="display: ' +
-        (e.newly_created ? "inline-block" : "none") +
-        ';">                <a data-no-instant="" href="' +
-        e.url +
-        '/delete_confirm" class="edit-butt" rel="nofollow">DELETE</a>                <a href="' +
-        e.url +
-        '/edit" class="edit-butt" rel="nofollow">EDIT</a>              </span>                <a href="#" class="toggle-reply-form" rel="nofollow">Reply</a>            </div>'
-    : '<div class="actions" data-comment-id="' +
-        e.id +
-        '" data-path="' +
-        e.url +
-        '" data-commentable-id="' +
-        e.commentable.id +
-        '">                <a href="' +
-        e.url +
-        '" rel="nofollow">VIEW/REPLY</a>            </div>';
+function reply(e) {
+  var t =
+      '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="crayons-icon reaction-icon not-reacted"><path d="M10.5 5h3a6 6 0 110 12v2.625c-3.75-1.5-9-3.75-9-8.625a6 6 0 016-6zM12 15.5h1.5a4.501 4.501 0 001.722-8.657A4.5 4.5 0 0013.5 6.5h-3A4.5 4.5 0 006 11c0 2.707 1.846 4.475 6 6.36V15.5z"/></svg>',
+    n = `<a class="js actions crayons-btn crayons-btn--ghost crayons-btn--s crayons-btn--icon-left toggle-reply-form mr-1 inline-flex"\n    href="#${e.url}"\n    data-comment-id="${e.id}"\n    data-path="${e.url}"\n    rel="nofollow">\n    ${t}\n    <span class="hidden m:inline-block">Reply</span>\n  </a>`;
+  if (e.newly_created) return n;
 }
-function reactions(e) {
-  if (e.newly_created)
-    return (
-      '<button class="reaction-button reacted" id="button-for-comment-' +
-      e.id +
-      '" data-comment-id="' +
-      e.id +
-      '">              <img src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/favorite-heart-outline-button-0e707584abc59ba8dfe82cacff79233a8e1cb9791379a4d9715bd8318e72eb6b.svg" alt="Favorite heart outline button">              <img class="voted-heart" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/emoji/emoji-one-heart-f5a59d5d1b6cfe4e2c956c0ed63cd644820683dcd5c5a051d810fa6efe67a6ce.png" alt="Favorite heart button">              <span class="reactions-count" id="reactions-count-' +
-      e.id +
-      '">1</span></button>'
-    );
-  if (e.heart_ids.indexOf(userData().id) > -1) var t = "reacted";
-  else t = "";
+function react(e) {
+  var t = 1,
+    n =
+      '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="crayons-icon reaction-icon not-reacted"><path d="M18.884 12.595l.01.011L12 19.5l-6.894-6.894.01-.01A4.875 4.875 0 0112 5.73a4.875 4.875 0 016.884 6.865zM6.431 7.037a3.375 3.375 0 000 4.773L12 17.38l5.569-5.569a3.375 3.375 0 10-4.773-4.773L9.613 10.22l-1.06-1.062 2.371-2.372a3.375 3.375 0 00-4.492.25v.001z"/></svg>',
+    a =
+      '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="crayons-icon reaction-icon--like reaction-icon reacted"><path d="M5.116 12.595a4.875 4.875 0 015.56-7.68h-.002L7.493 8.098l1.06 1.061 3.181-3.182a4.875 4.875 0 016.895 6.894L12 19.5l-6.894-6.894.01-.01z"/></svg>';
   return (
-    '<button style="background:white" class="reaction-button ' +
-    t +
-    '" id="button-for-comment-' +
-    e.id +
-    '" data-comment-id="' +
-    e.id +
-    '">              <img src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/favorite-heart-outline-button-0e707584abc59ba8dfe82cacff79233a8e1cb9791379a4d9715bd8318e72eb6b.svg" alt="Favorite heart outline button">              <img class="voted-heart" src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/emoji/emoji-one-heart-f5a59d5d1b6cfe4e2c956c0ed63cd644820683dcd5c5a051d810fa6efe67a6ce.png" alt="Favorite heart button">              <span class="reactions-count" id="reactions-count-' +
-    e.id +
-    '">' +
-    e.public_reactions_count +
-    "</span></button>"
+    !e.newly_created && e.heart_ids.indexOf(userData().id) > -1 && "reacted",
+    e.newly_created || (t = e.public_reactions_count),
+    `<button class="crayons-btn crayons-btn--ghost crayons-btn--icon-left crayons-btn--s mr-1 reaction-like inline-flex reaction-button" id="button-for-comment-${e.id}" data-comment-id="${e.id}">\n    ${n}\n    ${a}\n    <span class="reactions-count" id="reactions-count-${e.id}">${t}</span>\n    <span class="reactions-label hidden m:inline-block">like</span>\n  </button>`
   );
 }
 function checkUserLoggedIn() {
@@ -3507,9 +3364,9 @@ function sendHapticMessage(e) {
 }
 function initSignupModal() {
   document.getElementById("global-signup-modal") &&
-    (document.querySelector(
-      ".authentication-modal__close-btn"
-    ).onclick = () => {
+    (document.getElementsByClassName(
+      "authentication-modal__close-btn"
+    )[0].onclick = () => {
       document.getElementById("global-signup-modal").classList.add("hidden"),
         document.body.classList.remove("modal-open");
     });
@@ -3525,7 +3382,7 @@ function showUserAlertModal(e, t, n) {
 }
 function showRateLimitModal(e, t) {
   showUserAlertModal(
-    "Wait a Moment...",
+    "Wait a moment...",
     buildRateLimitText(e, t),
     "Got it",
     "/faq",
@@ -3562,9 +3419,6 @@ function slideSidebar(e, t) {
           .getElementById("articles-list")
           .classList.remove("modal-open"),
         document.body.classList.remove("modal-open"),
-        (document
-          .getElementById("sidebar-wrapper-" + e)
-          .querySelector(".side-bar").scrollTop = 0),
         document
           .getElementById("sidebar-wrapper-" + e)
           .classList.remove("swiped-in"),
@@ -3618,10 +3472,8 @@ function callInitializers() {
       document.getElementById("sidebar-additional") &&
         document.getElementById("sidebar-additional").classList.add("showing"));
   }, 1);
-  initializeSpecialNavigationFunctionality(),
-    initializeBaseTracking(),
+  initializeBaseTracking(),
     initializePaymentPointers(),
-    initializeTouchDevice(),
     initializeCommentsPage(),
     initializeArticleDate(),
     initializeArticleReactions(),
@@ -3637,12 +3489,15 @@ function callInitializers() {
     initializeArchivedPostFilter(),
     initializeCreditsPage(),
     initializeUserProfilePage(),
+    initializeProfileInfoToggle(),
+    initializeProfileBadgesToggle(),
     initializePodcastPlayback(),
     initializeVideoPlayback(),
     initializeDrawerSliders(),
     initializeHeroBannerClose(),
     initializeOnboardingTaskCard(),
     initializeDateHelpers(),
+    initializeColorPicker(),
     (nextPage = 0),
     (fetching = !1),
     (done = !1),
@@ -3662,6 +3517,8 @@ function initializeBaseApp() {
     InstantClick.init();
 }
 var client,
+  iconSmallThread =
+    '<svg width="24" height="24" class="crayons-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 13l-5 6-5-6h3.125c0-3.314 2.798-6 6.25-6 .17 0 .34.006.506.02-1.787.904-3.006 2.705-3.006 4.78V13H17z" /></svg>',
   KEY_CODE_B = 66,
   KEY_CODE_I = 73,
   KEY_CODE_K = 75,
@@ -3682,7 +3539,7 @@ class Runtime {
   static isNativeAndroid(e = null) {
     const t =
       /DEV-Native-android|ForemWebView/i.test(navigator.userAgent) &&
-      AndroidBridge != undefined;
+      "undefined" != typeof AndroidBridge;
     let n = !0;
     return t && e && (n = AndroidBridge[e] != undefined), t && n;
   }
@@ -3723,7 +3580,7 @@ const fetchCallback = ({
   ),
   modalId = "user-alert-modal",
   getModalHtml = (e, t, n) =>
-    `<div id="${modalId}" data-testid="modal-container" class="crayons-modal hidden">\n    <div role="dialog" aria-modal="true" class="crayons-modal__box">\n      <div class="crayons-modal__box__header">\n        <h2>${e}</h2>\n          <button class="crayons-btn crayons-btn--ghost crayons-btn--icon" type="button" \n              onClick="toggleUserAlertModal();" aria-label="Close">\n            <svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon"\n              xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="714d29e78a3867c79b07f310e075e824">\n              <title id="714d29e78a3867c79b07f310e075e824">Close</title>\n              <path\n                d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z">\n              </path>\n            </svg>\n          </button>\n      </div>\n      <div class="crayons-modal__box__body">\n        <p>${t}</p>\n        </br>\n        <button class="crayons-btn crayons-btn--icon" type="button" onClick="toggleUserAlertModal();">${n}</button>\n      </div>\n    </div>\n    <div data-testid="modal-overlay" class="crayons-modal__overlay"></div>\n  </div>\n`;
+    `<div id="${modalId}" data-testid="modal-container" class="crayons-modal crayons-modal--m hidden">\n    <div role="dialog" aria-modal="true" class="crayons-modal__box">\n      <div class="crayons-modal__box__header border-b-0 justify-end">\n          <button class="crayons-btn crayons-btn--ghost crayons-btn--icon" type="button"\n              onClick="toggleUserAlertModal();" aria-label="Close">\n            <svg width="24" height="24" viewBox="0 0 24 24" class="crayons-icon"\n              xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="714d29e78a3867c79b07f310e075e824">\n              <title id="714d29e78a3867c79b07f310e075e824">Close</title>\n              <path\n                d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z">\n              </path>\n            </svg>\n          </button>\n      </div>\n      <div class="crayons-modal__box__body pt-0 flex gap-2">\n        <div class="w-75">\n          <h2>\n            ${e}\n          </h2>\n          <p class="color-base-70">\n            ${t}\n          </p>\n          <button class="crayons-btn mt-4" type="button" onClick="toggleUserAlertModal();">\n            ${n}\n          </button>\n        </div>\n      </div>\n    </div>\n    <div data-testid="modal-overlay" class="crayons-modal__overlay"></div>\n  </div>\n`;
 "undefined" != typeof globalThis && (globalThis.timeAgo = timeAgo),
   (function e(t, n, a) {
     function o(r, s) {
@@ -3771,7 +3628,7 @@ const fetchCallback = ({
           function r() {}
           function s() {}
           function c(e) {
-            return e.replace(L, "&lt;").replace(I, "&gt;");
+            return e.replace(L, "&lt;").replace(B, "&gt;");
           }
           function l(e, t, n, a) {
             if (((n = p(n)), "href" === t || "src" === t)) {
@@ -3797,20 +3654,20 @@ const fetchCallback = ({
             return (n = h(n));
           }
           function d(e) {
-            return e.replace(B, "&quot;");
+            return e.replace(I, "&quot;");
           }
           function u(e) {
-            return e.replace(S, '"');
+            return e.replace(x, '"');
           }
           function m(e) {
-            return e.replace(x, function (e, t) {
+            return e.replace(C, function (e, t) {
               return "x" === t[0] || "X" === t[0]
                 ? String.fromCharCode(parseInt(t.substr(1), 16))
                 : String.fromCharCode(parseInt(t, 10));
             });
           }
           function f(e) {
-            return e.replace(C, ":").replace(A, " ");
+            return e.replace(S, ":").replace(A, " ");
           }
           function g(e) {
             for (var t = "", n = 0, a = e.length; n < a; n++)
@@ -3873,11 +3730,11 @@ const fetchCallback = ({
             E = e("./util"),
             T = new k(),
             L = /</g,
-            I = />/g,
-            B = /"/g,
-            S = /&quot;/g,
-            x = /&#([a-zA-Z0-9]*);?/gim,
-            C = /&colon;?/gim,
+            B = />/g,
+            I = /"/g,
+            x = /&quot;/g,
+            C = /&#([a-zA-Z0-9]*);?/gim,
+            S = /&colon;?/gim,
             A = /&newline;?/gim,
             M = /((j\s*a\s*v\s*a|v\s*b|l\s*i\s*v\s*e)\s*s\s*c\s*r\s*i\s*p\s*t\s*|m\s*o\s*c\s*h\s*a)\:/gi,
             N = /e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n\s*\(.*/gi,
@@ -4917,54 +4774,54 @@ const fetchCallback = ({
             t.unshift("[Honeybadger]"), e.log.apply(e, t);
           }
         }
-        function I() {
-          if (B("debug")) return L.apply(this, arguments);
+        function B() {
+          if (I("debug")) return L.apply(this, arguments);
         }
-        function B(e, t) {
-          var n = $[e];
+        function I(e, t) {
+          var n = q[e];
           return (
-            n === undefined && (n = $[e.toLowerCase()]),
+            n === undefined && (n = q[e.toLowerCase()]),
             "false" === n && (n = !1),
             n !== undefined ? n : t
           );
         }
-        function S() {
-          return !F && B("onerror", !0);
-        }
         function x() {
-          return !F && B("onunhandledrejection", !0);
+          return !$ && I("onerror", !0);
         }
-        function C(e) {
+        function C() {
+          return !$ && I("onunhandledrejection", !0);
+        }
+        function S(e) {
           return (
-            !0 === $.breadcrumbsEnabled ||
-            (e ? !0 === $.breadcrumbsEnabled[e] : !1 !== $.breadcrumbsEnabled)
+            !0 === q.breadcrumbsEnabled ||
+            (e ? !0 === q.breadcrumbsEnabled[e] : !1 !== q.breadcrumbsEnabled)
           );
         }
         function A() {
           return (
             "http" +
-            (B("ssl", !0) ? "s" : "") +
+            (I("ssl", !0) ? "s" : "") +
             "://" +
-            B("host", "api.honeybadger.io")
+            I("host", "api.honeybadger.io")
           );
         }
         function M(e, n) {
           try {
             var a = H(n),
               o = new XMLHttpRequest();
-            o.open("POST", A() + "/v1/notices/js", B("async", !0)),
+            o.open("POST", A() + "/v1/notices/js", I("async", !0)),
               o.setRequestHeader("X-API-Key", e),
               o.setRequestHeader("Content-Type", "application/json"),
               o.setRequestHeader("Accept", "text/json, application/json"),
-              o.send(JSON.stringify(t(a, B("max_depth", 8)))),
+              o.send(JSON.stringify(t(a, I("max_depth", 8)))),
               (o.onload = function () {
-                var e = Array.prototype.slice.call($.afterNotifyHandlers);
+                var e = Array.prototype.slice.call(q.afterNotifyHandlers);
                 if (
                   (n.afterNotify && e.unshift(n.afterNotify), 201 !== o.status)
                 )
                   return (
                     p(e, new Error("Bad HTTP response: ".concat(o.status)), n),
-                    void I(
+                    void B(
                       "Unable to send error report: "
                         .concat(o.status, ": ")
                         .concat(o.statusText),
@@ -4973,10 +4830,10 @@ const fetchCallback = ({
                     )
                   );
                 p(e, undefined, r(n, { id: JSON.parse(o.response).id })),
-                  I("Error report sent", a);
+                  B("Error report sent", a);
               });
           } catch (i) {
-            p($.afterNotifyHandlers, i, n),
+            p(q.afterNotifyHandlers, i, n),
               L(
                 "Unable to send error report: error while initializing request",
                 i,
@@ -4985,13 +4842,13 @@ const fetchCallback = ({
           }
         }
         function N(e) {
-          if (((v = null), B("disabled", !1)))
-            return I("Dropping notice: honeybadger.js is disabled", e), !1;
-          var t = B("apiKey", B("api_key"));
+          if (((v = null), I("disabled", !1)))
+            return B("Dropping notice: honeybadger.js is disabled", e), !1;
+          var t = I("apiKey", I("api_key"));
           return t
-            ? z()
-              ? (I("Dropping notice: max errors exceeded", e), !1)
-              : (P(), M(t, e), !0)
+            ? P()
+              ? (B("Dropping notice: max errors exceeded", e), !1)
+              : (z(), M(t, e), !0)
             : (L("Unable to send error report: no API key has been configured"),
               !1);
         }
@@ -5005,7 +4862,7 @@ const fetchCallback = ({
               : "object" === e(t.cookies) && (n.HTTP_COOKIE = m(t.cookies)),
             {
               notifier: w,
-              breadcrumbs: { enabled: C(), trail: t.breadcrumbs },
+              breadcrumbs: { enabled: S(), trail: t.breadcrumbs },
               error: {
                 class: t.name,
                 message: t.message,
@@ -5047,43 +4904,43 @@ const fetchCallback = ({
           n && ((t.stack = n.stack), (i = n.generator)),
             (t = r(t, {
               name: t.name || "Error",
-              context: r($.context, t.context),
+              context: r(q.context, t.context),
               url: t.url || document.URL,
               projectRoot:
                 t.projectRoot ||
                 t.project_root ||
-                B(
+                I(
                   "projectRoot",
-                  B(
+                  I(
                     "project_root",
                     window.location.protocol + "//" + window.location.host
                   )
                 ),
-              environment: t.environment || B("environment"),
-              component: t.component || B("component"),
-              action: t.action || B("action"),
-              revision: t.revision || B("revision"),
+              environment: t.environment || I("environment"),
+              component: t.component || I("component"),
+              action: t.action || I("action"),
+              revision: t.revision || I("revision"),
               userAgent: t.userAgent || navigator.userAgent,
               referrer: t.referrer || document.referrer,
             })),
-            $.addBreadcrumb("Honeybadger Notice", {
+            q.addBreadcrumb("Honeybadger Notice", {
               category: "notice",
               metadata: { message: t.message, name: t.name, stack: t.stack },
             }),
-            (t.breadcrumbs = $.breadcrumbs.slice());
+            (t.breadcrumbs = q.breadcrumbs.slice());
           var s = t.stack;
           return (
-            !p($.beforeNotifyHandlers, t) &&
+            !p(q.beforeNotifyHandlers, t) &&
             (t.stack != s && (i = undefined),
-            !u(t, B("ignorePatterns")) &&
+            !u(t, I("ignorePatterns")) &&
               ((t.generator = i),
               (v = t),
               k
-                ? (I("Deferring notice", t),
+                ? (B("Deferring notice", t),
                   window.setTimeout(function () {
                     d(t) && N(t);
                   }))
-                : (I("Queuing notice", t), U.push(t)),
+                : (B("Queuing notice", t), U.push(t)),
               t))
           );
         }
@@ -5095,7 +4952,7 @@ const fetchCallback = ({
               : y(e)
               ? (e.___hb ||
                   (e.___hb = function () {
-                    var n = S();
+                    var n = x();
                     if (!((X && (n || t.force)) || (t.force && !n)))
                       return e.apply(this, arguments);
                     try {
@@ -5103,7 +4960,7 @@ const fetchCallback = ({
                     } catch (o) {
                       var a = { stack: f(o) };
                       throw (
-                        ($.addBreadcrumb(
+                        (q.addBreadcrumb(
                           t.component
                             ? "".concat(t.component, ": ").concat(o.name)
                             : o.name,
@@ -5129,23 +4986,23 @@ const fetchCallback = ({
           }
         }
         function D(e, t, n) {
-          if (!F && e && t && n && t in e) {
+          if (!$ && e && t && n && t in e) {
             for (var a = e[t]; a && a.__hb_original; ) a = a.__hb_original;
             (e[t] = n(a)), (e[t].__hb_original = a);
           }
         }
-        function P() {
-          return $.errorsSent++;
-        }
         function z() {
-          var e = B("maxErrors");
-          return e && $.errorsSent >= e;
+          return q.errorsSent++;
+        }
+        function P() {
+          var e = I("maxErrors");
+          return e && q.errorsSent >= e;
         }
         var j = 1 === (E += 1),
-          F = !j,
-          q = [],
+          $ = !j,
+          F = [],
           U = [],
-          $ = {
+          q = {
             context: {},
             beforeNotifyHandlers: [],
             afterNotifyHandlers: [],
@@ -5158,13 +5015,13 @@ const fetchCallback = ({
               console: !0,
             },
           };
-        if ("object" === e(T)) for (var V in T) $[V] = T[V];
+        if ("object" === e(T)) for (var V in T) q[V] = T[V];
         var X = !0;
         if ((window.atob || (X = !1), window.ErrorEvent))
           try {
             0 === new window.ErrorEvent("").colno && (X = !1);
           } catch (Y) {}
-        ($.notify = function (t, n, a) {
+        (q.notify = function (t, n, a) {
           if (
             (t || (t = {}),
             "[object Error]" === Object.prototype.toString.call(t))
@@ -5178,19 +5035,19 @@ const fetchCallback = ({
             n && (t = l(t, n)), "object" === e(a) && (t = l(t, a)), R(t, g(t))
           );
         }),
-          ($.wrap = function (e) {
+          (q.wrap = function (e) {
             return O(e, { force: !0 });
           }),
-          ($.setContext = function (t) {
-            return "object" === e(t) && ($.context = r($.context, t)), $;
+          (q.setContext = function (t) {
+            return "object" === e(t) && (q.context = r(q.context, t)), q;
           }),
-          ($.resetContext = function (t) {
+          (q.resetContext = function (t) {
             return (
-              "object" === e(t) ? ($.context = r({}, t)) : ($.context = {}), $
+              "object" === e(t) ? (q.context = r({}, t)) : (q.context = {}), q
             );
           }),
-          ($.configure = function (e) {
-            for (var t in e) $[t] = e[t];
+          (q.configure = function (e) {
+            for (var t in e) q[t] = e[t];
             return (
               j &&
                 !_ &&
@@ -5198,14 +5055,14 @@ const fetchCallback = ({
                 W.forEach(function (e) {
                   return e();
                 })),
-              $
+              q
             );
           }),
-          ($.beforeNotify = function (e) {
-            return $.beforeNotifyHandlers.push(e), $;
+          (q.beforeNotify = function (e) {
+            return q.beforeNotifyHandlers.push(e), q;
           }),
-          ($.afterNotify = function (e) {
-            return $.afterNotifyHandlers.push(e), $;
+          (q.afterNotify = function (e) {
+            return q.afterNotifyHandlers.push(e), q;
           });
         var J =
           [].indexOf ||
@@ -5214,44 +5071,44 @@ const fetchCallback = ({
               if (t in this && this[t] === e) return t;
             return -1;
           };
-        ($.reset = function () {
-          for (var e in (($.context = {}),
-          ($.beforeNotifyHandlers = []),
-          ($.breadcrumbs = []),
-          $))
-            -1 == J.call(q, e) && ($[e] = undefined);
-          return $.resetMaxErrors(), $;
+        (q.reset = function () {
+          for (var e in ((q.context = {}),
+          (q.beforeNotifyHandlers = []),
+          (q.breadcrumbs = []),
+          q))
+            -1 == J.call(F, e) && (q[e] = undefined);
+          return q.resetMaxErrors(), q;
         }),
-          ($.resetMaxErrors = function () {
-            return ($.errorsSent = 0);
+          (q.resetMaxErrors = function () {
+            return (q.errorsSent = 0);
           }),
-          ($.getVersion = function () {
+          (q.getVersion = function () {
             return b;
           }),
-          ($.addBreadcrumb = function (e, t) {
-            if (C()) {
+          (q.addBreadcrumb = function (e, t) {
+            if (S()) {
               var n = s((t = t || {}).metadata),
                 a = t.category || "custom",
                 o = new Date().toISOString();
-              $.breadcrumbs.push({
+              q.breadcrumbs.push({
                 category: a,
                 message: e,
                 metadata: n,
                 timestamp: o,
               });
-              var i = B("maxBreadcrumbs", 40);
+              var i = I("maxBreadcrumbs", 40);
               return (
-                $.breadcrumbs.length > i &&
-                  ($.breadcrumbs = $.breadcrumbs.slice(
-                    $.breadcrumbs.length - i
+                q.breadcrumbs.length > i &&
+                  (q.breadcrumbs = q.breadcrumbs.slice(
+                    q.breadcrumbs.length - i
                   )),
-                $
+                q
               );
             }
           });
         var W = [];
         for (var V in (W.push(function () {
-          C("dom") &&
+          S("dom") &&
             window.addEventListener(
               "click",
               function (e) {
@@ -5262,7 +5119,7 @@ const fetchCallback = ({
                   (t = "UI Click"), (i = "[unknown]"), (r = "[unknown]");
                 }
                 0 !== t.length &&
-                  $.addBreadcrumb(t, {
+                  q.addBreadcrumb(t, {
                     category: "ui.click",
                     metadata: { selector: i, text: r, event: e },
                   });
@@ -5271,7 +5128,7 @@ const fetchCallback = ({
             );
         }),
         W.push(function () {
-          C("network") &&
+          S("network") &&
             (D(XMLHttpRequest.prototype, "open", function (e) {
               return function () {
                 var t = this,
@@ -5299,7 +5156,7 @@ const fetchCallback = ({
                       ((n.__hb_xhr.status_code = n.status),
                       (e = n.__hb_xhr.message),
                       delete n.__hb_xhr.message),
-                    $.addBreadcrumb(e || "XMLHttpRequest", {
+                    q.addBreadcrumb(e || "XMLHttpRequest", {
                       category: "request",
                       metadata: n.__hb_xhr,
                     }));
@@ -5318,7 +5175,7 @@ const fetchCallback = ({
             }));
         }),
         W.push(function () {
-          C("network") &&
+          S("network") &&
             i() &&
             D(window, "fetch", function (e) {
               return function () {
@@ -5341,13 +5198,13 @@ const fetchCallback = ({
                   .then(function (e) {
                     return (
                       (i.status_code = e.status),
-                      $.addBreadcrumb(o, { category: "request", metadata: i }),
+                      q.addBreadcrumb(o, { category: "request", metadata: i }),
                       e
                     );
                   })
                   ["catch"](function (e) {
                     throw (
-                      ($.addBreadcrumb("fetch error", {
+                      (q.addBreadcrumb("fetch error", {
                         category: "error",
                         metadata: i,
                       }),
@@ -5360,7 +5217,7 @@ const fetchCallback = ({
         W.push(function () {
           function e(e, t) {
             (n = t),
-              $.addBreadcrumb("Page changed", {
+              q.addBreadcrumb("Page changed", {
                 category: "navigation",
                 metadata: { from: e, to: t },
               });
@@ -5371,7 +5228,7 @@ const fetchCallback = ({
               return a && e(n, String(a)), t.apply(this, arguments);
             };
           }
-          if (C("navigation")) {
+          if (S("navigation")) {
             var n = window.location.href;
             D(window, "onpopstate", function (t) {
               return function () {
@@ -5397,7 +5254,7 @@ const fetchCallback = ({
                   .join(" ")
               : "";
           }
-          C("console") &&
+          S("console") &&
             ["debug", "info", "warn", "error", "log"].forEach(function (n) {
               D(window.console, n, function (a) {
                 return function () {
@@ -5407,7 +5264,7 @@ const fetchCallback = ({
                       category: "log",
                       metadata: { level: n, arguments: t(o, 3) },
                     };
-                  $.addBreadcrumb(i, r),
+                  q.addBreadcrumb(i, r),
                     "function" == typeof a &&
                       Function.prototype.apply.call(
                         a,
@@ -5469,7 +5326,7 @@ const fetchCallback = ({
         ),
         D(window, "onerror", function (e) {
           function t(e, t, n, a, o) {
-            if ((I("window.onerror callback invoked", arguments), !v && S()))
+            if ((B("window.onerror callback invoked", arguments), !v && x()))
               if (0 === n && /Script error\.?/.test(e))
                 L(
                   "Ignoring cross-domain script error: enable CORS to track these types of errors",
@@ -5490,7 +5347,7 @@ const fetchCallback = ({
                 o
                   ? (i = { stack: f(o) }).stack || (i = { stack: r })
                   : (o = { name: "window.onerror", message: e, stack: r }),
-                  $.addBreadcrumb(
+                  q.addBreadcrumb(
                     "window.onerror" !== o.name && o.name
                       ? "window.onerror: ".concat(o.name)
                       : "window.onerror",
@@ -5509,7 +5366,7 @@ const fetchCallback = ({
           return function (n, a, o, i, r) {
             return (
               t(n, a, o, i, r),
-              !("function" != typeof e || !B("_onerror_call_orig", !0)) &&
+              !("function" != typeof e || !I("_onerror_call_orig", !0)) &&
                 e.apply(this, arguments)
             );
           };
@@ -5517,8 +5374,8 @@ const fetchCallback = ({
         D(window, "onunhandledrejection", function (e) {
           function t(e) {
             if (
-              (I("window.onunhandledrejection callback invoked", arguments),
-              !v && x())
+              (B("window.onunhandledrejection callback invoked", arguments),
+              !v && C())
             ) {
               var t = e.reason;
               if (t instanceof Error) {
@@ -5535,7 +5392,7 @@ const fetchCallback = ({
                     stack: i,
                   };
                 return (
-                  $.addBreadcrumb(
+                  q.addBreadcrumb(
                     "window.onunhandledrejection: ".concat(r.name),
                     { category: "error", metadata: r }
                   ),
@@ -5553,25 +5410,25 @@ const fetchCallback = ({
             t(n), "function" == typeof e && e.apply(this, arguments);
           };
         }),
-        $))
-          q.push(V);
+        q))
+          F.push(V);
         if (
-          (I("Initializing honeybadger.js " + b),
+          (B("Initializing honeybadger.js " + b),
           /complete|interactive|loaded/.test(document.readyState))
         )
-          (k = !0), I("honeybadger.js " + b + " ready");
+          (k = !0), B("honeybadger.js " + b + " ready");
         else {
-          I("Installing ready handler");
+          B("Installing ready handler");
           var K = function () {
             var e;
-            for (k = !0, I("honeybadger.js " + b + " ready"); (e = U.pop()); )
+            for (k = !0, B("honeybadger.js " + b + " ready"); (e = U.pop()); )
               N(e);
           };
           document.addEventListener
             ? document.addEventListener("DOMContentLoaded", K, !0)
             : window.attachEvent("onload", K);
         }
-        return $;
+        return q;
       };
     }
     var m = u(),
@@ -5587,25 +5444,25 @@ const fetchCallback = ({
   })(this, function () {
     "use strict";
     function e() {
-      return P.urlPrefix + P.visitsUrl;
+      return z.urlPrefix + z.visitsUrl;
     }
     function t() {
-      return P.urlPrefix + P.eventsUrl;
+      return z.urlPrefix + z.eventsUrl;
     }
     function n(e) {
       return 0 === Object.keys(e).length;
     }
     function a() {
       return (
-        (P.useBeacon || P.trackNow) &&
-        n(P.headers) &&
+        (z.useBeacon || z.trackNow) &&
+        n(z.headers) &&
         X &&
         "undefined" != typeof window.navigator.sendBeacon &&
-        !P.withCredentials
+        !z.withCredentials
       );
     }
     function o(e, t, n) {
-      D.set(e, t, n, P.cookieDomain || P.domain);
+      D.set(e, t, n, z.cookieDomain || z.domain);
     }
     function i(e) {
       return D.get(e);
@@ -5618,7 +5475,7 @@ const fetchCallback = ({
     }
     function c() {
       for (var e; (e = V.shift()); ) e();
-      $ = !0;
+      q = !0;
     }
     function l(e, t) {
       var n =
@@ -5628,11 +5485,18 @@ const fetchCallback = ({
         e.msMatchesSelector ||
         e.oMatchesSelector ||
         e.webkitMatchesSelector;
-      return n ? n.apply(e, [t]) : (s("Unable to match"), !1);
+      return n
+        ? n.apply(e, [t])
+          ? e
+          : e.parentElement
+          ? l(e.parentElement, t)
+          : null
+        : (s("Unable to match"), null);
     }
     function d(e, t, n) {
       document.addEventListener(e, function (e) {
-        l(e.target, t) && n(e);
+        var a = l(e.target, t);
+        a && n.call(a, e);
       });
     }
     function u(e) {
@@ -5651,7 +5515,7 @@ const fetchCallback = ({
       );
     }
     function f() {
-      P.cookies && X && o("ahoy_events", JSON.stringify(J), 1);
+      z.cookies && X && o("ahoy_events", JSON.stringify(J), 1);
     }
     function g() {
       var e = document.querySelector("meta[name=csrf-token]");
@@ -5676,16 +5540,16 @@ const fetchCallback = ({
             dataType: "json",
             beforeSend: h,
             success: n,
-            headers: P.headers,
-            xhrFields: { withCredentials: P.withCredentials },
+            headers: z.headers,
+            xhrFields: { withCredentials: z.withCredentials },
           });
         else {
           var a = new XMLHttpRequest();
           for (var o in (a.open("POST", e, !0),
-          (a.withCredentials = P.withCredentials),
+          (a.withCredentials = z.withCredentials),
           a.setRequestHeader("Content-Type", "application/json"),
-          P.headers))
-            P.headers.hasOwnProperty(o) && a.setRequestHeader(o, P.headers[o]);
+          z.headers))
+            z.headers.hasOwnProperty(o) && a.setRequestHeader(o, z.headers[o]);
           (a.onload = function () {
             200 === a.status && n();
           }),
@@ -5696,7 +5560,7 @@ const fetchCallback = ({
     function v(e) {
       var t = { events: [e] };
       return (
-        P.cookies &&
+        z.cookies &&
           ((t.visit_token = e.visit_token),
           (t.visitor_token = e.visitor_token)),
         delete e.visit_token,
@@ -5705,7 +5569,7 @@ const fetchCallback = ({
       );
     }
     function b(e) {
-      z.ready(function () {
+      P.ready(function () {
         y(t(), v(e), function () {
           for (var t = 0; t < J.length; t++)
             if (J[t].id == e.id) {
@@ -5717,7 +5581,7 @@ const fetchCallback = ({
       });
     }
     function w(e) {
-      z.ready(function () {
+      P.ready(function () {
         var n = v(e),
           a = p(),
           o = g();
@@ -5728,7 +5592,7 @@ const fetchCallback = ({
       });
     }
     function k() {
-      return P.page || window.location.pathname;
+      return z.page || window.location.pathname;
     }
     function _(e) {
       return e && e.length > 0 ? e : null;
@@ -5737,14 +5601,13 @@ const fetchCallback = ({
       for (var t in e) e.hasOwnProperty(t) && null === e[t] && delete e[t];
       return e;
     }
-    function T(e) {
-      var t = e.target;
+    function T() {
       return E({
-        tag: t.tagName.toLowerCase(),
-        id: _(t.id),
-        class: _(t.className),
+        tag: this.tagName.toLowerCase(),
+        id: _(this.id),
+        class: _(this.className),
         page: k(),
-        section: L(t),
+        section: L(this),
       });
     }
     function L(e) {
@@ -5753,25 +5616,25 @@ const fetchCallback = ({
           return e.getAttribute("data-section");
       return null;
     }
-    function I() {
+    function B() {
       if (
-        (($ = !1),
-        (j = z.getVisitId()),
-        (F = z.getVisitorId()),
-        (q = i("ahoy_track")),
-        !1 === P.cookies || !1 === P.trackVisits)
+        ((q = !1),
+        (j = P.getVisitId()),
+        ($ = P.getVisitorId()),
+        (F = i("ahoy_track")),
+        !1 === z.cookies || !1 === z.trackVisits)
       )
         s("Visit tracking disabled"), c();
-      else if (j && F && !q) s("Active visit"), c();
+      else if (j && $ && !F) s("Active visit"), c();
       else if (
-        (j || o("ahoy_visit", (j = m()), P.visitDuration), i("ahoy_visit"))
+        (j || o("ahoy_visit", (j = m()), z.visitDuration), i("ahoy_visit"))
       ) {
         s("Visit started"),
-          F || o("ahoy_visitor", (F = m()), P.visitorDuration);
+          $ || o("ahoy_visitor", ($ = m()), z.visitorDuration);
         var t = {
           visit_token: j,
-          visitor_token: F,
-          platform: P.platform,
+          visitor_token: $,
+          platform: z.platform,
           landing_page: window.location.href,
           screen_width: window.screen.width,
           screen_height: window.screen.height,
@@ -5779,24 +5642,24 @@ const fetchCallback = ({
         };
         for (var n in (document.referrer.length > 0 &&
           (t.referrer = document.referrer),
-        P.visitParams))
-          P.visitParams.hasOwnProperty(n) && (t[n] = P.visitParams[n]);
+        z.visitParams))
+          z.visitParams.hasOwnProperty(n) && (t[n] = z.visitParams[n]);
         s(t),
           y(e(), t, function () {
             r("ahoy_track"), c();
           });
       } else s("Cookies disabled"), c();
     }
-    var B = function (e) {
+    var I = function (e) {
         return e === undefined;
       },
-      S = function (e) {
+      x = function (e) {
         return null === e;
       },
-      x = function (e) {
+      C = function (e) {
         return "boolean" == typeof e;
       },
-      C = function (e) {
+      S = function (e) {
         return e === Object(e);
       },
       A = function (e) {
@@ -5823,29 +5686,31 @@ const fetchCallback = ({
       },
       R = function (e, t, n, a) {
         return (
-          ((t = t || {}).indices = !B(t.indices) && t.indices),
+          ((t = t || {}).indices = !I(t.indices) && t.indices),
           (t.nullsAsUndefineds =
-            !B(t.nullsAsUndefineds) && t.nullsAsUndefineds),
+            !I(t.nullsAsUndefineds) && t.nullsAsUndefineds),
           (t.booleansAsIntegers =
-            !B(t.booleansAsIntegers) && t.booleansAsIntegers),
+            !I(t.booleansAsIntegers) && t.booleansAsIntegers),
+          (t.allowEmptyArrays = !I(t.allowEmptyArrays) && t.allowEmptyArrays),
           (n = n || new FormData()),
-          B(e)
+          I(e)
             ? n
-            : (S(e)
+            : (x(e)
                 ? t.nullsAsUndefineds || n.append(a, "")
-                : x(e)
+                : C(e)
                 ? t.booleansAsIntegers
                   ? n.append(a, e ? 1 : 0)
                   : n.append(a, e)
                 : A(e)
-                ? e.length &&
-                  e.forEach(function (e, o) {
-                    var i = a + "[" + (t.indices ? o : "") + "]";
-                    R(e, t, n, i);
-                  })
+                ? e.length
+                  ? e.forEach(function (e, o) {
+                      var i = a + "[" + (t.indices ? o : "") + "]";
+                      R(e, t, n, i);
+                    })
+                  : t.allowEmptyArrays && n.append(a + "[]", "")
                 : M(e)
                 ? n.append(a, e.toISOString())
-                : !C(e) || H(e) || N(e)
+                : !S(e) || H(e) || N(e)
                 ? n.append(a, e)
                 : Object.keys(e).forEach(function (o) {
                     var i = e[o];
@@ -5887,7 +5752,7 @@ const fetchCallback = ({
           return null;
         },
       },
-      P = {
+      z = {
         urlPrefix: "",
         visitsUrl: "/ahoy/visits",
         eventsUrl: "/ahoy/events",
@@ -5904,29 +5769,29 @@ const fetchCallback = ({
         visitDuration: 240,
         visitorDuration: 1051200,
       },
-      z = window.ahoy || window.Ahoy || {};
-    (z.configure = function (e) {
-      for (var t in e) e.hasOwnProperty(t) && (P[t] = e[t]);
+      P = window.ahoy || window.Ahoy || {};
+    (P.configure = function (e) {
+      for (var t in e) e.hasOwnProperty(t) && (z[t] = e[t]);
     }),
-      z.configure(z);
+      P.configure(P);
     var j,
+      $,
       F,
-      q,
       U = window.jQuery || window.Zepto || window.$,
-      $ = !1,
+      q = !1,
       V = [],
       X = "undefined" != typeof JSON && "undefined" != typeof JSON.stringify,
       J = [];
-    (z.ready = function (e) {
-      $ ? e() : V.push(e);
+    (P.ready = function (e) {
+      q ? e() : V.push(e);
     }),
-      (z.getVisitId = z.getVisitToken = function () {
+      (P.getVisitId = P.getVisitToken = function () {
         return i("ahoy_visit");
       }),
-      (z.getVisitorId = z.getVisitorToken = function () {
+      (P.getVisitorId = P.getVisitorToken = function () {
         return i("ahoy_visitor");
       }),
-      (z.reset = function () {
+      (P.reset = function () {
         return (
           r("ahoy_visit"),
           r("ahoy_visitor"),
@@ -5935,10 +5800,10 @@ const fetchCallback = ({
           !0
         );
       }),
-      (z.debug = function (e) {
+      (P.debug = function (e) {
         return !1 === e ? r("ahoy_debug") : o("ahoy_debug", "t", 525600), !0;
       }),
-      (z.track = function (e, t) {
+      (P.track = function (e, t) {
         var n = {
           name: e,
           properties: t || {},
@@ -5947,12 +5812,12 @@ const fetchCallback = ({
           js: !0,
         };
         return (
-          z.ready(function () {
-            P.cookies && !z.getVisitId() && I(),
-              z.ready(function () {
+          P.ready(function () {
+            z.cookies && !P.getVisitId() && B(),
+              P.ready(function () {
                 s(n),
-                  (n.visit_token = z.getVisitId()),
-                  (n.visitor_token = z.getVisitorId()),
+                  (n.visit_token = P.getVisitId()),
+                  (n.visitor_token = P.getVisitorId()),
                   a()
                     ? w(n)
                     : (J.push(n),
@@ -5965,52 +5830,51 @@ const fetchCallback = ({
           !0
         );
       }),
-      (z.trackView = function (e) {
+      (P.trackView = function (e) {
         var t = { url: window.location.href, title: document.title, page: k() };
         if (e) for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
-        z.track("$view", t);
+        P.track("$view", t);
       }),
-      (z.trackClicks = function () {
+      (P.trackClicks = function () {
         d("click", "a, button, input[type=submit]", function (e) {
-          var t = e.target,
-            n = T(e);
-          (n.text =
-            "input" == n.tag
-              ? t.value
-              : (t.textContent || t.innerText || t.innerHTML)
+          var t = T.call(this, e);
+          (t.text =
+            "input" == t.tag
+              ? this.value
+              : (this.textContent || this.innerText || this.innerHTML)
                   .replace(/[\s\r\n]+/g, " ")
                   .trim()),
-            (n.href = t.href),
-            z.track("$click", n);
+            (t.href = this.href),
+            P.track("$click", t);
         });
       }),
-      (z.trackSubmits = function () {
+      (P.trackSubmits = function () {
         d("submit", "form", function (e) {
-          var t = T(e);
-          z.track("$submit", t);
+          var t = T.call(this, e);
+          P.track("$submit", t);
         });
       }),
-      (z.trackChanges = function () {
+      (P.trackChanges = function () {
         d("change", "input, textarea, select", function (e) {
-          var t = T(e);
-          z.track("$change", t);
+          var t = T.call(this, e);
+          P.track("$change", t);
         });
       }),
-      (z.trackAll = function () {
-        z.trackView(), z.trackClicks(), z.trackSubmits(), z.trackChanges();
+      (P.trackAll = function () {
+        P.trackView(), P.trackClicks(), P.trackSubmits(), P.trackChanges();
       });
     try {
       J = JSON.parse(i("ahoy_events") || "[]");
     } catch (K) {}
     for (var W = 0; W < J.length; W++) b(J[W]);
     return (
-      (z.start = function () {
-        I(), (z.start = function () {});
+      (P.start = function () {
+        B(), (P.start = function () {});
       }),
       u(function () {
-        P.startOnReady && z.start();
+        z.startOnReady && P.start();
       }),
-      z
+      P
     );
   }),
   "serviceWorker" in navigator &&
@@ -6049,26 +5913,26 @@ var instantClick,
         e.target ||
         e.hasAttribute("download") ||
         0 != e.href.indexOf(n + "/") ||
-        (e.href.indexOf("#") > -1 && a(e.href) == B) ||
+        (e.href.indexOf("#") > -1 && a(e.href) == x) ||
         i(e)
       );
     }
     function s(e, t, n, a) {
-      for (var o = !1, i = 0; i < U[e].length; i++)
+      for (var o = !1, i = 0; i < q[e].length; i++)
         if ("receive" == e) {
-          var r = U[e][i](t, n, a);
+          var r = q[e][i](t, n, a);
           r &&
             ("body" in r && (n = r.body),
             "title" in r && (a = r.title),
             (o = r));
-        } else U[e][i](t, n, a);
+        } else q[e][i](t, n, a);
       return o;
     }
     function c(t, n, o, i, r) {
-      var c = e.getElementById("page-content");
+      var c = e.getElementById("page-content"),
+        l = e.getElementById("member-menu-button");
       if (
-        (e.getElementById("navigation-butt") &&
-          e.getElementById("navigation-butt").classList.remove("showing"),
+        (l && l.classList.remove("showing"),
         e.getElementsByTagName("BODY")[0].replaceChild(n, c),
         e.getElementById("navigation-progress").classList.remove("showing"),
         o)
@@ -6078,77 +5942,84 @@ var instantClick,
           null,
           o.replace("?samepage=true", "").replace("&samepage=true", "")
         );
-        var l = o.indexOf("#"),
-          d =
-            l > -1 &&
-            (e.getElementById(o.substr(l + 1)) ||
-              e.querySelector(`[name=${o.substr(l + 1)}].anchor`)),
-          u = 0,
-          m = o.indexOf("samepage=true") > -1;
-        if (d)
-          for (; d.offsetParent; ) (u += d.offsetTop), (d = d.offsetParent);
-        m || scrollTo(0, u), (B = a(o));
+        var d = o.indexOf("#"),
+          u =
+            d > -1 &&
+            (e.getElementById(o.substr(d + 1)) ||
+              e.querySelector(`[name=${o.substr(d + 1)}].anchor`)),
+          m = 0,
+          f = o.indexOf("samepage=true") > -1;
+        if (u)
+          for (; u.offsetParent; ) (m += u.offsetTop), (u = u.offsetParent);
+        f || scrollTo(0, m), (x = a(o));
       } else scrollTo(0, i);
-      H && e.title == t
+      R && e.title == t
         ? (e.title = t + String.fromCharCode(160))
         : (e.title = t),
-        b(),
+        w(),
         r ? s("restore") : s("change", !1);
     }
     function l() {
-      (j = !1), (F = !1);
+      ($ = !1), (F = !1);
     }
     function d(e) {
       return e.replace(/<noscript[\s\S]+?<\/noscript>/gi, "");
     }
     function u(e) {
-      if (!(C > +new Date() - 500)) {
+      if (!(A > +new Date() - 500)) {
         var t = o(e.target);
-        t && r(t) && w(t.href);
+        t && r(t) && k(t.href);
       }
     }
     function m(e) {
-      if (!(C > +new Date() - 500)) {
+      if (!(A > +new Date() - 500)) {
         var t = o(e.target);
         t &&
           r(t) &&
-          (t.addEventListener("mouseout", p),
-          N ? ((S = t.href), (x = setTimeout(w, N))) : w(t.href),
+          (t.addEventListener("mouseout", h),
+          H ? ((C = t.href), (S = setTimeout(k, H))) : k(t.href),
           getImageForLink(t));
       }
     }
     function f(e) {
-      C = +new Date();
+      A = +new Date();
       var t = o(e.target);
       t &&
         r(t) &&
-        (M
+        (N
           ? t.removeEventListener("mousedown", u)
           : t.removeEventListener("mouseover", m),
-        w(t.href),
+        k(t.href),
         getImageForLink(t));
     }
     function g(e) {
+      var t = o(e.target);
+      t &&
+        r(t) &&
+        (H ? ((C = t.href), (S = setTimeout(k, H))) : k(t.href),
+        getImageForLink(t));
+    }
+    function p(e) {
       try {
         var t = o(e.target);
         if (!t || !r(t)) return;
         if (e.which > 1 || e.metaKey || e.ctrlKey) return;
-        E(t.href), e.preventDefault();
+        T(t.href), e.preventDefault();
       } catch (n) {
         console.log(n);
       }
     }
-    function p() {
-      if (x) return clearTimeout(x), void (x = !1);
-      j && !F && (A.abort(), l());
-    }
     function h() {
-      y(A, O);
+      if (S) return clearTimeout(S), void (S = !1);
+      $ && !F && (M.abort(), l());
     }
-    function y(t, n) {
+    function y() {
+      v(M, D);
+    }
+    function v(t, n) {
       if (!(t.readyState < 4) && 0 != t.status) {
         if (
-          ((z.ready = +new Date() - z.start),
+          ((j.ready = +new Date() - j.start),
           e.getElementById("page-content") &&
             200 === t.status &&
             t.getResponseHeader("Content-Type").match(/\/(x|ht|xht)ml/))
@@ -6165,34 +6036,35 @@ var instantClick,
             if ((l = m[g]).hasAttribute("data-instant-track")) {
               u =
                 l.getAttribute("href") || l.getAttribute("src") || l.innerHTML;
-              for (var p = 0; p < q.length; p++) q[p] == u && f++;
+              for (var p = 0; p < U.length; p++) U[p] == u && f++;
             }
-          f != q.length && (D = !0);
-        } else D = !0;
-        F && O === n && ((F = !1), E(O));
+          f != U.length && (z = !0);
+        } else z = !0;
+        F && D === n && ((F = !1), T(D));
       }
     }
-    function v() {
+    function b() {
       var n = a(t.href);
-      n != B &&
-        (n in R
-          ? ((R[B] = {
+      n != x &&
+        (n in O
+          ? ((O[x] = {
               body: e.getElementById("page-content"),
               title: e.title,
               scrollY: pageYOffset,
             }),
-            (B = n),
-            c(R[n].title, R[n].body, !1, R[n].scrollY, !0))
+            (x = n),
+            c(O[n].title, O[n].body, !1, O[n].scrollY, !0))
           : (t.href = t.href));
     }
-    function b(t) {
+    function w(t) {
       if (
         (e.body &&
           (e.body.addEventListener("touchstart", f, !0),
-          M
+          e.body.addEventListener("focus", g, !0),
+          N
             ? e.body.addEventListener("mousedown", u, !0)
             : e.body.addEventListener("mouseover", m, !0),
-          e.body.addEventListener("click", g, !0)),
+          e.body.addEventListener("click", p, !0)),
         !t)
       ) {
         var n,
@@ -6216,34 +6088,34 @@ var instantClick,
           }
       }
     }
-    function w(e, t) {
+    function k(e, t) {
       if (
-        !(!M && "display" in z && +new Date() - (z.start + z.display) < 100) &&
-        (x && (clearTimeout(x), (x = !1)), e || (e = S), !j || (e != O && !F))
+        !(!N && "display" in j && +new Date() - (j.start + j.display) < 100) &&
+        (S && (clearTimeout(S), (S = !1)), e || (e = C), !$ || (e != D && !F))
       ) {
         if (
-          ((j = !0),
+          (($ = !0),
           (F = !1),
-          (D = !1),
-          (z = { start: +new Date() }),
+          (z = !1),
+          (j = { start: +new Date() }),
           -1 == e.indexOf("?"))
         )
           var n = e + "?i=i";
         else n = e + "&i=i";
-        k(),
+        _(),
           s("fetch"),
           P[e] ||
             ("force" === t
-              ? _(e, function () {
-                  y(this, e);
+              ? E(e, function () {
+                  v(this, e);
                 })
-              : ((O = e), A.open("GET", n), A.send()));
+              : ((D = e), M.open("GET", n), M.send()));
       }
     }
-    function k(e) {
+    function _(e) {
       (Object.keys(P).length > 13 || "force" == e) && (P = {});
     }
-    function _(e, t) {
+    function E(e, t) {
       var n = new XMLHttpRequest();
       if (-1 == e.indexOf("?")) var a = e + "?i=i";
       else a = e + "&i=i";
@@ -6253,34 +6125,34 @@ var instantClick,
         }),
         n.send();
     }
-    function E(n) {
-      if (((O = n), P[n]))
+    function T(n) {
+      if (((D = n), P[n]))
         var a = P[n].body,
           o = P[n].title;
       else e.getElementById("navigation-progress").classList.add("showing");
-      if (("display" in z || (z.display = +new Date() - z.start), x || !j))
-        return x && O && O != n
+      if (("display" in j || (j.display = +new Date() - j.start), S || !$))
+        return S && D && D != n
           ? void (t.href = n)
-          : (w(n), s("wait"), void (F = !0));
+          : (k(n), s("wait"), void (F = !0));
       if (F) t.href = n;
-      else if (D) t.href = O;
+      else if (z) t.href = D;
       else {
         if (!a) return s("wait"), void (F = !0);
-        (R[B] = {
+        (O[x] = {
           body: e.getElementById("page-content"),
           title: e.title,
           scrollY: pageYOffset,
         }),
           l(),
-          c(o, a, O);
+          c(o, a, D);
       }
     }
-    function T(n) {
-      if (!B)
-        if ($) {
-          "mousedown" == n ? (M = !0) : "number" == typeof n && (N = n),
-            (B = a(t.href)),
-            (R[B] = {
+    function L(n) {
+      if (!x)
+        if (V) {
+          "mousedown" == n ? (N = !0) : "number" == typeof n && (H = n),
+            (x = a(t.href)),
+            (O[x] = {
               body: e.getElementById("page-content"),
               title: e.title,
               scrollY: pageYOffset,
@@ -6289,16 +6161,16 @@ var instantClick,
             (o = r[c]).hasAttribute("data-instant-track") &&
               ((i =
                 o.getAttribute("href") || o.getAttribute("src") || o.innerHTML),
-              q.push(i));
-          (A = new XMLHttpRequest()).addEventListener("readystatechange", h),
-            b(!0),
+              U.push(i));
+          (M = new XMLHttpRequest()).addEventListener("readystatechange", y),
+            w(!0),
             s("change", !0),
-            addEventListener("popstate", v),
+            addEventListener("popstate", b),
             I();
         } else s("change", !0);
     }
-    function L(e, t) {
-      U[e].push(t);
+    function B(e, t) {
+      q[e].push(t);
     }
     function I() {
       if ("ontouchstart" in e.documentElement) {
@@ -6320,35 +6192,35 @@ var instantClick,
         }, 1);
       }
     }
-    var B,
-      S,
-      x,
+    var x,
       C,
+      S,
       A,
       M,
       N,
-      H = n.indexOf(" CriOS/") > -1,
-      R = {},
-      O = !1,
+      H,
+      R = n.indexOf(" CriOS/") > -1,
+      O = {},
       D = !1,
+      z = !1,
       P = {},
-      z = {},
-      j = !1,
+      j = {},
+      $ = !1,
       F = !1,
-      q = [],
-      U = { fetch: [], receive: [], wait: [], change: [], restore: [] },
-      $ =
+      U = [],
+      q = { fetch: [], receive: [], wait: [], change: [], restore: [] },
+      V =
         "pushState" in history &&
         (!n.match("Android") || n.match("Chrome/") || n.match("Firefox/")) &&
         "file:" != t.protocol;
     return {
-      supported: $,
-      init: T,
+      supported: V,
+      init: L,
       isPreloadable: r,
-      preload: w,
-      removeExpiredKeys: k,
-      display: E,
-      on: L,
+      preload: k,
+      removeExpiredKeys: _,
+      display: T,
+      on: B,
     };
   })(document, location, navigator.userAgent));
 Honeybadger.configure({
@@ -6359,4 +6231,4 @@ Honeybadger.configure({
 }),
   ahoy.configure({ cookies: !1, trackVisits: !1 }),
   initializeBaseApp();
-//# sourceMappingURL=/assets/base-ac1a010bb448dd093922090cb5caf52ebf87c00d7161043a3c0136480748247e.js.map
+//# sourceMappingURL=/assets/base-e657713e4f4130f105240e9d5bfb9d740f6cf3b5c64722e5a083a7dbe6465cc1.js.map

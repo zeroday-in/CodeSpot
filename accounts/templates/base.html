@@ -22,7 +22,17 @@
       href="{% static 'css/minimal.css' %}"
       id="main-minimal-stylesheet"
     />
-
+	<link rel="stylesheet"
+	media="all"
+	href="{% static 'css/codehilite.css' %}">
+	<style>
+		.codehilite pre{
+			padding: 1rem;
+		}
+		.codehilite{
+			border-radius: 3px;
+		}
+	</style>
     <script
       src="https://practicaldev-herokuapp-com.freetls.fastly.net/assets/base-45c8fbe2d46d136491bf06fff5ef8ab0dd62f8d88074e24d6f3aa16a70ad30c5.js"
       defer="defer"

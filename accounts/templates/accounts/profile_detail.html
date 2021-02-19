@@ -362,25 +362,24 @@
 
       <main class="crayons-layout__content articles-list" id="articles-list">
         <div class="substories" id="substories">
-          <div class="crayons-story" data-content-user-id="503766">
+		  {% for post in posts %}
+          <div class="crayons-story">
             <a
-              href="/devmehta/the-complete-python-basics-tutorial-1d2c"
-              aria-labelledby="article-link-503506"
+              href="/{{post.url}}"
               class="crayons-story__hidden-navigation-link"
-              >The Complete Python Basics Tutorial</a
+              >{{post}}</a
             >
-
             <div class="crayons-story__body">
               <div class="crayons-story__top">
                 <div class="crayons-story__meta">
                   <div class="crayons-story__author-pic">
                     <a
-                      href="/devmehta"
+                      href="/{{post.author}}"
                       class="crayons-avatar crayons-avatar--l"
                     >
                       <img
-                        src="https://res.cloudinary.com/practicaldev/image/fetch/s--_HA_fG1a--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/503766/2580c47b-77d1-4112-af07-e86b78b42c27.jpeg"
-                        alt="devmehta profile"
+                        src="{{post.get_profile.profile_picture.url}}"
+                        alt="{{post.author}} profile"
                         class="crayons-avatar__image"
                       />
                     </a>
@@ -388,24 +387,18 @@
                   <div>
                     <p>
                       <a
-                        href="/devmehta"
+                        href="/{{post.author}}"
                         class="crayons-story__secondary fw-medium"
                       >
-                        Dev Mehta
+                        {{post.get_profile.name}}
                       </a>
                     </p>
                     <a
-                      href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+                      href="/{{post.author}}/{{post.url}}"
                       class="crayons-story__tertiary fs-xs"
                       ><time
-                        datetime="2020-11-01T15:58:04Z"
-                        title="Sunday, November 1, 2020, 9:28:04 PM"
-                        >Nov 1 '20</time
-                      ><span
-                        class="time-ago-indicator-initial-placeholder"
-                        data-seconds="1604246284"
-                      ></span
-                    ></a>
+                        >{{post.created_on.date}}</time
+                      ></a>
                   </div>
                 </div>
               </div>
@@ -413,31 +406,18 @@
               <div class="crayons-story__indention">
                 <h2 class="crayons-story__title">
                   <a
-                    href="/devmehta/the-complete-python-basics-tutorial-1d2c"
-                    data-preload-image="https://res.cloudinary.com/practicaldev/image/fetch/s--UV36blq8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/7pfnde2ti990e0d4uh2f.png"
-                    id="article-link-503506"
-                  >
-                    The Complete Python Basics Tutorial
+                    href="/{{post.author}}/{{post.url}}"
+                    >
+                    {{post.title}}
                   </a>
                 </h2>
                 <div class="crayons-story__tags">
-                  <a href="/t/python" class="crayons-tag"
-                    ><span class="crayons-tag__prefix">#</span>python</a
-                  >
-                  <a href="/t/beginners" class="crayons-tag"
-                    ><span class="crayons-tag__prefix">#</span>beginners</a
-                  >
-                  <a href="/t/tutorial" class="crayons-tag"
-                    ><span class="crayons-tag__prefix">#</span>tutorial</a
-                  >
-                  <a href="/t/programming" class="crayons-tag"
-                    ><span class="crayons-tag__prefix">#</span>programming</a
-                  >
+                  <p>{{post.content|striptags|truncatewords:20}}</p>
                 </div>
                 <div class="crayons-story__bottom">
                   <div class="crayons-story__details">
                     <a
-                      href="/devmehta/the-complete-python-basics-tutorial-1d2c"
+                      href="/{{post.author}}/{{post.url}}"
                       class="crayons-btn crayons-btn--s crayons-btn--ghost crayons-btn--icon-left"
                       data-reaction-count=""
                       data-reactable-id="503506"
@@ -458,30 +438,24 @@
                         ></path>
                       </svg>
 
-                      12
-                      <span class="hidden s:inline">&nbsp;reactions</span>
-                    </a>
+                      {{post.likes}}
+					  {% ifequal post.likes 1 %}
+                      <span class="hidden s:inline">&nbsp;like</span>
+					  {% else %}
+                      <span class="hidden s:inline">&nbsp;likes</span>
+					  {% endifequal %}
+					</a>
                   </div>
                   <div class="crayons-story__save">
                     <small class="crayons-story__tertiary fs-xs mr-2">
-                      4 min read
+                      {{post.get_readtime}} read
                     </small>
-                    <button
-                      type="button"
-                      id="article-save-button-503506"
-                      class="crayons-btn crayons-btn--secondary crayons-btn--s bookmark-button selected"
-                      data-reactable-id="503506"
-                      aria-label="Save to reading list"
-                      title="Save to reading list"
-                    >
-                      <span class="bm-initial">Save</span>
-                      <span class="bm-success">Saved</span>
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+		  {% endfor %}
           <div class="paged-stories"></div>
           <div class="paged-stories"></div>
 

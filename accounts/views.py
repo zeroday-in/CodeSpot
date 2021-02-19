@@ -7,6 +7,8 @@ from accounts.models import GitHubProfile, Profile
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views.generic import View
+from posts.models import Post
+
 import base64
 
 class HomePage(View):
@@ -116,10 +118,12 @@ class DetailProfile(View):
 			p = Profile.objects.get(user=u)
 			sameUser = True if u.username == request.user.username else False
 			gh = GitHubProfile.objects.filter(user=u)
+			posts = Post.objects.filter(author=u)
 			if gh.exists():
 				context['github_profile'] = gh[0]
 			context['profile'] = p
 			context['sameUser'] = sameUser
+			context['posts'] = posts
 			if not sameUser:
 				following = p.followers.filter(user=User.objects.get(username=self.request.user))
 				following = following.exists()
