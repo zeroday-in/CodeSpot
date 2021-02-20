@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from accounts.models import Profile
 import readtime
+from accounts import models as account_models
 
 class Post(models.Model):
 	author= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -19,7 +19,7 @@ class Post(models.Model):
 		return result.text
 
 	def get_profile(self):
-		result = Profile.objects.get(user=self.author)
+		result = account_models.Profile.objects.get(user=self.author)
 		return result
 
 class Liker(models.Model):

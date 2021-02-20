@@ -101,9 +101,13 @@
     document.querySelector("#id_bio").rows = 2;
     document.querySelector("#id_website").classList.add("crayons-textfield");
     document.querySelector("#id_gitlab_url").classList.add("crayons-textfield");
+	document.querySelector("#id_gitlab_url").placeholder = "https://gitlab.com/...";
     document.querySelector("#id_github_url").classList.add("crayons-textfield");
+    document.querySelector("#id_github_url").placeholder = "https://github.com/...";
     document.querySelector("#id_instagram_url").classList.add("crayons-textfield");
+    document.querySelector("#id_instagram_url").placeholder = "https://instagram.com/...";
     document.querySelector("#id_behance_url").classList.add("crayons-textfield");
+	document.querySelector('#id_behance_url').placeholder = "https://behance.net/..."
     const name = "{{profile.name}}";
     const bio = "{{profile.bio}}";
     const location = "{{profile.location}}";

@@ -1,12 +1,11 @@
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
-from django.contrib.auth.models import AbstractUser, PermissionsMixin, User
-from hashlib import sha256
+from django.contrib.auth.models import User
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
 import requests
 from threading import Thread
+from posts import models as post_models
 
 def compress(image):
     im = Image.open(image)
@@ -38,7 +37,12 @@ class Profile(models.Model):
 	def save(self, *args, **kwargs):
 		t = Thread(target=GithubTask(self.user))
 		t.start()
+		self.profile_picture = compress(self.profile_picture)
 		super().save(*args, **kwargs)
+
+	def get_post_count(self):
+		posts = post_models.Post.objects.filter(author=self.user)
+		return posts.count()
 
 class GitHubRepo(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
