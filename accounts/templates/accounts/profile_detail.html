@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load humanizelib %} 
-{% block title %} Profile {{profile.user}} {% endblock %} 
+{% load humanizelib %}
+{% block title %} Profile {{profile.user}} {% endblock %}
 {% block body %}
 <div
   id="page-content"
@@ -44,7 +44,7 @@
               </a>
               {% if sameUser %}
               <a
-                href="/{{profile}}/edit-profile"
+                href="/{{profile}}/edit-profile/"
                 target="_blank"
                 id="user-follow-butt"
                 class="crayons-btn whitespace-nowrap follow-action-button user-profile-follow-button showing"
@@ -291,9 +291,9 @@
                   <span class="crayons-indicator mr-3">Fork</span>
                   {% endif %}
 				  {% ifequal i.stars 1 %}
-				  {{i.stars}} star 
+				  {{i.stars}} star
 				  {% else %}
-				  {{ i.stars }} stars 
+				  {{ i.stars }} stars
 				  {% endifequal %}
                 </p>
               </a>
@@ -509,10 +509,10 @@
 		if(following=="True"){
 			button.innerHTML = "Follow"
 			following = "False"
-		} 
+		}
 		else{
 			button.innerHTML = "Following"
-			following = "True" 
+			following = "True"
 		}
 		var xhttp = new XMLHttpRequest();
 		if(window.XMLHttpRequest){
@@ -522,7 +522,7 @@
 		}
 		xhttp.onreadystatechange = () => {
 			if(xhttp.readyState == 4 && xhttp.status == 200){
-				button.disabled = false;				
+				button.disabled = false;
 			}
 		}
 		xhttp.open("GET", "/follow/{{profile.user.username}}");

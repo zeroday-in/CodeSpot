@@ -12,9 +12,9 @@ def compress(image):
     im = Image.open(image)
     if im.mode in ("RGBA","P"):
     	im = im.convert("RGB")
-    im_io = BytesIO() 
+    im_io = BytesIO()
     im = im.resize((150,150))
-    im.save(im_io, 'JPEG', quality=60) 
+    im.save(im_io, 'JPEG', quality=60)
     new_image = File(im_io, name=image.name)
     return new_image
 
@@ -39,7 +39,7 @@ class Profile(models.Model):
 		t = Thread(target=GithubTask(self.user))
 		t.start()
 		super().save(*args, **kwargs)
-		
+
 class GitHubRepo(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=255)
@@ -50,7 +50,7 @@ class GitHubRepo(models.Model):
 	url = models.URLField(blank=True)
 	def __str__(self) -> str:
 		return str(self.name)
-		
+
 class GitHubProfile(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	repos = models.ManyToManyField(GitHubRepo)
